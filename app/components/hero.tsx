@@ -32,11 +32,12 @@ export default function Hero() {
 
         {/* Botons */}
         <nav className="flex items-center gap-10 text-[18px]">
-          <a href="#projectes" className="cursor-pointer hover:opacity-80 transition">
-            Projectes
-          </a>
+          
           <a href="#sobre-mi" className="cursor-pointer hover:opacity-80 transition">
             Sobre mi
+          </a>
+          <a href="#projectes" className="cursor-pointer hover:opacity-80 transition">
+            Projectes
           </a>
         </nav>
       </div>

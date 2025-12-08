@@ -14,7 +14,7 @@ export default function AboutMe() {
       className="
         min-h-screen
         flex flex-col
-        gap-10
+        gap-20
         
       "
     >

@@ -11,9 +11,9 @@ export default function ProjectsSection() {
       index: 1,
       title: "Videojoc Complet",
       client: "Projecte Personal",
-      image1: "/ProjectImages/test.jpg",
-      image2: "/ProjectImages/test2.jpg",
-      image3: "/ProjectImages/test3.jpg",
+      image1: "/ProjectImages/VideoGame/0.gif",
+      image2: "/ProjectImages/VideoGame/1.gif",
+      image3: "/ProjectImages/VideoGame/2.gif",
     },
     {
       index: 2,
@@ -35,9 +35,9 @@ export default function ProjectsSection() {
       index: 4,
       title: "PortfoliV1  ",
       client: "Projecte Personal",
-      image1: "/ProjectImages/PortfoliV1_0.png",
-      image2: "/ProjectImages/PortfoliV1_1.png",
-      image3: "/ProjectImages/PortfoliV1_2.png",
+      image1: "/ProjectImages/PortfoliV1/0.gif",
+      image2: "/ProjectImages/PortfoliV1/1.png",
+      image3: "/ProjectImages/PortfoliV1/2.png",
     },
   ];
 
