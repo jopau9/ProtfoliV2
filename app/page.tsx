@@ -2,6 +2,7 @@ import Hero from "./components/hero";
 import AboutMe from "./components/AboutMe/AboutMe";
 import Projects from "./components/Projects/Projects";
 import ScrollCarousel from "./components/ScrollCarousel";
+import SkillsSection from "./components/SkillsSection/SkillsSection";
 
 export default function Page() {
   return (
@@ -22,11 +23,13 @@ export default function Page() {
         <section id="sobre-mi">
           <AboutMe />
         </section>
-
+      
         {/* CAROUSEL */}
         <section id="carrousel">
           <ScrollCarousel />
         </section>
+
+        <SkillsSection />
 
         {/* PROJECTS */}
         <section id="projectes">

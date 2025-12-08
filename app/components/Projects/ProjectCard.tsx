@@ -45,7 +45,7 @@ export default function ProjectCard({
         absolute
         w-[1300px]
         h-[675px]
-        bg-[#0e0e11]
+        bg-[#1c1c1d]
         rounded-3xl
         p-6
         shadow-xl

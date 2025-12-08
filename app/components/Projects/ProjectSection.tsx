@@ -17,19 +17,19 @@ export default function ProjectsSection() {
     },
     {
       index: 2,
-      title: "Regal Personalitzat",
+      title: "Custom Embedded HMI Device - Raspberry Pi",
       client: "Projecte Personal",
-      image1: "/ProjectImages/test.jpg",
-      image2: "/ProjectImages/test2.jpg",
-      image3: "/ProjectImages/test3.jpg",
+      image1: "/ProjectImages/PythonProject/2.gif",
+      image2: "/ProjectImages/PythonProject/1.gif",
+      image3: "/ProjectImages/PythonProject/0.gif",
     },
     {
       index: 3,
       title: "PortfoliV2",
       client: "Projecte Personal",
-      image1: "/ProjectImages/test.jpg",
-      image2: "/ProjectImages/test2.jpg",
-      image3: "/ProjectImages/test3.jpg",
+      image1: "/ProjectImages/PortfoliV2/0.gif",
+      image2: "/ProjectImages/PortfoliV2/1.png",
+      image3: "/ProjectImages/PortfoliV2/2.jpg",
     },
     {
       index: 4,
@@ -38,6 +38,14 @@ export default function ProjectsSection() {
       image1: "/ProjectImages/PortfoliV1/0.gif",
       image2: "/ProjectImages/PortfoliV1/1.png",
       image3: "/ProjectImages/PortfoliV1/2.png",
+    },
+    {
+      index: 5,
+      title: "Finantial Tracker",
+      client: "Projecte Personal",
+      image1: "/ProjectImages/FinantialTraker/0.png",
+      image2: "/ProjectImages/FinantialTraker/1.png",
+      image3: "/ProjectImages/FinantialTraker/2.png",
     },
   ];
 

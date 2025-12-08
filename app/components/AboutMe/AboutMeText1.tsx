@@ -1,6 +1,6 @@
 "use client";
 
-import { roboto, dm_serif_text } from "../../fonts";
+import { dm_serif_text } from "../../fonts";
 
 export default function AboutMeText1() {
   return (
