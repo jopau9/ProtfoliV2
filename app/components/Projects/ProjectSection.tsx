@@ -9,21 +9,35 @@ export default function ProjectsSection() {
   const projects = [
     {
       index: 1,
-      title: "Urban VideoGame",
+      title: "Videojoc Complet",
       client: "Projecte Personal",
-      image: "/ProjectImages/test.jpg",
+      image1: "/ProjectImages/test.jpg",
+      image2: "/ProjectImages/test2.jpg",
+      image3: "/ProjectImages/test3.jpg",
     },
     {
       index: 2,
-      title: "Pixel Forge",
-      client: "Client Pro",
-      image: "/ProjectImages/test.jpg",
+      title: "Regal Personalitzat",
+      client: "Projecte Personal",
+      image1: "/ProjectImages/test.jpg",
+      image2: "/ProjectImages/test2.jpg",
+      image3: "/ProjectImages/test3.jpg",
     },
     {
       index: 3,
-      title: "Fantasy World",
-      client: "Pixel Studio",
-      image: "/ProjectImages/test.jpg",
+      title: "PortfoliV2",
+      client: "Projecte Personal",
+      image1: "/ProjectImages/test.jpg",
+      image2: "/ProjectImages/test2.jpg",
+      image3: "/ProjectImages/test3.jpg",
+    },
+    {
+      index: 4,
+      title: "PortfoliV1  ",
+      client: "Projecte Personal",
+      image1: "/ProjectImages/PortfoliV1_0.png",
+      image2: "/ProjectImages/PortfoliV1_1.png",
+      image3: "/ProjectImages/PortfoliV1_2.png",
     },
   ];
 
@@ -36,7 +50,7 @@ export default function ProjectsSection() {
   });
 
   // Moviment subtil del contenidor
-  const subtleY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const subtleY = useTransform(scrollYProgress, [0, 1], [0, -200]);
 
   return (
     <section ref={ref} className="relative h-[400vh]">

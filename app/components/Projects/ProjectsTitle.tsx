@@ -34,7 +34,7 @@ export default function AboutMeTitle() {
             WebkitTextStroke: "0.3px #ffffff",
           }}
         >
-          PROJECTS
+          PROJECTES
         </h1>
 
         {/* ------------------ CAPA 2: TEXT PLE ------------------ */}
@@ -47,7 +47,7 @@ export default function AboutMeTitle() {
         `}
         style={{ opacity: fillOpacity }}
         >
-        PROJECTS
+        PROJECTES
         </motion.h1>
 
 

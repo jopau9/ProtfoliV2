@@ -9,7 +9,9 @@ type ProjectCardProps = {
   index: number;
   title: string;
   client: string;
-  image: string;
+  image1: string;
+  image2: string;
+  image3: string;
   scroll: MotionValue<number>;
   total: number;
 };
@@ -19,7 +21,9 @@ export default function ProjectCard({
   index,
   title,
   client,
-  image,
+  image1,
+  image2,
+  image3,
   scroll,
   total,
 }: ProjectCardProps) {
@@ -28,7 +32,7 @@ export default function ProjectCard({
   const end = (order + 1) / total;
 
   // offset per apilar-les
-  const stackOffset = order * 60;
+  const stackOffset = order * 80;
 
   // ✔️ Si és la primera, NO ANIMEM
   const y = order === 0
@@ -70,19 +74,19 @@ export default function ProjectCard({
       <div className="flex gap-3 overflow-hidden h-full mt-6">
         
         <img
-          src={image}
+          src={image1}
           alt={title}
           className="w-[70%] h-[545px] rounded-4xl object-cover"
         />
 
         <div className="flex flex-col gap-3 w-[30%]">
           <img
-            src={image}
+            src={image2}
             alt={title}
             className="h-[325px] rounded-4xl object-cover"
           />
           <img
-            src={image}
+            src={image3}
             alt={title}
             className="h-[210px] rounded-4xl object-cover"
           />

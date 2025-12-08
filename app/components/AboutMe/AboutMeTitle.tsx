@@ -27,7 +27,7 @@ export default function AboutMeTitle() {
         {/* ------------------ CAPA 1: OUTLINE ------------------ */}
         <h1
           className={`
-            text-[50px] font-bold 
+            text-[70px] font-bold 
             text-transparent 
             pointer-events-none select-none
             ${press_Start_2P.className}
@@ -43,7 +43,7 @@ export default function AboutMeTitle() {
         <motion.h1
         className={`
             absolute top-0 left-0
-            text-[50px] font-bold text-white
+            text-[70px] font-bold text-white
             pointer-events-none select-none
             ${press_Start_2P.className}
         `}

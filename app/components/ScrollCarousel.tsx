@@ -16,10 +16,10 @@ export default function ScrollCarousel() {
   const x = useTransform(scrollYProgress, [0, 1], [-350, 50]);
 
   return (
-    <div ref={ref} className="relative pt-[0vh] pb-[20vh] w-full flex justify-center items-center overflow-x-hidden">
+    <div ref={ref} className="relative pt-[8vh] pb-[15vh] w-full flex justify-center items-center overflow-x-hidden">
       {/* Contenidor del carrussel */}
       <motion.div
-        style={{ x }}   // <-- MAGIC
+        style={{ x }}
         className="flex gap-15"
       >
         <img src="/MySQL_logo.png" className="w-[260px] rounded-xl filter grayscale brightness-100 contrast-100 object-contain" />

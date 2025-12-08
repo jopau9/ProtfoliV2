@@ -5,17 +5,34 @@ import ScrollCarousel from "./components/ScrollCarousel";
 
 export default function Page() {
   return (
-    <div 
+    <div
       style={{
-        background: "radial-gradient(circle, rgba(64,65,70,1) 0%, rgba(26,28,33,1) 300%)",
+        background:
+          "radial-gradient(circle, rgba(64,65,70,1) 0%, rgba(26,28,33,1) 300%)",
       }}
-      >
+    >
       <main>
-        <Hero />
-        
-        <AboutMe />
-        <ScrollCarousel />
-        <Projects />
+
+        {/* HERO */}
+        <section id="hero">
+          <Hero />
+        </section>
+
+        {/* ABOUT ME */}
+        <section id="sobre-mi">
+          <AboutMe />
+        </section>
+
+        {/* CAROUSEL */}
+        <section id="carrousel">
+          <ScrollCarousel />
+        </section>
+
+        {/* PROJECTS */}
+        <section id="projectes">
+          <Projects />
+        </section>
+
       </main>
     </div>
   );

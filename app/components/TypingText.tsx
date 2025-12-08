@@ -54,3 +54,11 @@ export default function TypingText({
     </p>
   );
 }
+
+{/* USE EXAMPLE:
+   <TypingText
+        text="Estudiant de quart curs d'Enginyeria Informàtica amb una gran passió pel desenvolupament de software. Gaudeixo ideant solucions, 
+        escrivint codi i veient com els projectes prenen forma i funcionen tal com els he dissenyat."
+        speed={5}
+        className="text-gray-300 max-w-[450px] text-[20px] text-justify"
+      />*/}
