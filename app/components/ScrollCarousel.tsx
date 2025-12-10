@@ -16,7 +16,7 @@ export default function ScrollCarousel() {
   const x = useTransform(scrollYProgress, [0, 1], [-350, 50]);
 
   return (
-    <div ref={ref} className="relative pt-[8vh] pb-[7vh] w-full flex justify-center items-center overflow-x-hidden">
+    <div ref={ref} className="relative pt-[15vh] pb-[12vh] w-full flex justify-center items-center overflow-x-hidden">
       {/* Contenidor del carrussel */}
       <motion.div
         style={{ x }}

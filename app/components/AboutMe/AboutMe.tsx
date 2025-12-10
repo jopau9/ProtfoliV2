@@ -20,7 +20,7 @@ export default function AboutMe() {
       <AboutMeTitle />
 
       {/* Text + CV + text lateral */}
-      <div className="mt-4">
+      <div className="mt-4 ">
         <AboutMeText1 />
 
         <div
@@ -28,7 +28,7 @@ export default function AboutMe() {
             mt-8 
             flex flex-col lg:flex-row    /* en columna al mòbil, en fila al desktop */
             items-start lg:items-center 
-            gap-6                         /* separació constant */
+            ml-40
           "
         >
           <DownloadCV />
@@ -37,7 +37,7 @@ export default function AboutMe() {
       </div>
 
       {/* Frase / quote centrada */}
-      <div className="mt-12 mb-6 flex justify-center">
+      <div className="mt-25 mb-6 flex justify-center">
         <QuoteBlock />
       </div>
     </section>

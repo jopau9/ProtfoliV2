@@ -14,7 +14,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
   const project = projects.find((p) => p.slug === slug);
   if (!project) return <div className="text-white">Project not found</div>;
 
-  // 👉 convertim sections → items per al TOC
+  // convertim sections → items per al TOC
   const tocItems = project.sections.map((section) => ({
     id: section.id,
     label: section.title,
@@ -23,7 +23,10 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
 
     return (
     // CONTENIDOR PRINCIPAL: dues columnes (contingut + TOC)
-    <div className={`flex flex-row w-full max-w-[1400px] mx-auto px-6 gap-14 pt-20 bg-black ${robotoflex.className}`}>
+    <div className={`flex flex-row w-full mx-auto px-6 gap-14 pt-20 pb-20 ${robotoflex.className}`}>
+
+
+
 
       {/* COLUMNA ESQUERRA — CONTINGUT DEL PROJECTE */}
       <div className="w-full lg:w-[70%]">

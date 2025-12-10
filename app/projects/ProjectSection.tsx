@@ -9,21 +9,21 @@ export default function ProjectsSection() {
   const projects = [
     {
       index: 1,
-      title: "Videojoc Complet",
-      client: "Projecte Personal",
-      image1: "/ProjectImages/VideoGame/0.gif",
-      image2: "/ProjectImages/VideoGame/1.gif",
-      image3: "/ProjectImages/VideoGame/2.gif",
-      slug: "videojoccomplet"
-    },
-    {
-      index: 2,
       title: "Custom Embedded HMI Device - Raspberry Pi",
       client: "Projecte Personal",
       image1: "/ProjectImages/PythonProject/0.gif",
       image2: "/ProjectImages/PythonProject/1.gif",
       image3: "/ProjectImages/PythonProject/2.gif",
       slug: "custom-embedded-hmi-device"
+    },
+    {
+      index: 2,
+      title: "Videojoc Complet",
+      client: "Projecte Personal",
+      image1: "/ProjectImages/VideoGame/0.gif",
+      image2: "/ProjectImages/VideoGame/1.gif",
+      image3: "/ProjectImages/VideoGame/2.gif",
+      slug: "videojoccomplet"
     },
     {
       index: 3,
