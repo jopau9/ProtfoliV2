@@ -1,5 +1,5 @@
 "use client";
-import { press_Start_2P } from "../../fonts";
+import { press_Start_2P } from "../fonts";
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect  } from "react";
