@@ -36,7 +36,7 @@ export default function SkillsSection() {
   ];
 
   return (
-    <section className="w-full flex flex-col items-center pt-[10vh] pb-[30vh]">
+    <section className="w-full flex flex-col items-center pb-[30vh]">
       <div className="mb-25">
         <SkillsTitle />
       </div>

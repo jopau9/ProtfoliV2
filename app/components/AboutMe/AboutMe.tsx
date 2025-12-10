@@ -1,7 +1,5 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useEffect  } from "react";
 import AboutMeTitle from "./AboutMeTitle";
 import AboutMeText1 from "./AboutMeText1";
 import DownloadCV from "../Buttons/DownloadCV";
@@ -12,23 +10,34 @@ export default function AboutMe() {
   return (
     <section
       className="
-        min-h-screen
+        w-full
+        py-16                 /* separació vertical normal */
         flex flex-col
-        gap-20
-        
+        gap-12                /* espai entre blocs, no exagerat */
       "
     >
-      
-        <AboutMeTitle />
-      <div>
+      {/* Títol */}
+      <AboutMeTitle />
+
+      {/* Text + CV + text lateral */}
+      <div className="mt-4">
         <AboutMeText1 />
-        <div className="mt-10 flex items-center ml-40">
+
+        <div
+          className="
+            mt-8 
+            flex flex-col lg:flex-row    /* en columna al mòbil, en fila al desktop */
+            items-start lg:items-center 
+            gap-6                         /* separació constant */
+          "
+        >
           <DownloadCV />
           <AboutMeText2 />
-          
         </div>
       </div>
-      <div className="justify-center mt-20 mb-10">
+
+      {/* Frase / quote centrada */}
+      <div className="mt-12 mb-6 flex justify-center">
         <QuoteBlock />
       </div>
     </section>

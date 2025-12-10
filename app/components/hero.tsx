@@ -36,6 +36,9 @@ export default function Hero() {
           <a href="#sobre-mi" className="cursor-pointer hover:opacity-80 transition">
             Sobre mi
           </a>
+          <a href="#skills-exp" className="cursor-pointer hover:opacity-80 transition">
+            Skills & Exp
+          </a>
           <a href="#projectes" className="cursor-pointer hover:opacity-80 transition">
             Projectes
           </a>

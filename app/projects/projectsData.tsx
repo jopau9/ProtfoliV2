@@ -182,101 +182,199 @@ export const projects: ProjectData[] = [
     ]
   },
   {
-  slug: "portfoliv2",
-  title: "PortfoliV2 – Web personal de projectes",
-  subtitle:
-    "Single-page portfolio amb animacions de scroll, seccions enganxades i fitxes de projecte detallades.",
-  description:
-    "Portfoli desenvolupat amb Next.js, React i Tailwind CSS per presentar de manera clara els meus projectes, habilitats i experiència. Inclou seccions diferenciades (Hero, Sobre mi, Skills, carrusel i projectes), targetes animades amb Framer Motion i una pàgina de detall per a cada projecte amb TOC lateral i contingut en Markdown. L’objectiu principal ha estat tenir una eina professional que expliqui bé qui soc com a desenvolupador i, alhora, m’ajudi a practicar un desenvolupament front-end més cuidat i estructurat.",
-  tags: [
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Tailwind CSS",
-    "Framer Motion",
-    "UI Design",
-    "Responsive Design"
-  ],
-  date: "2025-01-10",
+    slug: "portfoliv2",
+    title: "PortfoliV2 – Web personal de projectes",
+    subtitle:
+      "Single-page portfolio amb animacions de scroll, seccions enganxades i fitxes de projecte detallades.",
+    description:
+      "Portfoli desenvolupat amb Next.js, React i Tailwind CSS per presentar de manera clara els meus projectes, habilitats i experiència. Inclou seccions diferenciades (Hero, Sobre mi, Skills, carrusel i projectes), targetes animades amb Framer Motion i una pàgina de detall per a cada projecte amb TOC lateral i contingut en Markdown. L’objectiu principal ha estat tenir una eina professional que expliqui bé qui soc com a desenvolupador i, alhora, m’ajudi a practicar un desenvolupament front-end més cuidat i estructurat.",
+    tags: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "UI Design",
+      "Responsive Design"
+    ],
+    date: "2025-01-10",
 
-  sections: [
-    {
-      id: "visio-general",
-      title: "Visió General del Projecte",
-      content:
-        "Aquest portfoli és la meva carta de presentació com a desenvolupador. Està pensat com una pàgina principal amb diverses seccions: un Hero inicial, una part de Sobre mi, un carrusel visual, una secció d’habilitats i un bloc de projectes que condueix a fitxes individuals detallades. Tots els apartats conviuen en una mateixa pàgina amb un fons en degradat radial i una navegació suau per àncores. La idea central és que qualsevol persona pugui entendre ràpidament què faig, quins projectes he realitzat i en què m’agradaria seguir creixent, amb una interfície clara i una experiència visual agradable.:contentReference[oaicite:0]{index=0}"
-    },
+    sections: [
+      {
+        id: "visio-general",
+        title: "Visió General del Projecte",
+        content:
+          "Aquest portfoli és la meva carta de presentació com a desenvolupador. Està pensat com una pàgina principal amb diverses seccions: un Hero inicial, una part de Sobre mi, un carrusel visual, una secció d’habilitats i un bloc de projectes que condueix a fitxes individuals detallades. Tots els apartats conviuen en una mateixa pàgina amb un fons en degradat radial i una navegació suau per àncores. La idea central és que qualsevol persona pugui entendre ràpidament què faig, quins projectes he realitzat i en què m’agradaria seguir creixent, amb una interfície clara i una experiència visual agradable.:contentReference[oaicite:0]{index=0}"
+      },
 
-    {
-      id: "funcionalitats-clau",
-      title: "Funcionalitats Clau",
-      accordion: [
-        {
-          title: "Layout principal i seccions del portfoli",
-          content:
-            "La pàgina principal s’estructura en blocs clarament identificats: HERO, SOBRE MI, CARROUSEL, SKILLS i PROJECTES. El component principal orquestra aquestes seccions i defineix el fons amb un gradient radial, mentre que cada bloc es resol amb components dedicats (Hero, AboutMe, ScrollCarousel, SkillsSection i Projects). Aquesta separació m’ha ajudat a treballar amb una jerarquia de components clara i a entendre millor com organitzar una SPA amb Next.js."
-        },
-        {
-          title: "Llistat de projectes amb scroll vertical i targetes apilades",
-          content:
-            "La secció de PROJECTES utilitza un sistema de targetes apilades que es desplacen amb l’scroll. Cada ProjectCard té un índex, títol, client i tres imatges, i es posiciona dins un contenidor sticky molt alt (400vh). Amb Framer Motion i useScroll, la posició vertical de cada targeta es calcula en funció del progrés de l’scroll, creant un efecte de pila que es va desplegant a mesura que es baixa. És una manera de mostrar poca informació a la vegada però amb impacte visual, i m’ha servit per practicar animacions basades en scroll i transformacions suaus."
-        },
-        {
-          title: "Fitxes de projecte amb TOC lateral i contingut en Markdown",
-          content:
-            "Quan es fa clic a “VEURE PROJECTE” en una targeta, s’obre una pàgina de detall que rep el slug del projecte i recupera la informació de `projectsData`. El contingut de cada secció s’escriu en Markdown i es renderitza amb ReactMarkdown, i al mateix temps es genera un índex de continguts (TOC) amb totes les seccions. El component TOC utilitza IntersectionObserver per detectar quina secció és visible i marcar-la com activa, destacant-la visualment. Això dona una lectura molt més còmoda de fitxes que poden créixer en longitud i m’ha permès combinar dades tipades, Rendering de Markdown i lògica de visibilitat al navegador."
-        },
-        {
-          title: "Components reutilitzables: Accordion i seccions d’habilitats",
-          content:
-            "Per descriure funcionalitats i projectes utilitzo un component d’Accordion reutilitzable, que mostra un sol bloc obert per defecte i anima l’expansió i el tancament amb Framer Motion. A la secció d’habilitats he optat per petites targetes amb una icona animada i text breu, pensades per destacar aspectes més transversals (resolució de problemes, adaptabilitat, treball en equip i gestió del temps). Tot plegat m’ha ajudat a pensar en components generics que pugui reutilitzar en altres parts del portfoli o futurs projectes."
-        },
-        {
-          title: "Identitat visual, tipografia i detall d’interacció",
-          content:
-            "Visualment, el portfoli combina un fons fosc amb degradat radial i titulars en una font tipus ‘arcade’ (Press Start 2P) per donar-li personalitat, mentre que el cos de text utilitza tipografies més llegibles. S’han definit mides grans per als títols (especialment en la secció de PROJECTES) i s’han afegit petits detalls d’interacció: llocs on el text s’omple amb Framer Motion en funció de l’scroll, botons amb transició de color, i targetes que reaccionen al pas del cursor. L’objectiu és que la pàgina se senti viva però sense perdre la claredat."
-        }
-      ]
-    },
+      {
+        id: "funcionalitats-clau",
+        title: "Funcionalitats Clau",
+        accordion: [
+          {
+            title: "Layout principal i seccions del portfoli",
+            content:
+              "La pàgina principal s’estructura en blocs clarament identificats: HERO, SOBRE MI, CARROUSEL, SKILLS i PROJECTES. El component principal orquestra aquestes seccions i defineix el fons amb un gradient radial, mentre que cada bloc es resol amb components dedicats (Hero, AboutMe, ScrollCarousel, SkillsSection i Projects). Aquesta separació m’ha ajudat a treballar amb una jerarquia de components clara i a entendre millor com organitzar una SPA amb Next.js."
+          },
+          {
+            title: "Llistat de projectes amb scroll vertical i targetes apilades",
+            content:
+              "La secció de PROJECTES utilitza un sistema de targetes apilades que es desplacen amb l’scroll. Cada ProjectCard té un índex, títol, client i tres imatges, i es posiciona dins un contenidor sticky molt alt (400vh). Amb Framer Motion i useScroll, la posició vertical de cada targeta es calcula en funció del progrés de l’scroll, creant un efecte de pila que es va desplegant a mesura que es baixa. És una manera de mostrar poca informació a la vegada però amb impacte visual, i m’ha servit per practicar animacions basades en scroll i transformacions suaus."
+          },
+          {
+            title: "Fitxes de projecte amb TOC lateral i contingut en Markdown",
+            content:
+              "Quan es fa clic a “VEURE PROJECTE” en una targeta, s’obre una pàgina de detall que rep el slug del projecte i recupera la informació de `projectsData`. El contingut de cada secció s’escriu en Markdown i es renderitza amb ReactMarkdown, i al mateix temps es genera un índex de continguts (TOC) amb totes les seccions. El component TOC utilitza IntersectionObserver per detectar quina secció és visible i marcar-la com activa, destacant-la visualment. Això dona una lectura molt més còmoda de fitxes que poden créixer en longitud i m’ha permès combinar dades tipades, Rendering de Markdown i lògica de visibilitat al navegador."
+          },
+          {
+            title: "Components reutilitzables: Accordion i seccions d’habilitats",
+            content:
+              "Per descriure funcionalitats i projectes utilitzo un component d’Accordion reutilitzable, que mostra un sol bloc obert per defecte i anima l’expansió i el tancament amb Framer Motion. A la secció d’habilitats he optat per petites targetes amb una icona animada i text breu, pensades per destacar aspectes més transversals (resolució de problemes, adaptabilitat, treball en equip i gestió del temps). Tot plegat m’ha ajudat a pensar en components generics que pugui reutilitzar en altres parts del portfoli o futurs projectes."
+          },
+          {
+            title: "Identitat visual, tipografia i detall d’interacció",
+            content:
+              "Visualment, el portfoli combina un fons fosc amb degradat radial i titulars en una font tipus ‘arcade’ (Press Start 2P) per donar-li personalitat, mentre que el cos de text utilitza tipografies més llegibles. S’han definit mides grans per als títols (especialment en la secció de PROJECTES) i s’han afegit petits detalls d’interacció: llocs on el text s’omple amb Framer Motion en funció de l’scroll, botons amb transició de color, i targetes que reaccionen al pas del cursor. L’objectiu és que la pàgina se senti viva però sense perdre la claredat."
+          }
+        ]
+      },
 
-    {
-      id: "arquitectura-i-aprenentatges",
-      title: "Arquitectura i Aprenentatges Tècnics",
-      content: `He plantejat el portfoli com un projecte Next.js real, no només com una pàgina estàtica. Hi ha una separació clara entre dades i presentació: la informació de cada projecte es guarda a \`projectsData\`, i els components visuals (targetes, llistats, pàgines de detall) només llegeixen aquesta estructura tipada. Això fa molt fàcil afegir o modificar projectes sense tocar la lògica de renderitzat.
+      {
+        id: "arquitectura-i-aprenentatges",
+        title: "Arquitectura i Aprenentatges Tècnics",
+        content: `He plantejat el portfoli com un projecte Next.js real, no només com una pàgina estàtica. Hi ha una separació clara entre dades i presentació: la informació de cada projecte es guarda a \`projectsData\`, i els components visuals (targetes, llistats, pàgines de detall) només llegeixen aquesta estructura tipada. Això fa molt fàcil afegir o modificar projectes sense tocar la lògica de renderitzat.
 
-A nivell tècnic, aquest projecte m’ha ajudat a:
+        A nivell tècnic, aquest projecte m’ha ajudat a:
 
-- Consolidar l’ús de **Next.js** i **React** per construir una aplicació de portfoli amb components client-side i dinàmiques d’scroll.
-- Treballar amb **TypeScript** definint tipus clars per a les dades dels projectes i per a les seccions de contingut.
-- Utilitzar **Tailwind CSS** per maquetar ràpid, amb classes utilitàries per al layout, el responsive i les microinteraccions.
-- Integrar **Framer Motion** per donar moviment a elements clau (targetes apilades, títols que s’omplen, desplegables, etc.).
-- Gestionar contingut en **Markdown** per escriure descripcions llargues d’una forma més còmoda i flexible.
-- Implementar un **TOC** amb IntersectionObserver per seguir quina secció està activa mentre l’usuari fa scroll.
+        - Consolidar l’ús de **Next.js** i **React** per construir una aplicació de portfoli amb components client-side i dinàmiques d’scroll.
+        - Treballar amb **TypeScript** definint tipus clars per a les dades dels projectes i per a les seccions de contingut.
+        - Utilitzar **Tailwind CSS** per maquetar ràpid, amb classes utilitàries per al layout, el responsive i les microinteraccions.
+        - Integrar **Framer Motion** per donar moviment a elements clau (targetes apilades, títols que s’omplen, desplegables, etc.).
+        - Gestionar contingut en **Markdown** per escriure descripcions llargues d’una forma més còmoda i flexible.
+        - Implementar un **TOC** amb IntersectionObserver per seguir quina secció està activa mentre l’usuari fa scroll.
 
-El resultat és un projecte on no només mostro el que he fet, sinó que també demostra com penso el codi: separat per responsabilitats, amb components reutilitzables i una atenció especial a que tot sigui fàcil de llegir i mantenir.`
-    },
+        El resultat és un projecte on no només mostro el que he fet, sinó que també demostra com penso el codi: separat per responsabilitats, amb components reutilitzables i una atenció especial a que tot sigui fàcil de llegir i mantenir.`
+      },
 
-    {
-      id: "tech-stack",
-      title: "Tecnologies Utilitzades",
-      content: `- **Next.js** – Marc principal per a la web del portfoli i la gestió de rutes.
-- **React** – Construcció de tots els components d’interfície.
-- **TypeScript** – Tipatge de dades de projectes i props dels components.
-- **Tailwind CSS** – Maquetació, sistemes de grid, espais, colors i responsivitat.
-- **Framer Motion** – Animacions basades en scroll i transicions suaus en targetes i seccions.
-- **ReactMarkdown** – Renderitzat de descripcions de projecte escrites en Markdown.
-- **Custom Fonts (Press Start 2P, etc.)** – Definició de la identitat visual del portfoli.
-- **Icons & UI helpers** – Petites animacions en icones i components per millorar la sensació d’interactivitat.`
-    },
+      {
+        id: "tech-stack",
+        title: "Tecnologies Utilitzades",
+        content: `- **Next.js** – Marc principal per a la web del portfoli i la gestió de rutes.
+        - **React** – Construcció de tots els components d’interfície.
+        - **TypeScript** – Tipatge de dades de projectes i props dels components.
+        - **Tailwind CSS** – Maquetació, sistemes de grid, espais, colors i responsivitat.
+        - **Framer Motion** – Animacions basades en scroll i transicions suaus en targetes i seccions.
+        - **ReactMarkdown** – Renderitzat de descripcions de projecte escrites en Markdown.
+        - **Custom Fonts (Press Start 2P, etc.)** – Definició de la identitat visual del portfoli.
+        - **Icons & UI helpers** – Petites animacions en icones i components per millorar la sensació d’interactivitat.`
+      },
 
-    {
-      id: "resultats",
-      title: "Resultat i Estat Actual",
-      content:
-        "El portfoli està preparat per ser el meu punt central de referència quan parlo de projectes, tant amb empreses com amb altres desenvolupadors. Puc afegir nous projectes simplement ampliant `projectsData`, sense canviar l’arquitectura, i puc adaptar les seccions de text per orientarlas a diferents rols o oportunitats. Més enllà de la part visual, ha estat una bona pràctica per treballar amb un stack modern de front-end i, sobretot, per obligar-me a explicar amb claredat què faig i què sé fer."
-    }
-  ]
-}
+      {
+        id: "resultats",
+        title: "Resultat i Estat Actual",
+        content:
+          "El portfoli està preparat per ser el meu punt central de referència quan parlo de projectes, tant amb empreses com amb altres desenvolupadors. Puc afegir nous projectes simplement ampliant `projectsData`, sense canviar l’arquitectura, i puc adaptar les seccions de text per orientarlas a diferents rols o oportunitats. Més enllà de la part visual, ha estat una bona pràctica per treballar amb un stack modern de front-end i, sobretot, per obligar-me a explicar amb claredat què faig i què sé fer."
+      }
+    ]
+  },
+  {
+    slug: "interserveis-web",
+    title: "Web corporativa Interserveis 2022 SL",
+    subtitle:
+      "Disseny i implementació d’una web corporativa en WordPress per a un servei tècnic oficial d’electrodomèstics.",
+    description:
+      "Web corporativa desenvolupada amb WordPress per a Interserveis 2022 SL, servei oficial de reparació d’electrodomèstics amb gairebé 30 anys d’experiència. La web estructura la informació clau de l’empresa (qui som, marques oficials, serveis, catàleg i contacte), integra formularis de sol·licitud i contactes, i inclou tots els textos legals adaptats a la normativa vigent.",
 
+    tags: [
+      "WordPress",
+      "Web Corporativa",
+      "UX Writing",
+      "SEO bàsic",
+      "Responsive Design",
+      "Contingut Legal"
+    ],
+    date: "2025-01-15",
 
+    sections: [
+      {
+        id: "visio-general",
+        title: "Visió General del Projecte",
+        content:
+          "Interserveis 2022 SL és un servei tècnic oficial de reparació d’electrodomèstics amb més de 30 anys d’experiència, situat a Salt (Girona). La web havia de transmetre professionalitat, confiança i claredat, i alhora facilitar que els clients poguessin sol·licitar una reparació o contactar amb l’empresa de manera ràpida. El projecte va consistir a definir l’estructura de continguts, configurar i personalitzar WordPress, redactar i adaptar textos (tant comercials com legals) i assegurar que tot plegat funcionés bé en ordinador i mòbil."
+      },
+
+      {
+        id: "funcionalitats-clau",
+        title: "Funcionalitats Clau",
+        accordion: [
+          {
+            title: "Estructura clara de navegació i continguts",
+            content:
+              "La web es va organitzar en seccions molt clares: Inici, Sol·licitar, Marques oficials, Serveis (Reparació, Manteniment, Venda de recanvis i Aires condicionats), Catàleg i Contactar. A la pàgina inicial s’hi destaquen el missatge principal (“Líders en reparacions d’electrodomèstics”) i el valor de l’empresa (anys d’experiència, servei oficial, tracte proper). Aquesta estructura ajuda l’usuari a trobar ràpidament el que busca i reflecteix bé les línies de negoci de l’empresa."
+          },
+          {
+            title: "Formularis de sol·licitud i contacte orientats a la conversió",
+            content:
+              "La web inclou un accés directe per “Sol·licitar” i una pàgina de contacte on l’usuari pot demanar servei o informació. La prioritat va ser reduir fricció: poques dades però les necessàries per gestionar bé una incidència. Això implica definir quins camps són imprescindibles, quins són opcionals, i com explicar-los perquè qualsevol tipus de client (no tècnic) entengui què ha d’emplenar."
+          },
+          {
+            title: "Presentació de marques oficials i serveis",
+            content:
+              "Interserveis és servei oficial de marques com Whirlpool, Liebherr, LG, Midea i d’altres. A la web es dona protagonisme a aquestes marques i es descriu de manera clara el tipus de serveis que ofereixen: reparació, manteniment, venda de recanvis i treball amb aires condicionats. L’objectiu és transmetre confiança (servei oficial, recanvis originals, formació contínua) i que l’usuari entengui que es troba davant d’un servei tècnic homologat pel fabricant."
+          },
+          {
+            title: "Catàleg i informació pràctica",
+            content:
+              "La secció de Catàleg ofereix una forma d’ensenyar productes o recanvis (segons el que s’hagi decidit amb l’empresa) i facilita que el client vegi d’un cop d’ull quins tipus de solucions es poden trobar. A més, s’ha posat èmfasi en informació pràctica: horaris, telèfon, correu electrònic, adreça concreta de Salt i una explicació breu de la trajectòria de l’empresa."
+          },
+          {
+            title: "Adaptació de textos legals i polítiques",
+            content:
+              "La web integra Política de Privacitat, Política de Cookies i Avís Legal, accessibles des del peu de pàgina. Aquests textos s’han adaptat al cas concret d’Interserveis, indicant la raó social, NIF, adreça, finalitats de tractament i base legal, així com la informació relativa a l’ús de cookies i consentiment. Ha estat una bona oportunitat per entendre com traslladar els requisits legals a un llenguatge entenedor però formal, i per assegurar que la web compleix mínimament amb RGPD i LSSI."
+          },
+          {
+            title: "Disseny responsive i experiència d’usuari",
+            content:
+              "A nivell de disseny, s’ha buscat una web clara i sòbria: imatges relacionades amb electrodomèstics, seccions amb bons marges i titulars visibles, i un ús de color coherent amb la marca. La maquetació s’ha revisat tant en ordinador com en mòbil, ajustant mides de text, espais i botons perquè sigui utilitzable des del telèfon, que és des d’on molts clients acaben cercant el servei tècnic."
+          }
+        ]
+      },
+
+      {
+        id: "arquitectura-i-aprenentatges",
+        title: "Arquitectura i Aprenentatges Tècnics",
+        content: `Encara que es tracta d’una web feta amb WordPress i sense codi a mida complex, l’he afrontat com un projecte complet: definició d’estructura, maquetació, continguts i part legal. He treballat amb plantilles i constructor de pàgines per crear les diferents seccions, adaptant dissenys predeterminats a les necessitats d’Interserveis.
+
+  A nivell tècnic i funcional, aquest projecte m’ha ajudat a:
+
+  - Entendre millor el flux complet de creació d’una web en **WordPress**: instal·lació, configuració inicial, selecció de tema, personalització i creació de pàgines.
+  - Dissenyar una estructura de navegació pensada per a un negoci real, prioritzant allò que els clients busquen primer (telèfon, sol·licitar servei, marques oficials).
+  - Maquetar contingut amb blocs i seccions reutilitzables, mantenint coherència visual entre pàgines.
+  - Revisar aspectes bàsics de **SEO** (títols, descripcions, encapçalaments, text alternatiu a imatges) per millorar la visibilitat i la claredat.
+  - Treballar amb **textos legals** i adaptar-los a la realitat de l’empresa, coordinant part legal, part tècnica i part de comunicació.
+
+  En resum, ha estat una bona manera d’aterrar coneixements teòrics en un cas real: una empresa amb clients, serveis concrets i la necessitat d’una web clara, formal i fàcilment gestionable.`
+      },
+
+      {
+        id: "tech-stack",
+        title: "Tecnologies Utilitzades",
+        content: `- **WordPress** – Gestor de continguts principal per crear i administrar tota la web.
+  - **Tema i constructor de pàgines de WordPress** – Maquetació visual de l’Inici, Serveis, Marques, Catàleg i Contacte.
+  - **Plugins de formularis** – Gestió de formularis de sol·licitud i contacte.
+  - **Plugin de cookies i consentiment** – Gestió del banner de cookies i preferències de privacitat.
+  - **HTML / CSS bàsic** – Ajustos puntuals d’estils i maquetació quan ha calgut.
+  - **Hosting amb HTTPS** – Allotjament amb certificat SSL per garantir accés segur a la web.
+
+  En aquest projecte no hi ha hagut desenvolupament a mida complex en PHP o JavaScript, però sí tot el treball de configuració, estructura, contingut i revisió que implica una web corporativa real.`
+      },
+
+      {
+        id: "resultats",
+        title: "Resultat i Estat Actual",
+        content:
+          "La web d’Interserveis és actualment el seu aparador digital principal: presenta l’empresa, les marques oficials amb què treballen, els serveis que ofereixen i posa molt fàcil que el client demani una reparació o es posi en contacte. Per mi ha estat una experiència important perquè és una web que surt del món acadèmic i dels projectes personals i entra en l’àmbit professional: hi ha una empresa real darrere, amb necessitats concretes, i la web ha d’ajudar-la a fer millor la seva feina."
+      }
+    ]
+  }
 ];
