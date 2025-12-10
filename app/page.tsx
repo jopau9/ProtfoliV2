@@ -1,6 +1,6 @@
 import Hero from "./components/hero";
 import AboutMe from "./components/AboutMe/AboutMe";
-import Projects from "./components/Projects/Projects";
+import Projects from "./projects/Projects";
 import ScrollCarousel from "./components/ScrollCarousel";
 
 export default function Page() {

@@ -1,7 +1,7 @@
 "use client";
 
 import type { MotionValue } from "framer-motion";
-import { press_Start_2P } from "../../fonts";
+import { press_Start_2P } from "../fonts";
 import { motion, useTransform } from "framer-motion";
 
 type ProjectCardProps = {

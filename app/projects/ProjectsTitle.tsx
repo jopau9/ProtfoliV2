@@ -1,8 +1,8 @@
 "use client";
-import { press_Start_2P } from "../../fonts";
+import { press_Start_2P } from "../fonts";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useEffect  } from "react";
+import { useRef } from "react";
 
 export default function AboutMeTitle() {
   const ref = useRef(null);
@@ -17,7 +17,6 @@ export default function AboutMeTitle() {
   const fillOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    
     <div ref={ref} className="flex justify-center  ">
       {/* contenidor per centrar */}
       <div className="relative">
