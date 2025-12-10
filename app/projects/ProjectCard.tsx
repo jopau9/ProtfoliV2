@@ -36,7 +36,7 @@ export default function ProjectCard({
 
   const stackOffset = order * 80;
 
-  const spawnOffset = stackOffset + 1400;
+  const spawnOffset = stackOffset + 800;
 
   // 🔥 Primer targeta → NO animació, ja col·locada
   if (order === 0) {

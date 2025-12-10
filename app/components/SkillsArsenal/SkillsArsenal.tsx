@@ -1,11 +1,6 @@
 "use client";
 
-import { CircuitBoard } from "@/components/animate-ui/icons/circuit-board";
-import { Cog } from "@/components/animate-ui/icons/cog";
-import FormatSkill from "./SkillsFormat";
 import SkillsTitle from "./SkillsTitle";
-import { MessageCircleMore } from "@/components/animate-ui/icons/message-circle-more";
-import { Timer } from "@/components/animate-ui/icons/timer";
 import SkillsSection from "./SkillsSection";
 import LanguagesSection from "./LanguagesSection";
 

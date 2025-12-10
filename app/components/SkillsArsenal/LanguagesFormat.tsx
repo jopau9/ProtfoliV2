@@ -1,10 +1,11 @@
 import React from "react";
 
 type FeatureCardProps = {
-  image: string; // ara rep una imatge!
+  image: string;
+  size?: number; // 👉 nou prop
 };
 
-export default function LanguagesFormat({ image }: FeatureCardProps) {
+export default function LanguagesFormat({ image, size = 48 }: FeatureCardProps) {
   return (
     <div
       className="
@@ -15,11 +16,17 @@ export default function LanguagesFormat({ image }: FeatureCardProps) {
         transition shadow-md
       "
     >
-      <img
-        src={image}
-        alt="language"
-        className="w-10 h-10 object-contain"
-      />
+      {/* Contenidor amb mida dinàmica */}
+      <div
+        className="flex items-center justify-center"
+        style={{ width: size, height: size }}
+      >
+        <img
+          src={image}
+          alt="language"
+          className="w-full h-full object-contain"
+        />
+      </div>
     </div>
   );
 }
