@@ -6,6 +6,7 @@ import ProjectHeader from "../ProjectHeader";
 import AccordionList from "../Accordion";
 import TOC from "../TOC";
 import ReactMarkdown from "react-markdown";
+import { robotoflex} from "../../fonts";
 
 export default function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = React.use(params);
@@ -22,7 +23,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
 
     return (
     // CONTENIDOR PRINCIPAL: dues columnes (contingut + TOC)
-    <div className="flex flex-row w-full max-w-[1400px] mx-auto px-6 gap-14 pt-20">
+    <div className={`flex flex-row w-full max-w-[1400px] mx-auto px-6 gap-14 pt-20 bg-black ${robotoflex.className}`}>
 
       {/* COLUMNA ESQUERRA — CONTINGUT DEL PROJECTE */}
       <div className="w-full lg:w-[70%]">

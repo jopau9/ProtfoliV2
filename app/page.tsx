@@ -9,7 +9,7 @@ export default function Page() {
     <div
       style={{
         background:
-          "radial-gradient(circle, rgba(64,65,70,1) 0%, rgba(26,28,33,1) 300%)",
+          "radial-gradient(circle, rgba(64,65,70,1) 0%, rgba(26,28,33,1) 300%) ",
       }}
     >
       <main>

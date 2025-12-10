@@ -3,6 +3,7 @@
 import type { MotionValue } from "framer-motion";
 import { press_Start_2P } from "../fonts";
 import { motion, useTransform } from "framer-motion";
+import Link from "next/link";
 
 type ProjectCardProps = {
   order: number;
@@ -14,6 +15,7 @@ type ProjectCardProps = {
   image3: string;
   scroll: MotionValue<number>;
   total: number;
+  slug: string;           
 };
 
 export default function ProjectCard({
@@ -26,17 +28,16 @@ export default function ProjectCard({
   image3,
   scroll,
   total,
+  slug,                
 }: ProjectCardProps) {
 
   const start = order / total;
   const end = (order + 1) / total;
 
-  // offset per apilar-les
   const stackOffset = order * 80;
 
-  // ✔️ Si és la primera, NO ANIMEM
   const y = order === 0
-    ? stackOffset // es queda quieta i visible des del principi
+    ? stackOffset
     : useTransform(scroll, [start, end], [750 + stackOffset, stackOffset]);
 
   return (
@@ -53,7 +54,6 @@ export default function ProjectCard({
       "
       style={{ y }}
     >
-
       {/* HEADER */}
       <div className={`${press_Start_2P.className} flex gap-5 items-center`}>
         <div className="text-white text-4xl font-bold tracking-wider">
@@ -65,14 +65,16 @@ export default function ProjectCard({
           <div className="text-white/60 text-[12px] uppercase">{client}</div>
         </div>
 
-        <button className="px-6 py-3 text-sm border border-white/80 text-white rounded-full hover:bg-white/10 transition ml-auto">
-          VEURE PROJECTE
-        </button>
+        {/* 👉 Botó que redirigeix al projecte */}
+        <Link href={`/projects/${slug}`} className="ml-auto">
+          <button className="px-6 py-3 text-sm border border-white/80 text-white rounded-full hover:bg-white/10 transition">
+            VEURE PROJECTE
+          </button>
+        </Link>
       </div>
 
       {/* IMATGES */}
       <div className="flex gap-3 overflow-hidden h-full mt-6">
-        
         <img
           src={image1}
           alt={title}
@@ -91,7 +93,6 @@ export default function ProjectCard({
             className="h-[210px] rounded-4xl object-cover"
           />
         </div>
-
       </div>
     </motion.div>
   );

@@ -11,6 +11,7 @@ import {
   Modak,
   Geist,
   Geist_Mono,
+  Playfair_Display,
 } from "next/font/google";
 
 
@@ -19,6 +20,11 @@ import {
 // ----------------------
 
 export const press_Start_2P = Press_Start_2P({
+  weight: "400",
+  subsets: ["latin"],
+});
+
+export const playfair_display = Playfair_Display({
   weight: "400",
   subsets: ["latin"],
 });
