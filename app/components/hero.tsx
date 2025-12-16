@@ -65,14 +65,11 @@ export default function Hero() {
 
       {/* ─── ICONES SOCIALS ─── */}
       <div className="absolute bottom-15 left-15 flex flex-col space-y-4 text-gray-300">
-        <a href="https://github.com" target="_blank" className="hover:text-white">
+        <a href="https://github.com/jopau9" target="_blank" className="hover:text-white">
           <FaGithub size={28} />
         </a>
-        <a href="https://linkedin.com" target="_blank" className="hover:text-white">
+        <a href="https://www.linkedin.com/in/joan-pau-rahola-ferrer-b6994b24a/" target="_blank" className="hover:text-white">
           <FaLinkedin size={28} />
-        </a>
-        <a href="https://instagram.com" target="_blank" className="hover:text-white">
-          <FaInstagram size={28} />
         </a>
       </div>
     </div>
