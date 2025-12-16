@@ -8,24 +8,24 @@ import QuoteBlock from "../QuoteBlock";
 
 export default function AboutMe() {
   return (
-    <section
-      className="
+    <section className="flex flex-col items-center"
+    >
+      <div className="
         w-full
         py-16
-        grid grid-cols-1 lg:grid-cols-2
+        grid grid-cols-1 lg:grid-cols-5
         gap-16
-        justify-items-center
         
-      "
-    >
+      ">
       {/* COLUMNA ESQUERRA */}
-      <div className="flex flex-col gap-12 pl-0">
+      <div className="flex flex-col gap-12 grid-cols-1 lg:col-span-3
+      ">
         <AboutMeTitle />
 
         <div className="pl-20">
           <AboutMeText1 />
 
-          <div className="mt-8 flex flex-col lg:flex-row items-start lg:items-center gap-6 pl-40">
+          <div className="pl-40 mt-8 flex flex-col lg:flex-row items-start lg:items-center gap-6">
             <DownloadCV />
             <AboutMeText2 />
           </div>
@@ -33,7 +33,7 @@ export default function AboutMe() {
       </div>
 
       {/* COLUMNA DRETA */}
-      <div className="lg:flex justify-center items-start">
+      <div className="lg:flex justify-center items-start pr-40 grid-cols-1 hidden lg:col-span-2 ">
   <img
     src="/personal_photos/Adobe Express - file.png"
     alt="Portrait"
@@ -55,9 +55,13 @@ export default function AboutMe() {
 
 
       {/* QUOTE A SOTA, CENTRADA */}
-      <div className="lg:col-span-2 mt-8 flex justify-center">
-        <QuoteBlock />
+      {/* QUOTE A SOTA, CENTRADA */}
+<div className="mt-20 lg:col-span-5 flex justify-center">
+  <QuoteBlock />
+</div>
+
       </div>
     </section>
+    
   );
 }
