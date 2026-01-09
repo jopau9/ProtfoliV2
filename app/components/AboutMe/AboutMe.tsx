@@ -18,11 +18,11 @@ export default function AboutMe() {
         
       ">
       {/* COLUMNA ESQUERRA */}
-      <div className="flex flex-col gap-12 grid-cols-1 lg:col-span-3
+      <div className="flex flex-col gap-12 grid-cols-1 lg:col-span-3 pl-50
       ">
         <AboutMeTitle />
 
-        <div className="pl-20">
+        <div className="">
           <AboutMeText1 />
 
           <div className="pl-40 mt-8 flex flex-col lg:flex-row items-start lg:items-center gap-6">

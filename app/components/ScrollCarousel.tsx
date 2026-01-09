@@ -28,7 +28,9 @@ export default function ScrollCarousel() {
         <img src="/tailwind_logo.png" className="w-[400px] filter grayscale brightness-100 contrast-0 object-contain" />
         <img src="/java_logo.png" className="w-[190px] rounded-xl filter grayscale brightness-100 contrast-0 object-contain" />
         <img src="/unity_logo.png" className="w-[260px] rounded-xl filter grayscale brightness-100 contrast-0 object-contain" />
+        <img src="/supabase.png" className="w-[560px] rounded-xl filter grayscale brightness-100 contrast-0 object-contain" />
         <img src="/springboot_logo.png" className="w-[260px] rounded-xl filter grayscale brightness-100 contrast-0 object-contain" />
+        
 
       </motion.div>
     </div>

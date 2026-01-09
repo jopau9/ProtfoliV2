@@ -18,6 +18,15 @@ export default function ProjectsSection() {
     },
     {
       index: 2,
+      title: "Finantial Tracker",
+      client: "Projecte Personal",
+      image1: "/ProjectImages/FinantialTraker/0.gif",
+      image2: "/ProjectImages/FinantialTraker/1.gif",
+      image3: "/ProjectImages/FinantialTraker/2.png",
+      slug: "finantial-tracker"
+    },
+    {
+      index: 3,
       title: "Videojoc Complet",
       client: "Projecte Personal",
       image1: "/ProjectImages/VideoGame/0.gif",
@@ -26,16 +35,16 @@ export default function ProjectsSection() {
       slug: "videojoccomplet"
     },
     {
-      index: 3,
+      index: 4,
       title: "PortfoliV2",
       client: "Projecte Personal",
       image1: "/ProjectImages/PortfoliV2/0.gif",
       image2: "/ProjectImages/PortfoliV2/1.png",
-      image3: "/ProjectImages/PortfoliV2/2.jpg",
+      image3: "/ProjectImages/PortfoliV2/2.png",
       slug: "portfoliv2"
     },
     {
-      index: 4,
+      index: 5,
       title: "Web Reparació d'electrodomestics - WordPress",
       client: "InterServeis",
       image1: "/ProjectImages/InterServeis/0.gif",
@@ -43,15 +52,7 @@ export default function ProjectsSection() {
       image3: "/ProjectImages/InterServeis/2.png",
       slug: "interserveis-web"
     },
-    {
-      index: 5,
-      title: "Finantial Tracker",
-      client: "Projecte Personal",
-      image1: "/ProjectImages/FinantialTraker/0.png",
-      image2: "/ProjectImages/FinantialTraker/1.png",
-      image3: "/ProjectImages/FinantialTraker/2.png",
-      slug: "finantial-tracker"
-    },
+    
   ];
 
   const ref = useRef(null);

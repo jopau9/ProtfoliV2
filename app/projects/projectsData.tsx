@@ -181,6 +181,7 @@ export const projects: ProjectData[] = [
       }
     ]
   },
+
   {
     slug: "portfoliv2",
     title: "PortfoliV2 – Web personal de projectes",
@@ -239,6 +240,7 @@ export const projects: ProjectData[] = [
         ]
       },
 
+
       {
         id: "arquitectura-i-aprenentatges",
         title: "Arquitectura i Aprenentatges Tècnics",
@@ -274,6 +276,98 @@ export const projects: ProjectData[] = [
         title: "Resultat i Estat Actual",
         content:
           "El portfoli està preparat per ser el meu punt central de referència quan parlo de projectes, tant amb empreses com amb altres desenvolupadors. Puc afegir nous projectes simplement ampliant `projectsData`, sense canviar l’arquitectura, i puc adaptar les seccions de text per orientarlas a diferents rols o oportunitats. Més enllà de la part visual, ha estat una bona pràctica per treballar amb un stack modern de front-end i, sobretot, per obligar-me a explicar amb claredat què faig i què sé fer."
+      }
+    ]
+  },
+  {
+    slug: "finantial-tracker",
+    title: "Financial Tracker – Gestió financera personal",
+    subtitle:
+      "Aplicació web per centralitzar, analitzar i entendre les finances personals de forma clara i segura.",
+    description:
+      "Financial Tracker és una aplicació web orientada a la gestió completa de finances personals: comptes bancaris, targetes, transaccions, categories i evolució temporal de la despesa i els ingressos. El projecte neix de la necessitat real de tenir una eina pròpia, flexible i entenedora, que permeti veure d’un cop d’ull on van els diners, detectar patrons i prendre decisions financeres informades. Està dissenyat amb una arquitectura moderna, pensant des del principi en la seguretat de les dades, l’escalabilitat i una experiència d’usuari clara tant en web com en mòbil.",
+    tags: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "Dashboard Design",
+      "Responsive UI",
+      "RLS"
+    ],
+    date: "2025-08-01",
+
+    sections: [
+      {
+        id: "visio-general",
+        title: "Visió General del Projecte",
+        content:
+          "El Financial Tracker està concebut com una aplicació web principalment orientada a l’ús diari, amb especial atenció a l’experiència en dispositius mòbils. L’objectiu no és només registrar despeses i ingressos, sinó oferir una visió estructurada i comprensible de la situació financera global de l’usuari: comptes bancaris, targetes associades, categories de despesa, períodes temporals i comparatives entre mesos.\n\nDes del principi, el projecte s’ha plantejat amb una separació clara entre dades, lògica i interfície, utilitzant un backend gestionat amb Supabase i una aplicació frontend amb Next.js (App Router). Això permet evolucionar el projecte de manera ordenada, afegint noves funcionalitats sense comprometre l’estructura existent."
+      },
+
+      {
+        id: "funcionalitats-clau",
+        title: "Funcionalitats Clau",
+        accordion: [
+          {
+            title: "Gestió de Comptes Bancaris i Targetes",
+            content:
+              "L’aplicació permet crear i gestionar múltiples comptes bancaris, cadascun amb les seves targetes associades. Aquesta separació reflecteix millor la realitat financera de l’usuari i permet analitzar tant el saldo global com el comportament de despesa per compte o per targeta. Cada entitat té la seva pròpia vista de detall, amb informació resumida, totals i evolució temporal."
+          },
+          {
+            title: "Sistema de Transaccions Flexible",
+            content:
+              "El nucli del projecte és el sistema de transaccions. Cada moviment inclou data, import, tipus (ingrés o despesa), categoria, compte bancari i, opcionalment, targeta. El sistema està pensat per ser flexible: permet editar, eliminar i filtrar transaccions, així com navegar per períodes temporals (dies, mesos o rangs personalitzats). Això facilita tant l’ús diari com l’anàlisi a mitjà i llarg termini."
+          },
+          {
+            title: "Categories Unificades i Reutilitzables",
+            content:
+              "Un dels reptes del projecte ha estat definir un sistema de categories coherent i reutilitzable. Les categories no només s’utilitzen per a transaccions, sinó que també poden aplicar-se a comptes o targetes, amb una gestió centralitzada des d’un únic apartat. Això evita duplicacions, millora la coherència visual i facilita l’anàlisi posterior."
+          },
+          {
+            title: "Dashboards i Anàlisi Temporal",
+            content:
+              "El Financial Tracker inclou dashboards amb targetes de resum (stat cards), gràfics de barres i gràfics circulars que permeten veure l’evolució de la despesa, els ingressos i les variacions respecte a períodes anteriors. S’ha treballat especialment la lògica de càlcul de períodes (mes actual, mes anterior, comparatives) per oferir informació rellevant i fàcil d’interpretar."
+          },
+          {
+            title: "Experiència Mòbil i Navegació Adaptativa",
+            content:
+              "Tot i ser una aplicació web, el disseny està clarament orientat a mòbil. S’ha implementat una navegació inferior flotant (bottom navigation) per a pantalles petites, mentre que en desktop s’utilitzen layouts més amplis. La detecció de context (web vs mòbil) i l’organització de rutes permeten una experiència fluida sense duplicar lògica."
+          },
+          {
+            title: "Seguretat i Aïllament de Dades",
+            content:
+              "La seguretat és un pilar clau del projecte. Cada usuari només pot accedir a les seves dades gràcies a Row Level Security (RLS) a Supabase. Les consultes, insercions i actualitzacions estan protegides perquè no sigui possible accedir a informació d’altres perfils, fins i tot des del client."
+          }
+        ]
+      },
+
+      {
+        id: "arquitectura-i-aprenentatges",
+        title: "Arquitectura i Aprenentatges Tècnics",
+        content:
+          "Aquest projecte m’ha servit per aprofundir en una arquitectura web moderna aplicada a un cas real i quotidià. He treballat amb el App Router de Next.js, separant components de servidor i de client, i gestionant correctament estats, paràmetres d’URL i càrrega de dades asíncrona.\n\nA nivell de backend, Supabase m’ha permès entendre millor com dissenyar una base de dades relacional orientada a producte, definir relacions clares entre taules (usuaris, comptes, targetes, transaccions, categories) i aplicar polítiques de seguretat robustes amb RLS.\n\nTambé ha estat un exercici important de disseny d’UI/UX: decidir quina informació és rellevant a cada pantalla, com mostrar-la en espais reduïts (mòbil) i com mantenir coherència visual i funcional a mesura que el projecte creix."
+      },
+
+      {
+        id: "tech-stack",
+        title: "Tecnologies Utilitzades",
+        content: `- **Next.js (App Router)** – Estructura principal de l’aplicació i gestió de rutes.
+  - **React + TypeScript** – Components tipats, estat i lògica de la interfície.
+  - **Supabase** – Autenticació, base de dades PostgreSQL i polítiques de seguretat (RLS).
+  - **PostgreSQL** – Model relacional per comptes, targetes, transaccions i categories.
+  - **Tailwind CSS** – Maquetació, disseny responsive i coherència visual.
+  - **Gràfics i components UI propis** – Targetes de resum, gràfics de barres i donuts per a dashboards.
+  - **Git / GitHub** – Control de versions i evolució incremental del projecte.`
+      },
+
+      {
+        id: "resultats",
+        title: "Resultat i Estat Actual",
+        content:
+          "El Financial Tracker és actualment una aplicació funcional i utilitzable per al seguiment financer personal. Permet gestionar comptes i targetes, registrar transaccions, analitzar despeses i ingressos per categories i visualitzar l’evolució temporal mitjançant dashboards clars.\n\nA curt termini, el projecte continua evolucionant amb millores d’usabilitat, optimització de consultes i nous filtres. A mitjà termini, està pensat per créixer cap al tracking d’inversions i una anàlisi financera més avançada. Més enllà del resultat final, el projecte representa una base sòlida i ben estructurada que reflecteix la meva manera d’afrontar problemes reals de desenvolupament de software."
       }
     ]
   },
