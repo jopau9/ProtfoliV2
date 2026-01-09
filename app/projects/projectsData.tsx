@@ -297,7 +297,7 @@ export const projects: ProjectData[] = [
       "Responsive UI",
       "RLS"
     ],
-    date: "2025-08-01",
+    date: "2026-01-06",
 
     sections: [
       {
