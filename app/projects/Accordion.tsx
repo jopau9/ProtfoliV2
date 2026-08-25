@@ -1,80 +1,72 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
-export default function AccordionList({ items }: { items: any[] }) {
+export type AccordionItem = {
+  title: string;
+  content: string;
+};
+
+/** Llista plegable. El primer element ve obert; només un obert alhora. */
+export default function Accordion({ items }: { items: AccordionItem[] }) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <div className="border border-white/10 rounded-xl overflow-hidden bg-black/10 backdrop-blur-sm">
+    <div className="border-t border-line">
       {items.map((item, i) => {
         const isOpen = open === i;
 
         return (
-          <div key={i} className="border-b border-white/10 last:border-none">
-            {/* HEADER */}
+          <div key={item.title} className="border-b border-line">
             <button
+              type="button"
               onClick={() => setOpen(isOpen ? null : i)}
-              className="
-                w-full flex items-center justify-between
-                px-5 py-4
-                text-left
-                hover:bg-white/5 transition-colors
-              "
+              aria-expanded={isOpen}
+              className="group flex w-full items-start gap-5 py-6 text-left"
             >
-              <span className="text-white font-medium">{item.title}</span>
-
-              {/* ICONA AMB ROTACIÓ SUAU */}
-              <motion.span
-                animate={{ rotate: isOpen ? 180 : 0 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="text-white/60"
+              <span
+                className={`type-label mt-1.5 transition-colors duration-300 ${
+                  isOpen ? "text-accent" : "text-faint"
+                }`}
               >
-                ▼
-              </motion.span>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+
+              <span
+                className={`type-h3 flex-1 text-balance transition-colors duration-300 ${
+                  isOpen ? "text-ink" : "text-muted group-hover:text-ink"
+                }`}
+              >
+                {item.title}
+              </span>
+
+              {/* Creu que gira a menys en obrir-se */}
+              <span
+                aria-hidden
+                className="relative mt-2 block h-3 w-3 shrink-0"
+              >
+                <span className="absolute left-0 top-1/2 h-px w-3 -translate-y-1/2 bg-current text-muted" />
+                <span
+                  className={`absolute left-1/2 top-0 h-3 w-px -translate-x-1/2 bg-current text-muted transition-transform duration-300 ${
+                    isOpen ? "scale-y-0" : "scale-y-100"
+                  }`}
+                />
+              </span>
             </button>
 
-            {/* CONTENT */}
             <AnimatePresence initial={false}>
               {isOpen && (
                 <motion.div
-                  key="content"
-                  initial="collapsed"
-                  animate="open"
-                  exit="collapsed"
-                  variants={{
-                    open: {
-                      height: "auto",
-                      opacity: 1,
-                      transition: {
-                        height: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] },
-                        opacity: { duration: 0.3 }
-                      }
-                    },
-                    collapsed: {
-                      height: 0,
-                      opacity: 0,
-                      transition: {
-                        height: { duration: 0.25, ease: [0.55, 0.09, 0.68, 0.53] },
-                        opacity: { duration: 0.2 }
-                      }
-                    }
-                  }}
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   className="overflow-hidden"
                 >
-                  <motion.div
-                    className="
-                      px-5 py-4
-                      text-white/70 leading-relaxed
-                      bg-white/5
-                    "
-                    initial={{ y: -4 }}
-                    animate={{ y: 0 }}
-                    transition={{ duration: 0.25 }}
-                  >
+                  <p className="type-body measure pb-8 pl-11 text-muted">
                     {item.content}
-                  </motion.div>
+                  </p>
                 </motion.div>
               )}
             </AnimatePresence>

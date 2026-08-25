@@ -1,95 +1,27 @@
-// fonts.ts
-import {
-  Press_Start_2P,
-  Anton,
-  Bellota,
-  Overlock,
-  Roboto,
-  Roboto_Flex,
-  DM_Serif_Text,
-  Freehand,
-  Modak,
-  Geist,
-  Geist_Mono,
-  Playfair_Display,
-} from "next/font/google";
+// Tres tipografies i prou. Cadascuna amb una feina clara.
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 
+/** Cos i titulars. Grotesk neutre, es comporta bé en mides molt grans. */
+export const sans = Geist({
+  variable: "--font-sans-var",
+  subsets: ["latin"],
+  display: "swap",
+});
 
-// ----------------------
-// FONTS PRINCIPALS
-// ----------------------
+/** Metadades, numeració de secció, tags. Tot el que ha de semblar "dada". */
+export const mono = Geist_Mono({
+  variable: "--font-mono-var",
+  subsets: ["latin"],
+  display: "swap",
+});
 
-export const press_Start_2P = Press_Start_2P({
+/** Èmfasi editorial. Només per a una o dues paraules per pantalla. */
+export const serif = Instrument_Serif({
+  variable: "--font-serif-var",
   weight: "400",
+  style: ["normal", "italic"],
   subsets: ["latin"],
+  display: "swap",
 });
 
-export const playfair_display = Playfair_Display({
-  weight: "400",
-  subsets: ["latin"],
-});
-
-export const modak = Modak({
-  weight: "400",
-  subsets: ["latin"],
-});
-
-export const robotoLight = Roboto({
-  weight: "300",
-  subsets: ["latin"],
-});
-
-export const robotoBlack = Roboto({
-  weight: "900",
-  subsets: ["latin"],
-});
-
-export const robotoflex = Roboto_Flex({
-  weight: "200",
-  subsets: ["latin"],
-});
-
-export const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-export const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-
-// ----------------------
-// FONTS ADDITIONALS
-// ----------------------
-
-export const roboto = Roboto({
-  weight: "700",
-  subsets: ["latin"],
-});
-
-export const dm_serif_text = DM_Serif_Text({
-  weight: "400",
-  subsets: ["latin"],
-});
-
-export const freehand = Freehand({
-  weight: "400",
-  subsets: ["latin"],
-});
-
-export const anton = Anton({
-  weight: "400",
-  subsets: ["latin"],
-});
-
-export const bellota = Bellota({
-  weight: ["300", "400", "700"],
-  subsets: ["latin"],
-});
-
-export const overlock = Overlock({
-  weight: ["400", "700", "900"],
-  subsets: ["latin"],
-});
+export const fontVariables = `${sans.variable} ${mono.variable} ${serif.variable}`;

@@ -1,40 +1,32 @@
-import Hero from "./components/hero";
-import AboutMe from "./components/AboutMe/AboutMe";
-import Projects from "./projects/Projects";
-import ScrollCarousel from "./components/ScrollCarousel";
-import SkillsSection from "./components/SkillsArsenal/SkillsSection";
-import SkillsArsenal from "./components/SkillsArsenal/SkillsArsenal";
+import About from "./components/About";
+import Domains from "./components/Domains";
+import Footer from "./components/Footer";
+import Hero from "./components/Hero";
+import ProjectIndex from "./components/ProjectIndex";
 
 export default function Page() {
   return (
+    <>
+      <section id="hero">
+        <Hero />
+      </section>
 
-      <main>
+      {/* Els projectes van primer: són el que ha de pesar més. */}
+      <section id="work" className="scroll-mt-20">
+        <ProjectIndex />
+      </section>
 
-        {/* HERO */}
-        <section id="hero">
-          <Hero />
-        </section>
+      <section id="domains" className="scroll-mt-20">
+        <Domains />
+      </section>
 
-        {/* ABOUT ME */}
-        <section id="sobre-mi">
-          <AboutMe />
-        </section>
-      
-        {/* SKILLS & EXPERIENCE */}
-        <section id="skills-exp">
-          <SkillsArsenal /> 
-        </section>
+      <section id="about" className="scroll-mt-20">
+        <About />
+      </section>
 
-        {/* CAROUSEL */}
-        <section id="carrousel">
-          <ScrollCarousel />
-        </section>
-
-        {/* PROJECTS */}
-        <section id="projectes">
-          <Projects />
-        </section>
-
-      </main>
+      <section id="contact" className="scroll-mt-20">
+        <Footer />
+      </section>
+    </>
   );
 }

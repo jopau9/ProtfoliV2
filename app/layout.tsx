@@ -1,39 +1,34 @@
-import type { Metadata } from "next";
-import {
-  Anton,
-  Press_Start_2P,
-  Bellota,
-  Roboto_Flex,
-  Overlock,
-  Geist,
-  Geist_Mono,
-  Roboto,
-  Modak,
-} from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { fontVariables } from "./fonts";
+import { LanguageProvider } from "./i18n/LanguageProvider";
+import Nav from "./components/Nav";
 import "./globals.css";
 
-
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "JoanPau – Portfolio",
-  description: "Portfolio de desenvolupador de software junior",
+  metadataBase: new URL("https://joanpau.dev"), // REVISAR: posa-hi el teu domini real
+  title: {
+    default: "Joan Pau Rahola · AI Engineer",
+    template: "%s · Joan Pau Rahola",
+  },
+  description:
+    "Enginyer d'IA. Dissenyo, construeixo i mantinc sistemes amb models de llenguatge: assistents sobre documentació pròpia, agents amb eines i recuperació avaluada.",
+  openGraph: {
+    title: "Joan Pau Rahola · AI Engineer",
+    description:
+      "He posat una empresa sencera a treballar amb IA: disseny, construcció i adopció d'una plataforma interna d'assistents, RAG i agents.",
+    type: "website",
+  },
   icons: {
-    icon: "/favicon.png",             // favicon principal
+    icon: "/favicon.png",
     shortcut: "/favicon.png",
-    apple: "/apple-touch-icon.png",   // si vols suport Apple
+    apple: "/apple-touch-icon.png",
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#08080a",
+  colorScheme: "dark",
+};
 
 export default function RootLayout({
   children,
@@ -41,17 +36,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ca">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        style={{
-          background:
-            "radial-gradient(circle, rgba(64,65,70,1) 0%, rgba(26,28,33,1) 300%)",
-        }}
-      >
-        <div className="mx-auto w-full max-w-[2000px] px-6">
-          {children}
-        </div>
+    <html lang="ca" className={fontVariables}>
+      <body className="grain bg-canvas text-ink antialiased">
+        <LanguageProvider>
+          <Nav />
+          <main className="relative z-[2]">{children}</main>
+        </LanguageProvider>
       </body>
     </html>
   );

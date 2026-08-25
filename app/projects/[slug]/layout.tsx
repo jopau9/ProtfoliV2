@@ -3,15 +3,6 @@ export default function ProjectLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="relative">
-      {/* FONS NEGRE A TOTA LA PANTALLA */}
-      <div className="fixed inset-0 bg-black -z-50" />
-
-      {/* CONTINGUT */}
-      <div className="relative z-10">
-        {children}
-      </div>
-    </div>
-  );
+  // El fons i la tipografia ja vénen del layout arrel; aquí només acotem el flux.
+  return <div className="relative">{children}</div>;
 }
