@@ -1,15 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { publishedProjects, workSection } from "../content/projects";
+import {
+  publishedProjects,
+  workSection,
+  type Project,
+} from "../content/projects";
 import { ui } from "../content/site";
 import { useT } from "../i18n/LanguageProvider";
 import Reveal from "./ui/Reveal";
 import SectionHeading from "./ui/SectionHeading";
+import Media from "./ui/Media";
+import MediaCanvas from "./ui/MediaCanvas";
+import SystemDiagram from "./ui/SystemDiagram";
 
+/**
+ * La jerarquia la fa la mida, no el text: els destacats són una imatge
+ * gran a tota amplada amb el títol a sobre; la resta, una graella petita.
+ */
 export default function ProjectIndex() {
   const t = useT();
   const heading = t(workSection.heading);
+  const featured = publishedProjects.filter((p) => p.featured);
+  const others = publishedProjects.filter((p) => !p.featured);
 
   return (
     <div className="shell py-section">
@@ -20,85 +33,123 @@ export default function ProjectIndex() {
         accent={heading.accent}
       />
 
-      <ul className="mt-20">
-        {publishedProjects.map((project, i) => {
-          const thumb = project.cover ?? project.images?.[0];
-
-          return (
-            <Reveal as="li" key={project.slug} delay={0.03 * (i % 3)}>
-              <Link
-                href={`/projects/${project.slug}`}
-                className="group block border-t border-line py-8 md:py-10"
-              >
-                <div className="grid gap-5 md:grid-cols-12 md:items-start md:gap-8">
-                  {/* Miniatura fixa: sempre visible, res no apareix en passar-hi.
-                      Els projectes interns no tenen captures publicables. */}
-                  <div className="overflow-hidden rounded-lg border border-line md:col-span-3">
-                    {thumb ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={thumb}
-                        alt=""
-                        loading="lazy"
-                        className="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      />
-                    ) : (
-                      <div className="flex aspect-[16/10] w-full items-center justify-center bg-surface px-4">
-                        <span className="type-label text-center leading-relaxed text-faint">
-                          {t(ui.noPreview)}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="md:col-span-9">
-                    {/* Número, títol i metadades */}
-                    <div className="flex items-start gap-4">
-                      <span className="type-label mt-2 text-faint transition-colors duration-500 group-hover:text-accent">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-
-                      <h3 className="type-h2 flex-1 text-ink text-balance">
-                        {t(project.title)}
-                      </h3>
-
-                      <div className="mt-1.5 flex shrink-0 items-center gap-4">
-                        <span className="type-label hidden text-faint sm:inline">
-                          {t(project.context)} · {project.year}
-                        </span>
-                        <span
-                          aria-hidden
-                          className="text-muted transition-all duration-500 group-hover:translate-x-1 group-hover:text-accent"
-                        >
-                          →
-                        </span>
-                      </div>
-                    </div>
-
-                    <p className="type-body measure mt-4 text-muted md:pl-10">
-                      {t(project.demonstrates)}
-                    </p>
-
-                    <div className="mt-6 flex flex-wrap gap-x-3 gap-y-2 md:pl-10">
-                      {project.tags.slice(0, 5).map((tag) => (
-                        <span
-                          key={tag}
-                          className="type-label rounded-full border border-line px-2.5 py-1.5 text-faint"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <span className="sr-only">{t(ui.viewProject)}</span>
-              </Link>
-            </Reveal>
-          );
-        })}
-        <li className="border-t border-line" aria-hidden />
+      <ul className="mt-20 space-y-20 md:space-y-28">
+        {featured.map((project, i) => (
+          <Reveal as="li" key={project.slug}>
+            <FeaturedCard project={project} index={i} />
+          </Reveal>
+        ))}
       </ul>
+
+      {others.length > 0 && (
+        <div className="mt-28 md:mt-36">
+          <Reveal className="flex items-center gap-5">
+            <span className="type-label text-muted">
+              {t(workSection.othersLabel)}
+            </span>
+            <span aria-hidden className="h-px flex-1 bg-line" />
+          </Reveal>
+
+          <ul className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            {others.map((project, i) => (
+              <Reveal as="li" key={project.slug} delay={0.06 * (i % 3)}>
+                <ProjectCard project={project} index={featured.length + i} />
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
+  );
+}
+
+/** Número, context i any: la mateixa línia de metadades a tot el llistat. */
+function Meta({ project, index }: { project: Project; index: number }) {
+  const t = useT();
+  return (
+    <span className="type-label text-faint">
+      {String(index + 1).padStart(2, "0")} · {t(project.context)} · {project.year}
+    </span>
+  );
+}
+
+function FeaturedCard({ project, index }: { project: Project; index: number }) {
+  const t = useT();
+  // La primera peça de la galeria; si és un vídeo, es reprodueix com un GIF.
+  const first = project.images?.[0];
+
+  return (
+    <Link href={`/projects/${project.slug}`} className="group block">
+      {/* Títol a dalt, imatge a sota */}
+      <div className="flex items-end justify-between gap-6">
+        <div>
+          <Meta project={project} index={index} />
+          <h3 className="type-feature mt-4 text-ink text-balance transition-colors duration-300 group-hover:text-accent">
+            {t(project.title)}
+          </h3>
+        </div>
+
+        <span
+          aria-hidden
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line-strong text-ink transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-canvas md:h-14 md:w-14"
+        >
+          <span className="transition-transform duration-300 group-hover:translate-x-0.5">
+            →
+          </span>
+        </span>
+      </div>
+
+      <div className="mt-7 overflow-hidden rounded-2xl border border-line bg-surface transition-colors duration-500 group-hover:border-line-strong">
+        {first ? (
+          <div className="relative aspect-[16/9]">
+            <MediaCanvas media={first} alt={t(project.title)} />
+          </div>
+        ) : project.diagram ? (
+          <SystemDiagram
+            diagram={project.diagram}
+            large
+            className="min-h-[26rem] sm:aspect-[16/9] sm:min-h-0"
+          />
+        ) : (
+          <div className="flex aspect-[16/9] items-center justify-center bg-elevated">
+            <span className="type-label text-faint">{t(ui.noPreview)}</span>
+          </div>
+        )}
+      </div>
+      <span className="sr-only">{t(ui.viewProject)}</span>
+    </Link>
+  );
+}
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const t = useT();
+  // Miniatura animada si la primera peça és un vídeo; si no, la imatge.
+  const first = project.images?.[0];
+
+  return (
+    <Link href={`/projects/${project.slug}`} className="group block">
+      <div className="overflow-hidden rounded-xl border border-line bg-surface transition-colors duration-500 group-hover:border-line-strong">
+        {first ? (
+          <Media
+            media={first}
+            alt={t(project.title)}
+            className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          />
+        ) : (
+          <div className="flex aspect-[4/3] items-center justify-center bg-elevated px-4">
+            <span className="type-label text-center text-faint">
+              {t(ui.noPreview)}
+            </span>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-5">
+        <Meta project={project} index={index} />
+        <h3 className="type-h3 mt-3 text-ink text-balance transition-colors duration-300 group-hover:text-accent">
+          {t(project.title)}
+        </h3>
+      </div>
+    </Link>
   );
 }

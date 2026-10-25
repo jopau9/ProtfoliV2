@@ -2,20 +2,21 @@ import type { Metadata, Viewport } from "next";
 import { fontVariables } from "./fonts";
 import { LanguageProvider } from "./i18n/LanguageProvider";
 import Nav from "./components/Nav";
+import { themeInitScript } from "./components/ui/themeScript";
 import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://joanpau.dev"), // REVISAR: posa-hi el teu domini real
   title: {
-    default: "Joan Pau Rahola · AI Engineer",
+    default: "Joan Pau Rahola · Software Engineer",
     template: "%s · Joan Pau Rahola",
   },
   description:
-    "Enginyer d'IA. Dissenyo, construeixo i mantinc sistemes amb models de llenguatge: assistents sobre documentació pròpia, agents amb eines i recuperació avaluada.",
+    "Enginyer de software i AI Solutions Architect a AETECH. IA aplicada a entorns empresarials: assistents sobre documentació tècnica, recuperació híbrida i agents integrats amb TIA Portal, Jira i Microsoft 365.",
   openGraph: {
-    title: "Joan Pau Rahola · AI Engineer",
+    title: "Joan Pau Rahola · Software Engineer",
     description:
-      "He posat una empresa sencera a treballar amb IA: disseny, construcció i adopció d'una plataforma interna d'assistents, RAG i agents.",
+      "Enginyeria de software i IA aplicada per a entorns empresarials. Plataforma interna d'IA d'AETECH, Capital Tracker i altres projectes.",
     type: "website",
   },
   icons: {
@@ -26,8 +27,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#08080a",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7f6f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0c" },
+  ],
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({
@@ -36,7 +40,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ca" className={fontVariables}>
+    // L'script del <head> pot posar `data-theme` abans d'hidratar: d'aquí el suppressHydrationWarning.
+    <html lang="ca" className={fontVariables} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="grain bg-canvas text-ink antialiased">
         <LanguageProvider>
           <Nav />

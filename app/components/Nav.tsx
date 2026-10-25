@@ -2,15 +2,18 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll } from "framer-motion";
 import { identity, nav } from "../content/site";
 import { useT } from "../i18n/LanguageProvider";
 import LanguageToggle from "./ui/LanguageToggle";
+import ThemeToggle from "./ui/ThemeToggle";
 
 export default function Nav() {
   const t = useT();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  // Progrés de lectura: una línia ambre sota la capçalera (només transformació).
+  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -36,6 +39,14 @@ export default function Nav() {
             : "border-b border-transparent"
         }`}
       >
+        <motion.span
+          aria-hidden
+          style={{ scaleX: scrollYProgress }}
+          className={`absolute inset-x-0 -bottom-px h-px origin-left bg-accent transition-opacity duration-500 ${
+            scrolled ? "opacity-100" : "opacity-0"
+          }`}
+        />
+
         <div className="shell flex h-16 items-center justify-between gap-6 md:h-20">
           <Link
             href="/"
@@ -59,6 +70,7 @@ export default function Nav() {
           </nav>
 
           <div className="flex items-center gap-3">
+            <ThemeToggle className="hidden sm:flex" />
             <LanguageToggle />
 
             <button
@@ -108,6 +120,7 @@ export default function Nav() {
                   {t(item.label)}
                 </motion.a>
               ))}
+              <ThemeToggle className="mt-8 flex sm:hidden" />
             </div>
           </motion.div>
         )}

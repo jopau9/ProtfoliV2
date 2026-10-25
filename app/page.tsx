@@ -3,6 +3,7 @@ import Domains from "./components/Domains";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import ProjectIndex from "./components/ProjectIndex";
+import Marquee from "./components/ui/Marquee";
 
 export default function Page() {
   return (
@@ -23,6 +24,9 @@ export default function Page() {
       <section id="about" className="scroll-mt-20">
         <About />
       </section>
+
+      {/* Franja en moviment: fa de transició cap al contacte */}
+      <Marquee />
 
       <section id="contact" className="scroll-mt-20">
         <Footer />

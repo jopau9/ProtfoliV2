@@ -24,22 +24,21 @@ export default function Reveal({
   const reduced = useReducedMotion();
   const MotionTag = motion[as];
 
-  if (reduced) {
-    const Tag = as;
-    return <Tag className={className}>{children}</Tag>;
-  }
-
+  // Sempre el mateix element i el mateix estat inicial: el servidor no sap si
+  // l'usuari vol menys moviment, i canviar l'arbre al client trencaria la
+  // hidratació (el contingut es quedaria a opacitat 0). Amb menys moviment,
+  // només desapareix la durada.
   return (
     <MotionTag
       className={className}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
-      transition={{
-        duration: 0.7,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
+      transition={
+        reduced
+          ? { duration: 0 }
+          : { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }
+      }
     >
       {children}
     </MotionTag>

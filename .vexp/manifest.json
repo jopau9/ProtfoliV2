@@ -1,0 +1,39 @@
+{
+  "file_hashes": {
+    "app/components/About.tsx": "21b39f55e2e2eace64e3e2864a50834b4fbe1c208628e384359005c01a118406",
+    "app/components/Domains.tsx": "f8b59ca8718d47fd0840032cddcda3f91c05d0e7f5f035cf53bae362a1988368",
+    "app/components/Footer.tsx": "a91233e4f48773671f52bbfb96fe28bff78e5f729d18a22d8b492fcaff64d97e",
+    "app/components/Hero.tsx": "c07d0628c34b8669402edfe900c07e290d83dcf64c746a8ae7aa6614c82afbb3",
+    "app/components/Nav.tsx": "36e7f8ffb816dbab429d31f0795df93825cc4b0b1622f439f7e180720a969bb3",
+    "app/components/ProjectIndex.tsx": "614e542bb0c6908f65a1882536f91d6d854226cbc41263df37f8ea8960e00311",
+    "app/components/ui/LanguageToggle.tsx": "0fae3a4bb562042e0671b845bbde271fac4228669e792f32b4297c5018647979",
+    "app/components/ui/Reveal.tsx": "5a7003fa5be30552cb516ea640e3ece152da9abc26a10c5ea92477350db98aab",
+    "app/components/ui/SectionHeading.tsx": "92d31510236f16657c2316e3fd7d1bc8155587aa2cc88fbcf115d2130a1a7191",
+    "app/content/domains.ts": "930a4841a840c784ede44cff17fbc2ee1c4ee30d5727660dcce6426a4150857a",
+    "app/content/projects.ts": "20a4c1da5495f31571592af66b7cefe4012cc83ef0e00e848a8a729a430368de",
+    "app/content/site.ts": "d268a4d3bfafa1e70d1c9782ac70ffc263d619a64e16a8212a131998fa80c0c1",
+    "app/fonts.ts": "bae4ee5697d5877de682fbed0c7a687c2fa43e97227e156832459b585fde7bdc",
+    "app/i18n/LanguageProvider.tsx": "0f42bc29e68fad4e3d53378fa859531bd6b911ee3291670c543e6b9e38bae191",
+    "app/layout.tsx": "7159dc722dcce254b614f174a98586c4f88788ba03e38a4284ca356609722705",
+    "app/page.tsx": "efd056deff282508e5986a2a6c54f83d9d6abcd4e8d9fd38351ce26fcaeec4be",
+    "app/projects/Accordion.tsx": "699d2efde4b3c47f8b39648b94d6af4076005c74124653755fa311ec0a87fe60",
+    "app/projects/Markdown.tsx": "1bf0140f4644bfc09a7590bab73b3279cc8c62c4c92f3418d7f1aae81977b1e7",
+    "app/projects/ProjectDetail.tsx": "fff3502424d1c86dedd461c778f401e6427dc9ae2be9f4c1ce2bf378130201c5",
+    "app/projects/TOC.tsx": "f6edd3a736e23dd6399698e80404f1fa1795dd6d5f66a0b4567b36175e87f5f0",
+    "app/projects/[slug]/layout.tsx": "8dafda71515fabac14af6e4f450fe97083cbb03eab5a131d2b604285555ce59d",
+    "app/projects/[slug]/page.tsx": "a10e41e92063bac3ddba044415f85b0f078886a4cb7fa1f49c455314dba84537",
+    "eslint.config.mjs": "214e03d17a468b58d09463ddafcc0453219000dcd341624eb67a53d9bd71ea4f",
+    "lib/utils.ts": "8247f09dfbeee55e165fd35e5c8d342044ea75e1b6b4ffcba80dcfe8a5aa4fbc",
+    "next.config.ts": "cffa485cc39e35da1ff735d42c7a4e13fddb619d7d284a6ecced9e971a1e7f12",
+    "postcss.config.mjs": "28a2e2028ed86bc42f1b4af4ea55278d0b89c5984c27c52fe738d8d0dd326085"
+  },
+  "indexed_at_commit": "067efd33d51c718ef4fd9c7629a1a1dbe8684045",
+  "indexed_at_timestamp": "2026-10-24T14:28:11.062882600+00:00",
+  "schema_version": 3,
+  "stats": {
+    "total_edges": 46,
+    "total_files": 26,
+    "total_nodes": 41
+  },
+  "vexp_version": "2.0.4"
+}
