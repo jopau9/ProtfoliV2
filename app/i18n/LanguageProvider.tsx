@@ -18,12 +18,15 @@ export const LOCALES: Locale[] = ["ca", "es", "en"];
 
 const STORAGE_KEY = "jp-locale";
 const DEFAULT_LOCALE: Locale = "ca";
+/** Per a navegadors en un idioma que no oferim (francès, alemany...). */
+const FALLBACK_LOCALE: Locale = "en";
 
 /* ------------------------------------------------------------------
  * Store extern mínim.
  * La preferència viu a localStorage, fora de React: el servidor sempre
  * renderitza en català i el client s'hi sincronitza en hidratar-se,
  * que és justament el cas d'ús de `useSyncExternalStore`.
+ * Sense tria desada, s'agafa l'idioma del navegador.
  * ------------------------------------------------------------------ */
 
 let cached: Locale = DEFAULT_LOCALE;
@@ -33,14 +36,26 @@ function isLocale(value: unknown): value is Locale {
   return LOCALES.includes(value as Locale);
 }
 
+/** Primer idioma preferit del navegador que oferim, mirant només el codi base ("ca-ES" → "ca"). */
+function detectBrowserLocale(): Locale {
+  const preferred = navigator.languages?.length
+    ? navigator.languages
+    : [navigator.language];
+  for (const tag of preferred) {
+    const base = tag?.toLowerCase().split("-")[0];
+    if (isLocale(base)) return base;
+  }
+  return FALLBACK_LOCALE;
+}
+
 function readStorage(): Locale {
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    return isLocale(stored) ? stored : DEFAULT_LOCALE;
+    if (isLocale(stored)) return stored;
   } catch {
-    // Mode privat o storage bloquejat: es cau al valor per defecte.
-    return DEFAULT_LOCALE;
+    // Mode privat o storage bloquejat: es fa servir l'idioma del navegador.
   }
+  return detectBrowserLocale();
 }
 
 function subscribe(onChange: () => void) {
