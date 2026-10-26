@@ -69,26 +69,33 @@ export default function Domains() {
                   </span>
                 </div>
 
-                {/* Columna dreta: resum, punts concrets i stack */}
+                {/* Columna dreta: resum, casos per lloc i stack */}
                 <div className="lg:col-span-7">
                   <p className="type-body measure text-muted">
                     {t(domain.summary)}
                   </p>
 
-                  <ul className="mt-7 space-y-2.5">
-                    {t(domain.points).map((point) => (
-                      <li
-                        key={point}
-                        className="type-body flex gap-3 text-ink/80"
-                      >
-                        <span
-                          aria-hidden
-                          className="mt-[0.7em] h-px w-3 shrink-0 bg-accent/60"
-                        />
-                        <span className="measure">{point}</span>
-                      </li>
+                  <div className="mt-8 space-y-7">
+                    {domain.cases.map(({ place, points }) => (
+                      <div key={place}>
+                        <p className="type-label text-accent">{place}</p>
+                        <ul className="mt-3 space-y-2.5">
+                          {t(points).map((point) => (
+                            <li
+                              key={point}
+                              className="type-body flex gap-3 text-ink/80"
+                            >
+                              <span
+                                aria-hidden
+                                className="mt-[0.7em] h-px w-3 shrink-0 bg-accent/60"
+                              />
+                              <span className="measure">{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
 
                   <div className="mt-8 flex flex-wrap gap-2">
                     {domain.stack.map((tool) => (

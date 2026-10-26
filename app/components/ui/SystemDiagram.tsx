@@ -12,12 +12,9 @@ type Diagram = NonNullable<Project["diagram"]>;
  */
 export default function SystemDiagram({
   diagram,
-  large = false,
   className = "",
 }: {
   diagram: Diagram;
-  /** Escala l'esquema quan ocupa una peça gran (llistat de destacats). */
-  large?: boolean;
   className?: string;
 }) {
   const t = useT();
@@ -36,11 +33,7 @@ export default function SystemDiagram({
         }}
       />
 
-      <div
-        className={`relative flex w-full max-w-lg flex-col items-center ${
-          large ? "md:scale-110 lg:scale-[1.3]" : ""
-        }`}
-      >
+      <div className="relative flex w-full max-w-lg flex-col items-center">
         <Tier label={t(ui.diagramSources)} items={t(diagram.inputs)} />
         <Connector />
 

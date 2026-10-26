@@ -153,14 +153,6 @@ body {
     font-weight: 500;
   }
 
-  /* Títol de projecte destacat: entre h1 i h2 */
-  .type-feature {
-    font-size: clamp(1.875rem, 3.4vw, 3.25rem);
-    line-height: 1.02;
-    letter-spacing: -0.035em;
-    font-weight: 500;
-  }
-
   .type-h1 {
     font-size: clamp(2rem, 5.5vw, 4.25rem);
     line-height: 1;

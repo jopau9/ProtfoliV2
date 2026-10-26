@@ -15,8 +15,8 @@ import MediaCanvas from "./ui/MediaCanvas";
 import SystemDiagram from "./ui/SystemDiagram";
 
 /**
- * La jerarquia la fa la mida, no el text: els destacats són una imatge
- * gran a tota amplada amb el títol a sobre; la resta, una graella petita.
+ * La jerarquia la fa la mida, no el text: els destacats van de dos en dos,
+ * amb el títol a sobre d'una peça gran; la resta, una graella petita.
  */
 export default function ProjectIndex() {
   const t = useT();
@@ -33,16 +33,24 @@ export default function ProjectIndex() {
         accent={heading.accent}
       />
 
-      <ul className="mt-20 space-y-20 md:space-y-28">
+      {/* Cada targeta és una subgraella de dues files (títol i peça): així les
+          peces comencen i acaben a la mateixa alçada encara que un títol ocupi
+          més línies que l'altre. */}
+      <ul className="mt-20 grid gap-y-16 md:grid-cols-2 md:gap-x-8 lg:gap-x-10">
         {featured.map((project, i) => (
-          <Reveal as="li" key={project.slug}>
+          <Reveal
+            as="li"
+            key={project.slug}
+            delay={0.06 * (i % 2)}
+            className="md:row-span-2 md:grid md:grid-rows-subgrid md:gap-y-7"
+          >
             <FeaturedCard project={project} index={i} />
           </Reveal>
         ))}
       </ul>
 
       {others.length > 0 && (
-        <div className="mt-28 md:mt-36">
+        <div className="mt-20 md:mt-24">
           <Reveal className="flex items-center gap-5">
             <span className="type-label text-muted">
               {t(workSection.othersLabel)}
@@ -79,44 +87,47 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
   const first = project.images?.[0];
 
   return (
-    <Link href={`/projects/${project.slug}`} className="group block">
-      {/* Títol a dalt, imatge a sota */}
-      <div className="flex items-end justify-between gap-6">
+    <Link
+      href={`/projects/${project.slug}`}
+      className="group block md:row-span-2 md:grid md:grid-rows-subgrid"
+    >
+      {/* Títol a dalt, arran de la peça encara que l'altre títol sigui més alt */}
+      <div className="flex items-end justify-between gap-6 md:self-end">
         <div>
           <Meta project={project} index={index} />
-          <h3 className="type-feature mt-4 text-ink text-balance transition-colors duration-300 group-hover:text-accent">
+          <h3 className="type-h2 mt-4 text-ink text-balance transition-colors duration-300 group-hover:text-accent">
             {t(project.title)}
           </h3>
         </div>
 
         <span
           aria-hidden
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line-strong text-ink transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-canvas md:h-14 md:w-14"
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line-strong text-ink transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-canvas"
         >
           <span className="transition-transform duration-300 group-hover:translate-x-0.5">
             →
           </span>
         </span>
+        <span className="sr-only">{t(ui.viewProject)}</span>
       </div>
 
-      <div className="mt-7 overflow-hidden rounded-2xl border border-line bg-surface transition-colors duration-500 group-hover:border-line-strong">
+      {/* Al mòbil, proporció fixa; en dues columnes, la fila iguala l'alçada de les dues peces. */}
+      <div className="mt-7 overflow-hidden rounded-2xl border border-line bg-surface transition-colors duration-500 group-hover:border-line-strong md:mt-0">
         {first ? (
-          <div className="relative aspect-[16/9]">
+          <div className="relative aspect-[16/10] md:aspect-auto md:h-full md:min-h-[22rem]">
             <MediaCanvas media={first} alt={t(project.title)} />
           </div>
         ) : project.diagram ? (
           <SystemDiagram
             diagram={project.diagram}
-            large
-            className="min-h-[26rem] sm:aspect-[16/9] sm:min-h-0"
+            className="min-h-[22rem] md:h-full"
           />
         ) : (
-          <div className="flex aspect-[16/9] items-center justify-center bg-elevated">
+          <div className="flex aspect-[16/10] items-center justify-center bg-elevated md:aspect-auto md:h-full md:min-h-[22rem]">
             <span className="type-label text-faint">{t(ui.noPreview)}</span>
           </div>
         )}
       </div>
-      <span className="sr-only">{t(ui.viewProject)}</span>
     </Link>
   );
 }
