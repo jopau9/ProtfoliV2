@@ -26,11 +26,13 @@ export const identity = {
   cv: "/PDF/CV_JoanPau.pdf",
 };
 
-export const nav: { id: string; label: L }[] = [
-  { id: "work", label: { ca: "Projectes", es: "Proyectos", en: "Work" } },
-  { id: "domains", label: { ca: "Àmbits", es: "Ámbitos", en: "Expertise" } },
-  { id: "about", label: { ca: "Trajectòria", es: "Trayectoria", en: "About" } },
-  { id: "contact", label: { ca: "Contacte", es: "Contacto", en: "Contact" } },
+// Rutes absolutes: des de la fitxa d'un projecte també han de portar a la portada.
+export const nav: { href: string; label: L }[] = [
+  { href: "/#work", label: { ca: "Projectes", es: "Proyectos", en: "Work" } },
+  { href: "/#domains", label: { ca: "Àmbits", es: "Ámbitos", en: "Expertise" } },
+  { href: "/#about", label: { ca: "Trajectòria", es: "Trayectoria", en: "About" } },
+  { href: "/#contact", label: { ca: "Contacte", es: "Contacto", en: "Contact" } },
+  { href: "/serveis", label: { ca: "Serveis", es: "Servicios", en: "Services" } },
 ];
 
 export const hero = {

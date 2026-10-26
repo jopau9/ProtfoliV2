@@ -44,6 +44,20 @@
      sense repintar, perquè el scroll no se'n ressenti. */
   --animate-marquee: slide-half 48s linear infinite;
 
+  /* Resultat de les demos de serveis: apareix pujant una mica */
+  --animate-demo-in: demo-in 0.6s ease-out;
+
+  @keyframes demo-in {
+    from {
+      transform: translateY(0.5rem);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
   @keyframes slide-half {
     from {
       transform: translateX(0);
