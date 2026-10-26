@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
 import {
   nextProjectOf,
   publishedProjects,
@@ -11,6 +12,7 @@ import { ui } from "../content/site";
 import { useT } from "../i18n/LanguageProvider";
 import Reveal from "../components/ui/Reveal";
 import SystemDiagram from "../components/ui/SystemDiagram";
+import { useResumePosition } from "../components/ui/videoPosition";
 import Accordion from "./Accordion";
 import Gallery from "./Gallery";
 import Markdown from "./Markdown";
@@ -36,6 +38,10 @@ export default function ProjectDetail({ project }: { project: Project }) {
   const next = nextProjectOf(project);
   const position = publishedProjects.findIndex((p) => p.slug === project.slug) + 1;
   const pad = (n: number) => String(n).padStart(2, "0");
+
+  // Si el vídeo ja s'estava veient a la portada, continua des d'allà (sense so).
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useResumePosition(videoRef, project.video?.src ?? null, { autoplay: true });
 
   // Fitxa tècnica de la capçalera
   const specs: { label: string; value: React.ReactNode }[] = [
@@ -134,6 +140,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
         <Reveal delay={0.1}>
           <div className="mt-16 overflow-hidden rounded-2xl border border-line bg-black shadow-[0_40px_100px_-50px_rgba(0,0,0,0.6)]">
             <video
+              ref={videoRef}
               src={project.video.src}
               poster={project.video.poster}
               controls

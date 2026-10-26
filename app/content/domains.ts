@@ -202,18 +202,26 @@ export const domains: Domain[] = [
     stack: ["Python", "VBA", "APIs REST", "OpenAI API", "Firebase"],
   },
   {
-    id: "legacy",
+    id: "web",
     title: {
-      ca: "Modernització d'aplicacions que ja estan en ús",
-      es: "Modernización de aplicaciones que ya están en uso",
-      en: "Modernising applications already in use",
+      ca: "Creació i modernització de webs",
+      es: "Creación y modernización de webs",
+      en: "Building and modernising websites",
     },
     summary: {
-      ca: "Sovint no cal començar de zero: l'aplicació ja funciona i hi ha gent que la fa servir cada dia. La feina és entendre el codi existent, millorar-lo per parts i afegir-hi el que falta sense aturar l'activitat de ningú.",
-      es: "A menudo no hace falta empezar de cero: la aplicación ya funciona y hay gente que la usa cada día. El trabajo consiste en entender el código existente, mejorarlo por partes y añadir lo que falta sin detener la actividad de nadie.",
-      en: "Often there's no need to start from scratch: the application already works and people use it every day. The job is to understand the existing code, improve it piece by piece and add what's missing without stopping anyone's work.",
+      ca: "Una web ha de servir perquè un client trobi el que busca i contacti amb l'empresa en pocs passos, sobretot des del mòbil. Faig webs noves i renovo les que ja existeixen: l'estructura dels continguts, la part visual, els textos legals, l'allotjament i la publicació.",
+      es: "Una web tiene que servir para que un cliente encuentre lo que busca y contacte con la empresa en pocos pasos, sobre todo desde el móvil. Hago webs nuevas y renuevo las que ya existen: la estructura de los contenidos, la parte visual, los textos legales, el alojamiento y la publicación.",
+      en: "A website should let a customer find what they need and get in touch in a few steps, especially from a phone. I build new websites and revamp existing ones: content structure, visual design, legal pages, hosting and publishing.",
     },
     cases: [
+      {
+        place: "Interserveis 2022 SL",
+        points: {
+          ca: ["Web d'un servei tècnic oficial de reparació d'electrodomèstics, pensada perquè el client demani una reparació en pocs passos des del mòbil, amb els textos comercials i legals (privacitat i galetes) inclosos."],
+          es: ["Web de un servicio técnico oficial de reparación de electrodomésticos, pensada para que el cliente pida una reparación en pocos pasos desde el móvil, con los textos comerciales y legales (privacidad y cookies) incluidos."],
+          en: ["Website for an authorised appliance repair service, designed so customers can request a repair in a few steps from their phone, including the commercial copy and legal pages (privacy and cookies)."],
+        },
+      },
       {
         place: "SATB2C",
         points: {
@@ -240,7 +248,7 @@ export const domains: Domain[] = [
         },
       },
     ],
-    stack: ["PHP", "jQuery", "Cordova", "Drupal", "WordPress"],
+    stack: ["WordPress", "Drupal", "PHP", "jQuery", "Cordova", "SEO"],
   },
 ];
 

@@ -113,7 +113,17 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
 
       {/* Al mòbil, proporció fixa; en dues columnes, la fila iguala l'alçada de les dues peces. */}
       <div className="mt-7 overflow-hidden rounded-2xl border border-line bg-surface transition-colors duration-500 group-hover:border-line-strong md:mt-0">
-        {first ? (
+        {project.video ? (
+          // El vídeo de presentació omple la peça, sense so; la fitxa el continua.
+          <div className="relative aspect-[16/10] md:aspect-auto md:h-full md:min-h-[22rem]">
+            <Media
+              media={project.video}
+              alt={`${t(ui.promoVideo)} · ${t(project.title)}`}
+              resume
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+            />
+          </div>
+        ) : first ? (
           <div className="relative aspect-[16/10] md:aspect-auto md:h-full md:min-h-[22rem]">
             <MediaCanvas media={first} alt={t(project.title)} />
           </div>

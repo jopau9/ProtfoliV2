@@ -3,8 +3,8 @@
 import {
   BrainCircuit,
   Database,
+  Globe,
   Layers,
-  RefreshCcw,
   Workflow,
   type LucideIcon,
 } from "lucide-react";
@@ -19,7 +19,7 @@ const ICONS: Record<string, LucideIcon> = {
   product: Layers,
   data: Database,
   automation: Workflow,
-  legacy: RefreshCcw,
+  web: Globe,
 };
 
 export default function Domains() {
@@ -50,23 +50,24 @@ export default function Domains() {
                   className="absolute inset-x-0 -top-px h-px origin-left scale-x-0 bg-accent transition-transform duration-700 ease-out group-hover:scale-x-100"
                 />
 
-                {/* Columna esquerra: icona, títol i numeral gran de contorn */}
-                <div className="flex flex-col lg:col-span-5">
-                  <div className="flex items-start gap-4">
-                    <span className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-line bg-surface text-accent transition-colors duration-500 group-hover:border-accent/50">
+                {/* Columna esquerra: numeral de contorn, icona i títol, junts.
+                    En pantalla gran es queda fixa mentre es llegeixen els casos. */}
+                <div className="lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
+                  <div className="flex items-end gap-5">
+                    <span
+                      aria-hidden
+                      className="text-outline text-outline-hover select-none text-[clamp(3.5rem,6vw,5.5rem)] font-medium leading-[0.8] tracking-[-0.06em]"
+                    >
+                      {number}
+                    </span>
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-line bg-surface text-accent transition-colors duration-500 group-hover:border-accent/50">
                       <Icon size={18} strokeWidth={1.6} />
                     </span>
-                    <h3 className="type-h2 measure-tight text-ink text-balance">
-                      {t(domain.title)}
-                    </h3>
                   </div>
 
-                  <span
-                    aria-hidden
-                    className="text-outline text-outline-hover mt-auto hidden select-none pt-12 text-[clamp(5rem,9vw,8.5rem)] font-medium leading-[0.8] tracking-[-0.06em] lg:block"
-                  >
-                    {number}
-                  </span>
+                  <h3 className="type-h2 measure-tight mt-6 text-ink text-balance">
+                    {t(domain.title)}
+                  </h3>
                 </div>
 
                 {/* Columna dreta: resum, casos per lloc i stack */}

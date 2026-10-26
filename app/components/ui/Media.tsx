@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { Media as MediaItem } from "../../content/projects";
+import { useResumePosition } from "./videoPosition";
 
 /**
  * Imatge o vídeo de galeria. Els vídeos substitueixen els GIF i es comporten
@@ -13,14 +14,18 @@ export default function Media({
   alt,
   className = "",
   eager = false,
+  resume = false,
 }: {
   media: MediaItem;
   alt: string;
   className?: string;
   eager?: boolean;
+  /** Comparteix la posició amb el mateix vídeo en altres pàgines. */
+  resume?: boolean;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const isVideo = media.src.endsWith(".mp4");
+  useResumePosition(ref, resume && isVideo ? media.src : null);
 
   useEffect(() => {
     const video = ref.current;
