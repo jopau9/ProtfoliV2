@@ -81,7 +81,7 @@ export async function POST(request: Request) {
         `Telèfon: ${phone || "—"}`,
         `Idioma de la web: ${locale || "—"}`,
         "",
-        "Tasca que els fa perdre més temps:",
+        "La seva situació:",
         task,
       ].join("\n"),
     });

@@ -958,9 +958,9 @@ export const auditForm = {
     email: { ca: "Correu electrònic", es: "Correo electrónico", en: "Email" } satisfies L,
     phone: { ca: "Telèfon (opcional)", es: "Teléfono (opcional)", en: "Phone (optional)" } satisfies L,
     task: {
-      ca: "Quina tasca us fa perdre més temps?",
-      es: "¿Qué tarea os hace perder más tiempo?",
-      en: "Which task takes up the most time?",
+      ca: "Explica'm la teva situació",
+      es: "Cuéntame tu situación",
+      en: "Tell me about your situation",
     } satisfies L,
     taskPlaceholder: {
       ca: "Per exemple: cada setmana passem a mà les comandes que ens arriben per correu.",
