@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Check } from "lucide-react";
-import { auditForm, sectors, type SectorId } from "../content/services";
+import { FORM_ANCHOR, auditForm, getSector, type SectorId } from "../content/services";
 import { identity } from "../content/site";
 import { useLanguage } from "../i18n/LanguageProvider";
 import Reveal from "../components/ui/Reveal";
@@ -14,8 +14,8 @@ const field =
   "w-full rounded-xl border border-line bg-canvas px-4 py-3 text-[0.9375rem] text-ink placeholder:text-faint transition-colors focus:border-accent focus:outline-none";
 
 /**
- * Secció i formulari de l'auditoria. Va al final de totes les pàgines de
- * serveis amb l'ancoratge #auditoria, que és on porten tots els botons.
+ * Secció i formulari del diagnòstic. Va al final de totes les pàgines de
+ * serveis amb l'ancoratge FORM_ANCHOR, que és on porten tots els botons.
  */
 export default function AuditForm({
   index,
@@ -27,6 +27,8 @@ export default function AuditForm({
   const { locale, t } = useLanguage();
   const [status, setStatus] = useState<Status>("idle");
   const heading = t(auditForm.heading);
+  // A la pàgina d'un sector, el camp ja surt emplenat amb el nom del sector.
+  const sectorDefault = defaultSector ? t(getSector(defaultSector)?.short ?? { ca: "", es: "", en: "" }) : "";
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -46,7 +48,7 @@ export default function AuditForm({
   }
 
   return (
-    <section id="auditoria" className="shell scroll-mt-20 py-section">
+    <section id={FORM_ANCHOR} className="shell scroll-mt-20 py-section">
       <SectionHeading
         index={index}
         label={t(auditForm.label)}
@@ -93,17 +95,16 @@ export default function AuditForm({
               </Field>
 
               <Field label={t(auditForm.fields.sector)} wide>
-                <select name="sector" required defaultValue={defaultSector} className={field}>
-                  <option value="" disabled>
-                    {t(auditForm.fields.sectorPlaceholder)}
-                  </option>
-                  {sectors.map((sector) => (
-                    <option key={sector.id} value={sector.id}>
-                      {t(sector.short)}
-                    </option>
-                  ))}
-                  <option value="altres">{t(auditForm.fields.sectorOther)}</option>
-                </select>
+                {/* `key`: l'idioma es tria després de carregar, i el valor inicial ha de seguir-lo. */}
+                <input
+                  key={locale}
+                  name="sector"
+                  required
+                  maxLength={80}
+                  defaultValue={sectorDefault}
+                  placeholder={t(auditForm.fields.sectorPlaceholder)}
+                  className={field}
+                />
               </Field>
 
               <Field label={t(auditForm.fields.task)} wide>

@@ -2,11 +2,12 @@ import type { L } from "../i18n/LanguageProvider";
 import { identity } from "./site";
 
 /**
- * Serveis: la part de la web pensada per captar clients (pimes de Girona).
+ * Serveis: la part de la web pensada per captar clients com a freelance
+ * (empreses de serveis de tota Espanya; en línia, i presencial a Girona i Barcelona).
  * To no tècnic, català primer. Les demos són exemples amb dades inventades
  * i els temps, estimacions: no s'han de presentar mai com a clients reals.
  *
- * REVISAR: durada de l'auditoria, termini de resposta i textos legals.
+ * REVISAR: durada del diagnòstic, termini de resposta i textos legals.
  */
 
 export type SectorId = "gestories" | "immobiliaries" | "cliniques";
@@ -444,9 +445,9 @@ export const sectors: Sector[] = [
       en: "A clinic's front desk spends the day juggling calls, messages and rescheduling, often while dealing with someone in person. AI can handle bookings and routine questions at any hour, leaving the team free for what needs a person.",
     },
     pitch: {
-      ca: "Podem abordar qualsevol procés administratiu de la clínica i automatitzar-lo de principi a fi.",
-      es: "Podemos abordar cualquier proceso administrativo de la clínica y automatizarlo de principio a fin.",
-      en: "We can take on any admin process in your clinic and automate it from start to finish.",
+      ca: "Podem abordar qualsevol procés administratiu i informàtic de la clínica i automatitzar-lo de principi a fi.",
+      es: "Podemos abordar cualquier proceso administrativo e informático de la clínica y automatizarlo de principio a fin.",
+      en: "We can take on any admin or IT process in your clinic and automate it from start to finish.",
     },
     tasks: {
       ca: [
@@ -475,9 +476,9 @@ export const sectors: Sector[] = [
       ],
     },
     note: {
-      ca: "Les dades de salut tenen una protecció especial al RGPD. Per això, a l'auditoria decidim on es processa cada dada i, quan cal, fem servir models que funcionen en un servidor propi, sense enviar res a fora.",
-      es: "Los datos de salud tienen una protección especial en el RGPD. Por eso, en la auditoría decidimos dónde se procesa cada dato y, cuando hace falta, usamos modelos que funcionan en un servidor propio, sin enviar nada fuera.",
-      en: "Health data has special protection under the GDPR. That's why, during the audit, we decide where each piece of data is processed and, when needed, use models running on your own server without sending anything outside.",
+      ca: "Les dades de salut tenen una protecció especial al RGPD. Per això, des del primer dia decidim on es processa cada dada i, quan cal, fem servir models que funcionen en un servidor propi, sense enviar res a fora.",
+      es: "Los datos de salud tienen una protección especial en el RGPD. Por eso, desde el primer día decidimos dónde se procesa cada dato y, cuando hace falta, usamos modelos que funcionan en un servidor propio, sin enviar nada fuera.",
+      en: "Health data has special protection under the GDPR. That's why, from day one, we decide where each piece of data is processed and, when needed, use models running on your own server without sending anything outside.",
     },
     demos: [
       {
@@ -599,90 +600,223 @@ export function getSector(id: string) {
  * ------------------------------------------------------------------ */
 
 export const servicesHero = {
-  // A qui va dirigit: el visitant s'hi ha de reconèixer abans de llegir res més.
   eyebrow: {
-    ca: "Gestories · Immobiliàries · Clíniques · Girona",
-    es: "Gestorías · Inmobiliarias · Clínicas · Girona",
-    en: "Accountancy · Estate agents · Clinics · Girona",
+    ca: "IA i automatització per a empreses",
+    es: "IA y automatización para empresas",
+    en: "AI and automation for businesses",
   } satisfies L,
   headline: {
-    ca: { lead: "Que la feina", accent: "repetitiva", tail: "la faci la IA." },
-    es: { lead: "Que el trabajo", accent: "repetitivo", tail: "lo haga la IA." },
-    en: { lead: "Let AI handle the", accent: "repetitive", tail: "work." },
+    ca: { lead: "Us asseguro que el vostre negoci", accent: "està demanant", tail: "intel·ligència artificial." },
+    es: { lead: "Os aseguro que vuestro negocio", accent: "está pidiendo", tail: "inteligencia artificial." },
+    en: { lead: "I can assure you your business is", accent: "crying out for", tail: "artificial intelligence." },
   } satisfies L<{ lead: string; accent: string; tail: string }>,
-  // En primera persona i sense embuts: un compromís clar.
-  // La xifra es limita a les tasques internes: "tot el temps de feina" no es pot defensar.
-  // REVISAR: quan hi hagi un primer client, una xifra real aquí convenç més que res.
+  // Sense xifres que no es puguin defensar: les proves reals van a cada servei.
   promise: {
-    ca: "Estic segur que, després d'analitzar com treballeu per dins, podem reduir a menys de la meitat el temps que dediqueu a les tasques internes.",
-    es: "Estoy seguro de que, después de analizar cómo trabajáis por dentro, podemos reducir a menos de la mitad el tiempo que dedicáis a las tareas internas.",
-    en: "I'm confident that, once I've looked at how you work internally, we can cut the time you spend on internal tasks by more than half.",
+    ca: "La majoria d'empreses encara no han provat la intel·ligència artificial i no saben fins on els pot ajudar. Jo us ho ensenyo amb la vostra pròpia feina: analitzo com treballeu, trobo on se us en va el temps i us ho resolc de principi a fi. Mai una inversió us haurà sortit rendible tan de pressa.",
+    es: "La mayoría de empresas todavía no han probado la inteligencia artificial y no saben hasta dónde les puede ayudar. Yo os lo enseño con vuestro propio trabajo: analizo cómo trabajáis, encuentro dónde se os va el tiempo y os lo resuelvo de principio a fin. Nunca una inversión os habrá salido rentable tan rápido.",
+    en: "Most companies haven't tried artificial intelligence yet and don't know how much it could help them. I show you using your own work: I look at how you operate, find where your time goes and solve it end to end. You'll never have seen an investment pay off this fast.",
   } satisfies L,
   cta: {
-    primary: { ca: "Demana l'auditoria gratuïta", es: "Pide la auditoría gratuita", en: "Book your free audit" } satisfies L,
-    secondary: { ca: "Veure sectors", es: "Ver sectores", en: "See sectors" } satisfies L,
+    primary: { ca: "Demana el diagnòstic gratuït", es: "Pide el diagnóstico gratuito", en: "Book a free consultation" } satisfies L,
+    secondary: { ca: "Què puc fer per vosaltres", es: "Qué puedo hacer por vosotros", en: "What I can do for you" } satisfies L,
   },
-  // REVISAR: la durada i el format han de coincidir amb el que realment oferiràs.
+  // REVISAR: la durada del diagnòstic és un compromís.
   facts: {
-    ca: ["Gratuïta", "1 hora", "A Girona o en línia", "Sense compromís"],
-    es: ["Gratuita", "1 hora", "En Girona o en línea", "Sin compromiso"],
-    en: ["Free", "1 hour", "In Girona or online", "No commitment"],
+    ca: ["Diagnòstic gratuït de 45 min", "En línia a tota Espanya", "Presencial a Girona i Barcelona", "Preu tancat abans de començar"],
+    es: ["Diagnóstico gratuito de 45 min", "En línea en toda España", "Presencial en Girona y Barcelona", "Precio cerrado antes de empezar"],
+    en: ["Free 45-min consultation", "Online across Spain", "On-site in Girona and Barcelona", "Fixed price before we start"],
   } satisfies L<string[]>,
 };
 
-export const sectorsSection = {
-  label: { ca: "Sectors", es: "Sectores", en: "Sectors" } satisfies L,
+/**
+ * Serveis per tipus de problema, perquè hi encaixi qualsevol empresa de serveis.
+ * Cada un porta la prova d'on ja s'ha fet; els casos són els del portfoli.
+ * Fora dels sectors industrials (alimentari, farmacèutic, químic, manufactura,
+ * energia): són els d'AETECH i no es busquen clients freelance en aquests sectors.
+ */
+export type ServiceOffer = {
+  id: "coneixement" | "agents" | "atencio" | "producte";
+  title: L;
+  text: L;
+  examples: L<string[]>;
+  proof: { text: L; href?: string };
+};
+
+export const offerSection = {
+  label: { ca: "Serveis", es: "Servicios", en: "Services" } satisfies L,
   heading: {
-    ca: { lead: "Què pot fer la IA", accent: "al vostre sector" },
-    es: { lead: "Qué puede hacer la IA", accent: "en vuestro sector" },
-    en: { lead: "What AI can do", accent: "in your sector" },
+    ca: { lead: "Què puc fer", accent: "per vosaltres" },
+    es: { lead: "Qué puedo hacer", accent: "por vosotros" },
+    en: { lead: "What I can do", accent: "for you" },
   } satisfies L<{ lead: string; accent: string }>,
   description: {
-    ca: "Treballo sobretot amb aquests tres sectors. Si el vostre no hi és, parlem-ne igualment.",
-    es: "Trabajo sobre todo con estos tres sectores. Si el vuestro no está, hablémoslo igualmente.",
-    en: "I mainly work with these three sectors. If yours isn't here, let's talk anyway.",
+    ca: "Quatre maneres de posar la IA a treballar per a la vostra empresa. Totes les he posat a prova en casos reals, i sé com fer que funcionin també a la vostra.",
+    es: "Cuatro maneras de poner la IA a trabajar para vuestra empresa. Todas las he puesto a prueba en casos reales, y sé cómo hacer que funcionen también en la vuestra.",
+    en: "Four ways to put AI to work for your company. I've tested every one of them in real cases, and I know how to make them work in yours too.",
   } satisfies L,
-  cardCta: { ca: "Saber-ne més", es: "Saber más", en: "Learn more" } satisfies L,
+  proofLabel: { ca: "Ja ho he fet", es: "Ya lo he hecho", en: "Done before" } satisfies L,
+  proofCta: { ca: "Veure el cas", es: "Ver el caso", en: "See the case" } satisfies L,
+  items: [
+    {
+      id: "coneixement",
+      title: {
+        ca: "Un assistent que coneix la vostra empresa",
+        es: "Un asistente que conoce vuestra empresa",
+        en: "An assistant that knows your company",
+      },
+      text: {
+        ca: "La informació hi és, però repartida en correus, documents, carpetes i el cap de qui fa anys que hi treballa. Munto assistents que la troben i responen citant-ne la font, perquè qualsevol persona de l'equip resolgui un dubte sense haver d'interrompre ningú.",
+        es: "La información está, pero repartida en correos, documentos, carpetas y la cabeza de quien lleva años trabajando ahí. Monto asistentes que la encuentran y responden citando la fuente, para que cualquier persona del equipo resuelva una duda sin tener que interrumpir a nadie.",
+        en: "The information exists, but it's scattered across emails, documents, folders and the heads of people who've been there for years. I build assistants that find it and answer citing the source, so anyone on the team can clear up a question without interrupting anyone.",
+      },
+      examples: {
+        ca: ["Consultar procediments, contractes i manuals", "Saber com es va resoldre un cas semblant", "Incorporar persones noves més de pressa"],
+        es: ["Consultar procedimientos, contratos y manuales", "Saber cómo se resolvió un caso parecido", "Incorporar a personas nuevas más rápido"],
+        en: ["Looking up procedures, contracts and manuals", "Finding out how a similar case was solved", "Getting new hires up to speed faster"],
+      },
+      proof: {
+        text: {
+          ca: "En una empresa d'enginyeria, els tècnics consulten anys d'incidències i documentació. La informació rellevant que troba l'assistent ha passat del 63% al 80%.",
+          es: "En una empresa de ingeniería, los técnicos consultan años de incidencias y documentación. La información relevante que encuentra el asistente ha pasado del 63% al 80%.",
+          en: "At an engineering company, technicians query years of incidents and documentation. The share of relevant information the assistant finds has gone from 63% to 80%.",
+        },
+        href: "/projects/plataforma-ia-aetech",
+      },
+    },
+    {
+      id: "agents",
+      title: {
+        ca: "Agents que fan la feina dins dels vostres programes",
+        es: "Agentes que hacen el trabajo dentro de vuestros programas",
+        en: "Agents that do the work inside your software",
+      },
+      text: {
+        ca: "Respondre no n'hi ha prou: la IA pot llegir un correu, entendre què demana i fer-ne la feina al CRM, a l'ERP, al full de càlcul, a l'agenda o a qualsevol altre programa que feu servir. Sempre amb permisos clars i cada acció registrada.",
+        es: "Responder no basta: la IA puede leer un correo, entender qué pide y hacer el trabajo en el CRM, el ERP, la hoja de cálculo, la agenda o cualquier otro programa que uséis. Siempre con permisos claros y cada acción registrada.",
+        en: "Answering isn't enough: AI can read an email, understand what it asks for and do the work in your CRM, ERP, spreadsheet, calendar or any other software you use. Always with clear permissions and every action logged.",
+      },
+      examples: {
+        ca: ["Passar comandes i factures al programa de gestió", "Actualitzar el CRM després de cada conversa", "Preparar informes amb dades de diversos programes"],
+        es: ["Pasar pedidos y facturas al programa de gestión", "Actualizar el CRM después de cada conversación", "Preparar informes con datos de varios programas"],
+        en: ["Entering orders and invoices into your management software", "Updating the CRM after every conversation", "Preparing reports from data across several systems"],
+      },
+      proof: {
+        text: {
+          ca: "En una empresa d'enginyeria, els agents treballen directament dins dels programes de l'equip, seguint els estàndards de la casa. A VisorRP, la IA és el nucli de la gestió del servidor, integrada en tots els processos, i cada canvi que fa es pot desfer.",
+          es: "En una empresa de ingeniería, los agentes trabajan directamente dentro de los programas del equipo, siguiendo los estándares de la casa. En VisorRP, la IA es el núcleo de la gestión del servidor, integrada en todos los procesos, y cada cambio que hace se puede deshacer.",
+          en: "At an engineering company, the agents work directly inside the team's software, following in-house standards. At VisorRP, AI is the core of how the server is run, built into every process, and every change it makes can be undone.",
+        },
+        href: "/projects/visorrp",
+      },
+    },
+    {
+      id: "atencio",
+      title: {
+        ca: "Atenció al client les 24 hores",
+        es: "Atención al cliente las 24 horas",
+        en: "Customer service around the clock",
+      },
+      text: {
+        ca: "Respondre al moment, en l'idioma del client i amb el seu historial al davant, per correu, WhatsApp, xat o telèfon. La IA resol el que és habitual i passa a una persona el que no ho és, amb tot el context perquè no hagi de tornar a preguntar res.",
+        es: "Responder al momento, en el idioma del cliente y con su historial delante, por correo, WhatsApp, chat o teléfono. La IA resuelve lo habitual y pasa a una persona lo que no lo es, con todo el contexto para que no tenga que volver a preguntar nada.",
+        en: "Replying instantly, in the customer's language and with their history at hand, by email, WhatsApp, chat or phone. AI handles the routine and passes the rest to a person, with all the context so they don't have to ask again.",
+      },
+      examples: {
+        ca: ["Resoldre les consultes més habituals", "Donar i canviar cites", "Classificar les incidències i avisar qui toca"],
+        es: ["Resolver las consultas más habituales", "Dar y cambiar citas", "Clasificar las incidencias y avisar a quien corresponda"],
+        en: ["Resolving the most common enquiries", "Booking and rescheduling appointments", "Sorting incidents and alerting the right person"],
+      },
+      proof: {
+        text: {
+          ca: "A VisorRP, la IA atén els tiquets al moment, reuneix les proves de cada cas i en proposa la resolució; el que és greu sempre ho decideix una persona. També hi ha personatges que t'escolten i et contesten amb veu.",
+          es: "En VisorRP, la IA atiende los tickets al momento, reúne las pruebas de cada caso y propone la resolución; lo grave siempre lo decide una persona. También hay personajes que te escuchan y te contestan con voz.",
+          en: "At VisorRP, the AI handles tickets instantly, gathers the evidence for each case and proposes a resolution; anything serious is always decided by a person. There are also characters that listen and talk back by voice.",
+        },
+        href: "/projects/visorrp",
+      },
+    },
+    {
+      id: "producte",
+      title: {
+        ca: "IA dins del vostre producte",
+        es: "IA dentro de vuestro producto",
+        en: "AI inside your product",
+      },
+      text: {
+        ca: "Els vostres usuaris ja no volen buscar entre menús: volen demanar el que necessiten i que l'aplicació ho faci. Hi afegeixo un assistent que coneix les dades de cada usuari, l'entén amb les seves paraules i fa les accions per ell, des de preparar un pressupost fins a reservar una cita. És el que fa que un producte destaqui davant la competència.",
+        es: "Vuestros usuarios ya no quieren buscar entre menús: quieren pedir lo que necesitan y que la aplicación lo haga. Le añado un asistente que conoce los datos de cada usuario, le entiende con sus propias palabras y hace las acciones por él, desde preparar un presupuesto hasta reservar una cita. Es lo que hace que un producto destaque frente a la competencia.",
+        en: "Your users no longer want to dig through menus: they want to ask for what they need and have the app do it. I add an assistant that knows each user's data, understands them in their own words and takes actions for them, from preparing a budget to booking an appointment. It's what makes a product stand out from the competition.",
+      },
+      examples: {
+        ca: ["Un assistent dins de la vostra aplicació", "Funcions noves basades en IA", "Controlar i reduir el cost de la IA"],
+        es: ["Un asistente dentro de vuestra aplicación", "Funciones nuevas basadas en IA", "Controlar y reducir el coste de la IA"],
+        en: ["An assistant inside your app", "New AI-powered features", "Monitoring and cutting AI costs"],
+      },
+      proof: {
+        text: {
+          ca: "Capital AI, a Capital Tracker, respon preguntes com «on se'm van els diners?» i crea pressupostos treballant directament sobre les dades de cada usuari, amb cada canvi registrat per poder-lo desfer.",
+          es: "Capital AI, en Capital Tracker, responde preguntas como «¿en qué se me va el dinero?» y crea presupuestos trabajando directamente sobre los datos de cada usuario, con cada cambio registrado para poder deshacerlo.",
+          en: "Capital AI, in Capital Tracker, answers questions like \"where does my money go?\" and builds budgets working directly on each user's data, with every change logged so it can be undone.",
+        },
+        href: "/projects/finantial-tracker",
+      },
+    },
+  ] satisfies ServiceOffer[],
+};
+
+export const sectorsSection = {
+  label: { ca: "Exemples", es: "Ejemplos", en: "Examples" } satisfies L,
+  heading: {
+    ca: { lead: "Com es veu", accent: "a la pràctica" },
+    es: { lead: "Cómo se ve", accent: "en la práctica" },
+    en: { lead: "What it looks like", accent: "in practice" },
+  } satisfies L<{ lead: string; accent: string }>,
+  description: {
+    ca: "Treballo amb empreses de serveis de qualsevol sector. Aquí en teniu tres exemples:",
+    es: "Trabajo con empresas de servicios de cualquier sector. Aquí tenéis tres ejemplos:",
+    en: "I work with service businesses in any sector. Here are three examples:",
+  } satisfies L,
+  cardCta: { ca: "Veure la demo", es: "Ver la demo", en: "See the demo" } satisfies L,
 };
 
 export const processSection = {
-  label: { ca: "Com funciona", es: "Cómo funciona", en: "How it works" } satisfies L,
+  label: { ca: "Com treballem", es: "Cómo trabajamos", en: "How we work" } satisfies L,
   heading: {
-    ca: { lead: "De l'auditoria", accent: "a les hores estalviades" },
-    es: { lead: "De la auditoría", accent: "a las horas ahorradas" },
-    en: { lead: "From the audit", accent: "to hours saved" },
+    ca: { lead: "Del primer contacte", accent: "a les hores estalviades" },
+    es: { lead: "Del primer contacto", accent: "a las horas ahorradas" },
+    en: { lead: "From first call", accent: "to hours saved" },
   } satisfies L<{ lead: string; accent: string }>,
   steps: [
     {
-      title: { ca: "Auditoria gratuïta", es: "Auditoría gratuita", en: "Free audit" },
+      title: { ca: "Diagnòstic gratuït", es: "Diagnóstico gratuito", en: "Free consultation" },
       text: {
-        ca: "Una hora amb qui fa la feina, a la vostra oficina o en línia. Mirem com treballeu i on se'n va el temps.",
-        es: "Una hora con quien hace el trabajo, en vuestra oficina o en línea. Vemos cómo trabajáis y dónde se va el tiempo.",
-        en: "One hour with the people who do the work, at your office or online. We look at how you work and where the time goes.",
+        ca: "45 minuts per videotrucada o presencial. M'expliqueu com treballeu i quins són els vostres processos, i en sortiu amb una idea clara del que es pot automatitzar, encara que després no treballem junts.",
+        es: "45 minutos por videollamada o presencial. Me explicáis cómo trabajáis y cuáles son vuestros procesos, y salís con una idea clara de lo que se puede automatizar, aunque después no trabajemos juntos.",
+        en: "45 minutes by video call or in person. You tell me how you work and what your processes are, and you come away with a clear idea of what can be automated, even if we don't end up working together.",
       },
     },
     {
-      title: { ca: "Proposta", es: "Propuesta", en: "Proposal" },
+      title: { ca: "Proposta amb preu tancat", es: "Propuesta con precio cerrado", en: "Fixed-price proposal" },
       text: {
-        ca: "Us envio quines tasques es poden automatitzar, quantes hores us estalviaríeu cada mes i un preu tancat. Sense compromís.",
-        es: "Os envío qué tareas se pueden automatizar, cuántas horas os ahorraríais cada mes y un precio cerrado. Sin compromiso.",
-        en: "I send you which tasks can be automated, how many hours you'd save each month and a fixed price. No commitment.",
+        ca: "Us envio què farem, quant temps us estalviarà i quant costa. Sabeu el preu abans de començar i el podeu comparar amb l'estalvi.",
+        es: "Os envío qué haremos, cuánto tiempo os ahorrará y cuánto cuesta. Sabéis el precio antes de empezar y podéis compararlo con el ahorro.",
+        en: "I send you what we'll do, how much time it will save and what it costs. You know the price before we start and can weigh it against the savings.",
       },
     },
     {
-      title: { ca: "Posada en marxa", es: "Puesta en marcha", en: "Roll-out" },
+      title: { ca: "Construcció i posada en marxa", es: "Construcción y puesta en marcha", en: "Build and roll-out" },
       text: {
-        ca: "Us ho preparo tot, us ho mostro funcionant i comencem.",
-        es: "Os lo preparo todo, os lo enseño funcionando y empezamos.",
-        en: "I get everything ready, show it to you working, and we start.",
+        ca: "Ho connecto als programes que ja feu servir i ho provem amb casos reals vostres abans d'activar-ho. A Girona i Barcelona, presencialment quan cal; a la resta d'Espanya, en línia.",
+        es: "Lo conecto a los programas que ya usáis y lo probamos con casos reales vuestros antes de activarlo. En Girona y Barcelona, presencialmente cuando hace falta; en el resto de España, en línea.",
+        en: "I connect it to the software you already use and we test it on your real cases before switching it on. In Girona and Barcelona, on-site when needed; elsewhere in Spain, online.",
       },
     },
     {
-      title: { ca: "Seguiment", es: "Seguimiento", en: "Follow-up" },
+      title: { ca: "Formació i seguiment", es: "Formación y seguimiento", en: "Training and follow-up" },
       text: {
-        ca: "Mesurem les hores que realment s'estalvien i ajustem el que calgui. Si funciona, passem a la tasca següent.",
-        es: "Medimos las horas que realmente se ahorran y ajustamos lo que haga falta. Si funciona, pasamos a la siguiente tarea.",
-        en: "We measure the hours actually saved and adjust whatever's needed. If it works, we move on to the next task.",
+        ca: "Formo l'equip perquè ho faci servir, mesurem l'estalvi real i ajustem el que calgui.",
+        es: "Formo al equipo para que lo use, medimos el ahorro real y ajustamos lo que haga falta.",
+        en: "I train the team to use it, we measure the real savings and adjust whatever's needed.",
       },
     },
   ] satisfies { title: L; text: L }[],
@@ -696,9 +830,9 @@ export const aboutSection = {
     en: { lead: "Who's", accent: "behind it" },
   } satisfies L<{ lead: string; accent: string }>,
   text: {
-    ca: "Soc Joan Pau Rahola, enginyer informàtic per la Universitat de Girona. Dissenyo i poso en marxa solucions d'IA en una empresa d'enginyeria i, a part, ajudo petites organitzacions a dedicar menys hores a tasques que no aporten res. Parlo el vostre idioma, també el no tècnic, i soc a prop per venir a l'oficina.",
-    es: "Soy Joan Pau Rahola, ingeniero informático por la Universitat de Girona. Diseño y pongo en marcha soluciones de IA en una empresa de ingeniería y, aparte, ayudo a pequeñas organizaciones a dedicar menos horas a tareas que no aportan nada. Hablo vuestro idioma, también el no técnico, y estoy cerca para ir a la oficina.",
-    en: "I'm Joan Pau Rahola, a computer engineer from the University of Girona. I design and roll out AI solutions at an engineering company and, separately, help small organisations spend fewer hours on tasks that add nothing. I speak your language, including the non-technical one, and I'm close enough to come to your office.",
+    ca: "Soc Joan Pau Rahola, enginyer informàtic i arquitecte de solucions d'IA. Dissenyo i mantinc la plataforma d'IA d'una empresa d'enginyeria, que els seus equips fan servir cada dia, i he creat productes amb IA que tenen usuaris reals. Treballo en línia amb empreses de tota Espanya i presencialment a Girona i Barcelona. Parlo el vostre idioma, també el no tècnic.",
+    es: "Soy Joan Pau Rahola, ingeniero informático y arquitecto de soluciones de IA. Diseño y mantengo la plataforma de IA de una empresa de ingeniería, que sus equipos usan cada día, y he creado productos con IA que tienen usuarios reales. Trabajo en línea con empresas de toda España y presencialmente en Girona y Barcelona. Hablo vuestro idioma, también el no técnico.",
+    en: "I'm Joan Pau Rahola, a computer engineer and AI solutions architect. I design and maintain the AI platform of an engineering company, used every day by its teams, and I've built AI products with real users. I work online with businesses across Spain and on-site in Girona and Barcelona. I speak your language, including the non-technical one.",
   } satisfies L,
   // La trajectòria ve de content/site.ts (about.timeline): una sola font per al CV.
   portfolio: { ca: "Veure el portfoli complet", es: "Ver el portfolio completo", en: "See the full portfolio" } satisfies L,
@@ -714,14 +848,26 @@ export const faqSection = {
   items: [
     {
       q: {
+        ca: "No en sabem res, d'IA. És un problema?",
+        es: "No sabemos nada de IA. ¿Es un problema?",
+        en: "We know nothing about AI. Is that a problem?",
+      },
+      a: {
+        ca: "Gens. No cal saber-ne ni tenir ningú tècnic a l'equip. Partim de com treballeu avui, amb els programes i els documents que ja teniu: la part tècnica la porto jo, i a vosaltres només us cal explicar-me com feu la feina.",
+        es: "En absoluto. No hace falta saber de IA ni tener a nadie técnico en el equipo. Partimos de cómo trabajáis hoy, con los programas y los documentos que ya tenéis: la parte técnica la llevo yo, y vosotros solo tenéis que explicarme cómo hacéis el trabajo.",
+        en: "Not at all. You don't need to know about AI or have anyone technical on the team. We start from how you work today, with the software and documents you already have: I handle the technical side, and all you need to do is explain how you work.",
+      },
+    },
+    {
+      q: {
         ca: "Hem de canviar els programes que fem servir?",
         es: "¿Tenemos que cambiar los programas que usamos?",
         en: "Do we have to change the software we use?",
       },
       a: {
-        ca: "Normalment no. La idea és connectar-se al que ja teniu (el correu, WhatsApp, el programa de comptabilitat o de gestió, l'agenda) i estalviar-vos els passos manuals entre un i altre. Si en algun cas cal un canvi, ho veurem a l'auditoria i en sabreu el motiu.",
-        es: "Normalmente no. La idea es conectarse a lo que ya tenéis (el correo, WhatsApp, el programa de contabilidad o de gestión, la agenda) y ahorraros los pasos manuales entre uno y otro. Si en algún caso hace falta un cambio, lo veremos en la auditoría y sabréis el motivo.",
-        en: "Usually not. The idea is to connect to what you already have (email, WhatsApp, your accounting or management software, your calendar) and save you the manual steps in between. If a change is ever needed, we'll see it in the audit and you'll know why.",
+        ca: "Normalment no. La idea és connectar-se al que ja teniu (el correu, WhatsApp, el CRM, el programa de gestió, l'agenda) i estalviar-vos els passos manuals entre un i altre. Si en algun cas cal un canvi, ho veurem al diagnòstic i en sabreu el motiu.",
+        es: "Normalmente no. La idea es conectarse a lo que ya tenéis (el correo, WhatsApp, el CRM, el programa de gestión, la agenda) y ahorraros los pasos manuales entre uno y otro. Si en algún caso hace falta un cambio, lo veremos en el diagnóstico y sabréis el motivo.",
+        en: "Usually not. The idea is to connect to what you already have (email, WhatsApp, your CRM, your management software, your calendar) and save you the manual steps in between. If a change is ever needed, we'll see it in the consultation and you'll know why.",
       },
     },
     {
@@ -731,17 +877,29 @@ export const faqSection = {
         en: "Is our clients' data safe?",
       },
       a: {
-        ca: "Cada solució es dissenya d'acord amb el RGPD. A l'auditoria decidim on es processen les dades segons el tipus d'informació: amb proveïdors amb servidors a la Unió Europea o, si cal més control (per exemple, amb dades de salut), amb models que funcionen en un servidor propi.",
-        es: "Cada solución se diseña de acuerdo con el RGPD. En la auditoría decidimos dónde se procesan los datos según el tipo de información: con proveedores con servidores en la Unión Europea o, si hace falta más control (por ejemplo, con datos de salud), con modelos que funcionan en un servidor propio.",
-        en: "Every solution is designed in line with the GDPR. In the audit we decide where data is processed depending on the type of information: with providers whose servers are in the European Union or, when more control is needed (for example with health data), with models running on your own server.",
+        ca: "Cada solució es dissenya d'acord amb el RGPD. Al principi decidim on es processen les dades segons el tipus d'informació: amb proveïdors amb servidors a la Unió Europea o, si cal més control, amb models que funcionen als vostres servidors, sense enviar res a fora.",
+        es: "Cada solución se diseña de acuerdo con el RGPD. Al principio decidimos dónde se procesan los datos según el tipo de información: con proveedores con servidores en la Unión Europea o, si hace falta más control, con modelos que funcionan en vuestros servidores, sin enviar nada fuera.",
+        en: "Every solution is designed in line with the GDPR. At the start we decide where data is processed depending on the type of information: with providers whose servers are in the European Union or, when more control is needed, with models running on your own servers, sending nothing outside.",
+      },
+    },
+    {
+      q: {
+        ca: "I si la IA s'equivoca?",
+        es: "¿Y si la IA se equivoca?",
+        en: "What if the AI gets it wrong?",
+      },
+      a: {
+        ca: "Per això la dissenyo amb límits: la IA proposa, prepara i resumeix, però el que té conseqüències, com un pagament o una resposta delicada, ho valida una persona. Cada acció queda registrada i, sempre que es pot, es pot desfer.",
+        es: "Por eso la diseño con límites: la IA propone, prepara y resume, pero lo que tiene consecuencias, como un pago o una respuesta delicada, lo valida una persona. Cada acción queda registrada y, siempre que se puede, se puede deshacer.",
+        en: "That's why I design it with limits: the AI proposes, prepares and summarises, but anything with consequences, such as a payment or a sensitive reply, is approved by a person. Every action is logged and, wherever possible, can be undone.",
       },
     },
     {
       q: { ca: "Quant costa?", es: "¿Cuánto cuesta?", en: "How much does it cost?" },
       a: {
-        ca: "L'auditoria és gratuïta. Després us faig una proposta amb preu tancat per a cada tasca, de manera que en sabeu el cost abans de començar i el podeu comparar amb les hores que us estalviareu.",
-        es: "La auditoría es gratuita. Después os hago una propuesta con precio cerrado para cada tarea, de modo que conocéis el coste antes de empezar y podéis compararlo con las horas que os ahorraréis.",
-        en: "The audit is free. Afterwards I send you a fixed-price proposal for each task, so you know the cost before we start and can weigh it against the hours you'll save.",
+        ca: "El diagnòstic és gratuït. Després us envio una proposta amb preu tancat, de manera que en sabeu el cost abans de començar i el podeu comparar amb el temps que us estalviareu.",
+        es: "El diagnóstico es gratuito. Después os envío una propuesta con precio cerrado, de modo que conocéis el coste antes de empezar y podéis compararlo con el tiempo que os ahorraréis.",
+        en: "The consultation is free. Afterwards I send you a fixed-price proposal, so you know the cost before we start and can weigh it against the time you'll save.",
       },
     },
     {
@@ -751,45 +909,52 @@ export const faqSection = {
         en: "How long until we see results?",
       },
       a: {
-        ca: "L'objectiu és tenir la primera tasca funcionant en poques setmanes, no en mesos. Per això comencem per la que més temps us fa perdre: perquè l'estalvi es noti aviat.",
-        es: "El objetivo es tener la primera tarea funcionando en pocas semanas, no en meses. Por eso empezamos por la que más tiempo os hace perder: para que el ahorro se note pronto.",
-        en: "The aim is to have the first task running within a few weeks, not months. That's why we start with the one that wastes the most time: so the savings show early.",
+        ca: "L'objectiu és tenir el primer procés funcionant en poques setmanes, no en mesos. Per això comencem pel que més temps us fa perdre: perquè l'estalvi es noti aviat.",
+        es: "El objetivo es tener el primer proceso funcionando en pocas semanas, no en meses. Por eso empezamos por el que más tiempo os hace perder: para que el ahorro se note pronto.",
+        en: "The aim is to have the first process running within a few weeks, not months. That's why we start with the one that wastes the most time: so the savings show early.",
       },
     },
     {
-      q: { ca: "Treballes només a Girona?", es: "¿Trabajas solo en Girona?", en: "Do you only work in Girona?" },
+      q: {
+        ca: "Treballes a tota Espanya?",
+        es: "¿Trabajas en toda España?",
+        en: "Do you work across Spain?",
+      },
       a: {
-        ca: "Soc a Girona i puc venir a l'oficina a les comarques gironines. També treballo en línia amb empreses d'altres llocs.",
-        es: "Estoy en Girona y puedo ir a la oficina en las comarcas de Girona. También trabajo en línea con empresas de otros lugares.",
-        en: "I'm based in Girona and can visit offices across the province. I also work online with businesses elsewhere.",
+        ca: "Sí, en línia: el diagnòstic, les reunions i la posada en marxa es poden fer per videotrucada. Presencialment, treballo a Girona i Barcelona.",
+        es: "Sí, en línea: el diagnóstico, las reuniones y la puesta en marcha se pueden hacer por videollamada. Presencialmente, trabajo en Girona y Barcelona.",
+        en: "Yes, online: the consultation, meetings and roll-out can all be done by video call. On-site, I work in Girona and Barcelona.",
       },
     },
   ] satisfies { q: L; a: L }[],
 };
 
 /* ------------------------------------------------------------------
- * Formulari de l'auditoria
+ * Formulari del diagnòstic
  * ------------------------------------------------------------------ */
 
 export const auditForm = {
-  label: { ca: "Auditoria", es: "Auditoría", en: "Audit" } satisfies L,
+  label: { ca: "Diagnòstic", es: "Diagnóstico", en: "Consultation" } satisfies L,
   heading: {
-    ca: { lead: "Demana l'auditoria", accent: "gratuïta" },
-    es: { lead: "Pide la auditoría", accent: "gratuita" },
-    en: { lead: "Book your", accent: "free audit" },
+    ca: { lead: "Demana el diagnòstic", accent: "gratuït" },
+    es: { lead: "Pide el diagnóstico", accent: "gratuito" },
+    en: { lead: "Book your", accent: "free consultation" },
   } satisfies L<{ lead: string; accent: string }>,
   // REVISAR: el termini de resposta és un compromís.
   description: {
-    ca: "Explica'm breument a què us dediqueu i quina tasca us fa perdre més temps. Et respondré en un màxim de dos dies feiners per acordar el dia.",
-    es: "Cuéntame brevemente a qué os dedicáis y qué tarea os hace perder más tiempo. Te responderé en un máximo de dos días laborables para acordar el día.",
-    en: "Tell me briefly what you do and which task takes up the most time. I'll reply within two working days to arrange a date.",
+    ca: "Explica'm breument a què us dediqueu i quina tasca us fa perdre més temps. Et respondré en un màxim de dos dies feiners per acordar el dia i si el fem per videotrucada o presencialment.",
+    es: "Cuéntame brevemente a qué os dedicáis y qué tarea os hace perder más tiempo. Te responderé en un máximo de dos días laborables para acordar el día y si lo hacemos por videollamada o en persona.",
+    en: "Tell me briefly what you do and which task takes up the most time. I'll reply within two working days to arrange a day and whether we meet by video call or in person.",
   } satisfies L,
   fields: {
     name: { ca: "Nom i cognoms", es: "Nombre y apellidos", en: "Full name" } satisfies L,
     company: { ca: "Empresa", es: "Empresa", en: "Company" } satisfies L,
     sector: { ca: "Sector", es: "Sector", en: "Industry" } satisfies L,
-    sectorPlaceholder: { ca: "Tria'n un", es: "Elige uno", en: "Choose one" } satisfies L,
-    sectorOther: { ca: "Un altre", es: "Otro", en: "Other" } satisfies L,
+    sectorPlaceholder: {
+      ca: "Per exemple: assessoria, clínica, comerç en línia…",
+      es: "Por ejemplo: asesoría, clínica, comercio online…",
+      en: "For example: accountancy, clinic, e-commerce…",
+    } satisfies L,
     email: { ca: "Correu electrònic", es: "Correo electrónico", en: "Email" } satisfies L,
     phone: { ca: "Telèfon (opcional)", es: "Teléfono (opcional)", en: "Phone (optional)" } satisfies L,
     task: {
@@ -798,9 +963,9 @@ export const auditForm = {
       en: "Which task takes up the most time?",
     } satisfies L,
     taskPlaceholder: {
-      ca: "Per exemple: cada mes passem a mà les factures que ens envien els clients.",
-      es: "Por ejemplo: cada mes pasamos a mano las facturas que nos envían los clientes.",
-      en: "For example: every month we type in the invoices our clients send us by hand.",
+      ca: "Per exemple: cada setmana passem a mà les comandes que ens arriben per correu.",
+      es: "Por ejemplo: cada semana pasamos a mano los pedidos que nos llegan por correo.",
+      en: "For example: every week we type in the orders that arrive by email by hand.",
     } satisfies L,
     consent: {
       ca: "Accepto que em contactis per respondre aquesta sol·licitud.",
@@ -810,17 +975,17 @@ export const auditForm = {
   },
   // Primera capa d'informació del RGPD. REVISAR amb una política de privacitat completa.
   privacy: {
-    ca: `Responsable: Joan Pau Rahola Ferrer. Finalitat: respondre la teva sol·licitud i preparar l'auditoria. No es cedeixen dades a tercers. Pots accedir a les teves dades, rectificar-les o demanar que s'esborrin escrivint a ${identity.email}.`,
-    es: `Responsable: Joan Pau Rahola Ferrer. Finalidad: responder a tu solicitud y preparar la auditoría. No se ceden datos a terceros. Puedes acceder a tus datos, rectificarlos o pedir que se borren escribiendo a ${identity.email}.`,
-    en: `Controller: Joan Pau Rahola Ferrer. Purpose: replying to your request and preparing the audit. Your data is not shared with third parties. You can access, correct or ask for deletion of your data by writing to ${identity.email}.`,
+    ca: `Responsable: Joan Pau Rahola Ferrer. Finalitat: respondre la teva sol·licitud i preparar el diagnòstic. No es cedeixen dades a tercers. Pots accedir a les teves dades, rectificar-les o demanar que s'esborrin escrivint a ${identity.email}.`,
+    es: `Responsable: Joan Pau Rahola Ferrer. Finalidad: responder a tu solicitud y preparar el diagnóstico. No se ceden datos a terceros. Puedes acceder a tus datos, rectificarlos o pedir que se borren escribiendo a ${identity.email}.`,
+    en: `Controller: Joan Pau Rahola Ferrer. Purpose: replying to your request and preparing the consultation. Your data is not shared with third parties. You can access, correct or ask for deletion of your data by writing to ${identity.email}.`,
   } satisfies L,
   submit: { ca: "Envia la sol·licitud", es: "Enviar solicitud", en: "Send request" } satisfies L,
   sending: { ca: "S'està enviant…", es: "Enviando…", en: "Sending…" } satisfies L,
   sentTitle: { ca: "Sol·licitud rebuda", es: "Solicitud recibida", en: "Request received" } satisfies L,
   sentText: {
-    ca: "Gràcies. T'escriuré en un màxim de dos dies feiners per acordar el dia de l'auditoria.",
-    es: "Gracias. Te escribiré en un máximo de dos días laborables para acordar el día de la auditoría.",
-    en: "Thank you. I'll write within two working days to arrange the audit.",
+    ca: "Gràcies. T'escriuré en un màxim de dos dies feiners per acordar el dia del diagnòstic.",
+    es: "Gracias. Te escribiré en un máximo de dos días laborables para acordar el día del diagnóstico.",
+    en: "Thank you. I'll write within two working days to arrange the consultation.",
   } satisfies L,
   error: {
     ca: "No s'ha pogut enviar. Torna-ho a provar o escriu-me directament a",
@@ -833,19 +998,22 @@ export const auditForm = {
  * Navegació, pàgina de sector, demo i peu
  * ------------------------------------------------------------------ */
 
+/** On porten tots els botons de contacte: el formulari, al final de cada pàgina de serveis. */
+export const FORM_ANCHOR = "diagnostic";
+
 export const servicesNav: { href: string; label: L }[] = [
-  { href: "/serveis#sectors", label: { ca: "Sectors", es: "Sectores", en: "Sectors" } },
-  { href: "/serveis#com-funciona", label: { ca: "Com funciona", es: "Cómo funciona", en: "How it works" } },
+  { href: "/serveis#serveis", label: { ca: "Serveis", es: "Servicios", en: "Services" } },
+  { href: "/serveis#com-funciona", label: { ca: "Com treballem", es: "Cómo trabajamos", en: "How we work" } },
   { href: "/serveis#preguntes", label: { ca: "Preguntes", es: "Preguntas", en: "Questions" } },
   { href: "/", label: { ca: "Portfoli", es: "Portfolio", en: "Portfolio" } },
 ];
 
 export const servicesCta = {
-  short: { ca: "Auditoria gratuïta", es: "Auditoría gratuita", en: "Free audit" } satisfies L,
+  short: { ca: "Diagnòstic gratuït", es: "Diagnóstico gratuito", en: "Free consultation" } satisfies L,
 };
 
 export const sectorPage = {
-  back: { ca: "Tots els sectors", es: "Todos los sectores", en: "All sectors" } satisfies L,
+  back: { ca: "Tots els serveis", es: "Todos los servicios", en: "All services" } satisfies L,
   demoLabel: { ca: "Demo", es: "Demo", en: "Demo" } satisfies L,
   demoHeading: {
     ca: { lead: "Mireu-ho", accent: "en acció" },
@@ -878,9 +1046,9 @@ export const demoUi = {
 
 export const servicesFooter = {
   tagline: {
-    ca: "IA aplicada per a empreses de les comarques de Girona.",
-    es: "IA aplicada para empresas de las comarcas de Girona.",
-    en: "Applied AI for businesses around Girona.",
+    ca: "IA i automatització per a empreses. En línia a tota Espanya; presencial a Girona i Barcelona.",
+    es: "IA y automatización para empresas. En línea en toda España; presencial en Girona y Barcelona.",
+    en: "AI and automation for businesses. Online across Spain; on-site in Girona and Barcelona.",
   } satisfies L,
   portfolio: { ca: "Portfoli", es: "Portfolio", en: "Portfolio" } satisfies L,
 };

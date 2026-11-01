@@ -13,10 +13,13 @@ export default function MediaCanvas({
   media,
   alt,
   eager = false,
+  sizes,
 }: {
   media: MediaItem;
   alt: string;
   eager?: boolean;
+  /** Amplada del llenç a la pàgina (vegeu `Media`). */
+  sizes?: string;
 }) {
   if (media.fit === "cover") {
     return (
@@ -24,6 +27,7 @@ export default function MediaCanvas({
         media={media}
         alt={alt}
         eager={eager}
+        sizes={sizes}
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
       />
     );
@@ -48,6 +52,7 @@ export default function MediaCanvas({
           media={media}
           alt={alt}
           eager={eager}
+          sizes={sizes}
           className={`max-h-full max-w-full ${radius} shadow-[0_30px_80px_-30px_rgba(0,0,0,0.55)] ring-1 ring-line-strong transition-transform duration-700 ease-out group-hover:scale-[1.015]`}
         />
       </div>

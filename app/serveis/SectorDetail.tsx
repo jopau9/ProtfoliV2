@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Check, ShieldCheck } from "lucide-react";
-import { sectorPage, sectors, servicesHero, type Sector } from "../content/services";
+import { FORM_ANCHOR, sectorPage, sectors, servicesHero, type Sector } from "../content/services";
 import { useT } from "../i18n/LanguageProvider";
 import Reveal from "../components/ui/Reveal";
 import SectionHeading from "../components/ui/SectionHeading";
@@ -55,7 +55,7 @@ export default function SectorDetail({ sector }: { sector: Sector }) {
 
           <Reveal delay={0.16} className="mt-10 flex flex-wrap items-center gap-3">
             <a
-              href="#auditoria"
+              href={`#${FORM_ANCHOR}`}
               className="group inline-flex items-center gap-2.5 rounded-full bg-ink px-6 py-3.5 text-canvas transition-colors duration-300 hover:bg-accent"
             >
               <span className="type-label">{t(servicesHero.cta.primary)}</span>

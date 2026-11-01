@@ -27,6 +27,12 @@ export type Media = {
   fit?: "cover" | "contain";
   /** Captures d'un mòbil amb el marc: cantonades arrodonides com el telèfon. */
   frame?: "phone";
+  /**
+   * Amplades de les còpies reduïdes: el navegador baixa la més propera a la
+   * mida real, perquè les captures amb text no es vegin pixelades en reduir-les.
+   * La més gran és el mateix `src`; la resta, `<nom>-<amplada>.<ext>` al costat.
+   */
+  widths?: number[];
 };
 
 export type Project = {
@@ -67,6 +73,14 @@ export type Project = {
   draft?: boolean;
 };
 
+/** Còpies reduïdes de les captures del portal d'IA (vegeu `Media.widths`). */
+const portalWidths = [640, 960, 1280, 1600, 1920, 2400];
+
+/** Còpies reduïdes de les imatges de VisorRP (vegeu `Media.widths`). */
+const visorWidths = [640, 960, 1280, 1600, 1920, 2400];
+/** El fotograma del tràiler (2560×1440) retallat a 16:10 fa 2304 px: no s'amplia. */
+const visorFrameWidths = [640, 960, 1280, 1600, 1920, 2304];
+
 export const projects: Project[] = [
   {
     slug: "plataforma-ia-aetech",
@@ -81,9 +95,9 @@ export const projects: Project[] = [
       en: "A self-hosted platform for querying years of incident history and technical documentation in natural language, with agents integrated into the company's working tools.",
     },
     description: {
-      ca: "Des del juliol de 2026 soc responsable del disseny, el desenvolupament i el manteniment de la plataforma interna d'intel·ligència artificial d'AETECH, així com de la seva adopció a l'organització. La plataforma s'executa íntegrament dins de la infraestructura de l'empresa i posa a disposició dels equips tècnics el coneixement acumulat en incidències, informes i documentació, sense que cap dada surti de l'organització.",
-      es: "Desde julio de 2026 soy responsable del diseño, el desarrollo y el mantenimiento de la plataforma interna de inteligencia artificial de AETECH, así como de su adopción en la organización. La plataforma se ejecuta íntegramente dentro de la infraestructura de la empresa y pone a disposición de los equipos técnicos el conocimiento acumulado en incidencias, informes y documentación, sin que ningún dato salga de la organización.",
-      en: "Since July 2026 I've been responsible for designing, building and maintaining AETECH's internal artificial intelligence platform, as well as for its adoption across the organisation. The platform runs entirely within the company's infrastructure and gives technical teams access to the knowledge accumulated in incidents, reports and documentation, without any data leaving the organisation.",
+      ca: "Des del juliol de 2026 soc responsable del disseny, el desenvolupament i el manteniment de la plataforma interna d'intel·ligència artificial d'AETECH, així com de la seva adopció a l'organització. La plataforma s'executa íntegrament dins de la infraestructura de l'empresa i posa a disposició dels equips tècnics el coneixement acumulat en incidències, informes i documentació, sense que cap dada surti de l'organització. A més de respondre consultes, treballa dins dels programes d'enginyeria que l'equip ja fa servir: escriu codi de PLC directament als projectes de TIA Portal i Studio 5000, edita formularis d'AVEVA i crea dashboards de PI Vision a partir d'una conversa, sempre amb l'estàndard de la casa i les convencions de cada projecte.",
+      es: "Desde julio de 2026 soy responsable del diseño, el desarrollo y el mantenimiento de la plataforma interna de inteligencia artificial de AETECH, así como de su adopción en la organización. La plataforma se ejecuta íntegramente dentro de la infraestructura de la empresa y pone a disposición de los equipos técnicos el conocimiento acumulado en incidencias, informes y documentación, sin que ningún dato salga de la organización. Además de responder consultas, trabaja dentro de los programas de ingeniería que el equipo ya utiliza: escribe código de PLC directamente en los proyectos de TIA Portal y Studio 5000, edita formularios de AVEVA y crea dashboards de PI Vision a partir de una conversación, siempre con el estándar de la casa y las convenciones de cada proyecto.",
+      en: "Since July 2026 I've been responsible for designing, building and maintaining AETECH's internal artificial intelligence platform, as well as for its adoption across the organisation. The platform runs entirely within the company's infrastructure and gives technical teams access to the knowledge accumulated in incidents, reports and documentation, without any data leaving the organisation. Beyond answering questions, it works inside the engineering software the team already uses: it writes PLC code directly into TIA Portal and Studio 5000 projects, edits AVEVA forms and builds PI Vision dashboards from a conversation, always following the company's standards and each project's conventions.",
     },
     demonstrates: {
       ca: "RAG en producció amb avaluació sobre consultes reals, agents amb eines acotades i integració amb sistemes existents",
@@ -103,27 +117,10 @@ export const projects: Project[] = [
         label: { ca: "Menys memòria per sessió", es: "Menos memoria por sesión", en: "Less memory per session" },
       },
       {
-        value: "300%",
+        value: "600%",
         label: { ca: "Millora màxima d'eficiència en tasques", es: "Mejora máxima de eficiencia en tareas", en: "Peak task efficiency gain" },
       },
     ],
-    diagram: {
-      inputs: {
-        ca: ["Documentació tècnica", "Incidències", "Jira", "Microsoft 365", "TIA Portal"],
-        es: ["Documentación técnica", "Incidencias", "Jira", "Microsoft 365", "TIA Portal"],
-        en: ["Technical docs", "Incidents", "Jira", "Microsoft 365", "TIA Portal"],
-      },
-      core: {
-        ca: ["Recuperació híbrida", "Reranking", "Agents amb eines", "Multimodal", "MCP"],
-        es: ["Recuperación híbrida", "Reranking", "Agentes con herramientas", "Multimodal", "MCP"],
-        en: ["Hybrid retrieval", "Reranking", "Tool-using agents", "Multimodal", "MCP"],
-      },
-      outputs: {
-        ca: ["Assistents per àmbit", "Equips tècnics"],
-        es: ["Asistentes por ámbito", "Equipos técnicos"],
-        en: ["Domain assistants", "Technical teams"],
-      },
-    },
     tags: [
       "RAG",
       "Recuperació híbrida",
@@ -132,11 +129,21 @@ export const projects: Project[] = [
       "Multimodal",
       "TIA Portal Openness",
       "Siemens",
+      "Studio 5000",
+      "AVEVA",
       "Jira",
       "Microsoft 365",
       "Self-hosted",
     ],
-    // Plataforma interna: sense captures publicables.
+    // Captures del portal amb dades de demostració. La d'inici (assistents per
+    // àmbit) està retallada a l'aplicació i eixamplada a 16:9 perquè ompli la
+    // peça gran; la conversa amb l'agent de TIA Portal i les skills porten el
+    // fons de la composició.
+    images: [
+      { src: "/ProjectImages/PlataformaIA/inici.webp", fit: "cover", widths: portalWidths },
+      { src: "/ProjectImages/PlataformaIA/conversa.webp", fit: "cover", widths: portalWidths },
+      { src: "/ProjectImages/PlataformaIA/skills.webp", fit: "cover", widths: portalWidths },
+    ],
     sections: [
       {
         id: "visio-general",
@@ -213,14 +220,14 @@ export const projects: Project[] = [
           },
           {
             title: {
-              ca: "Agent d'integració amb TIA Portal",
-              es: "Agente de integración con TIA Portal",
-              en: "TIA Portal integration agent",
+              ca: "Agents dins de les eines d'enginyeria",
+              es: "Agentes dentro de las herramientas de ingeniería",
+              en: "Agents inside the engineering tools",
             },
             content: {
-              ca: "He desenvolupat un agent que, a través de l'API Openness de Siemens, llegeix i modifica projectes de PLC des de la interfície de xat: codi SCL, taules de variables, configuració de maquinari i xarxa PROFINET.\n\nAtès que una consulta pot traduir-se en un canvi real sobre un projecte d'automatització, el disseny prioritza la definició de límits explícits sobre allò que l'agent pot modificar i la traçabilitat completa de cada acció executada.",
-              es: "He desarrollado un agente que, a través de la API Openness de Siemens, lee y modifica proyectos de PLC desde la interfaz de chat: código SCL, tablas de variables, configuración de hardware y red PROFINET.\n\nDado que una consulta puede traducirse en un cambio real sobre un proyecto de automatización, el diseño prioriza la definición de límites explícitos sobre lo que el agente puede modificar y la trazabilidad completa de cada acción ejecutada.",
-              en: "I developed an agent that, through Siemens' Openness API, reads and modifies PLC projects from the chat interface: SCL code, tag tables, hardware configuration and PROFINET networking.\n\nSince a query can translate into a real change to an automation project, the design prioritises explicit limits on what the agent may modify and full traceability of every action it executes.",
+              ca: "Els assistents d'automatització no es limiten a proposar codi perquè l'enginyer el copiï: treballen sobre el projecte que té obert. Per als programes que s'executen a l'equip de l'enginyer, un agent local desenvolupat en C# i .NET fa de pont amb la plataforma:\n\n- **TIA Portal**: a través de l'API Openness de Siemens, llegeix i modifica codi SCL, taules de variables, configuració de maquinari i xarxa PROFINET.\n- **Studio 5000**: llegeix i programa la lògica ladder dels projectes de Rockwell.\n- **AVEVA Work Tasks**: edita els formularis.\n- **PI Vision**: crea dashboards a partir d'una conversa.\n\nAbans d'escriure, l'agent consulta l'especificació funcional, les biblioteques de la casa i el context del projecte. El codi resultant segueix les convencions de noms del client i cada canvi queda comentat amb la referència a l'especificació d'on surt, de manera que es pot revisar com el d'un company.\n\nAtès que una consulta pot traduir-se en un canvi real sobre un projecte d'automatització, el model no treballa amb els fitxers del projecte: només veu el que li retornen les eines de l'agent, que defineixen de manera explícita què es pot modificar i registren cada acció executada.",
+              es: "Los asistentes de automatización no se limitan a proponer código para que el ingeniero lo copie: trabajan sobre el proyecto que tiene abierto. Para los programas que se ejecutan en el equipo del ingeniero, un agente local desarrollado en C# y .NET hace de puente con la plataforma:\n\n- **TIA Portal**: a través de la API Openness de Siemens, lee y modifica código SCL, tablas de variables, configuración de hardware y red PROFINET.\n- **Studio 5000**: lee y programa la lógica ladder de los proyectos de Rockwell.\n- **AVEVA Work Tasks**: edita los formularios.\n- **PI Vision**: crea dashboards a partir de una conversación.\n\nAntes de escribir, el agente consulta la especificación funcional, las bibliotecas de la casa y el contexto del proyecto. El código resultante sigue las convenciones de nombres del cliente y cada cambio queda comentado con la referencia a la especificación de la que parte, de modo que se puede revisar como el de un compañero.\n\nDado que una consulta puede traducirse en un cambio real sobre un proyecto de automatización, el modelo no trabaja con los archivos del proyecto: solo ve lo que le devuelven las herramientas del agente, que definen de forma explícita qué se puede modificar y registran cada acción ejecutada.",
+              en: "The automation assistants don't just suggest code for the engineer to copy: they work on the project the engineer has open. For the programs that run on the engineer's machine, a local agent built in C# and .NET bridges them to the platform:\n\n- **TIA Portal**: through Siemens' Openness API, it reads and modifies SCL code, tag tables, hardware configuration and PROFINET networking.\n- **Studio 5000**: it reads and writes ladder logic in Rockwell projects.\n- **AVEVA Work Tasks**: it edits forms.\n- **PI Vision**: it builds dashboards from a conversation.\n\nBefore writing anything, the agent checks the functional specification, the company's libraries and the project context. The resulting code follows the client's naming conventions, and every change is commented with a reference to the specification it comes from, so it can be reviewed like a colleague's work.\n\nSince a query can translate into a real change to an automation project, the model never works on the project files directly: it only sees what the agent's tools return, and those tools define explicitly what may be modified and log every action they execute.",
             },
           },
         ],
@@ -249,9 +256,9 @@ export const projects: Project[] = [
         content: {
           // REVISAR: concreta aquí les eines exactes (quina base vectorial, quins
           // models, quin runtime) si les vols fer públiques.
-          ca: "- **Arquitectura RAG**: base de dades vectorial amb recuperació híbrida (semàntica i lèxica) i fase de reordenació.\n- **Models multimodals**: diagnòstic a partir de fotografies d'equips, quadres i plaques de característiques.\n- **MCP**: connectors propis cap a Jira i Microsoft 365.\n- **Siemens Openness API**: agent de lectura i modificació de projectes de TIA Portal (SCL, taules de variables, maquinari, PROFINET).\n- **Aïllament a nivell de sistema operatiu**: entorns separats per usuari.\n- **Desplegament autoallotjat**: tota la plataforma dins de la infraestructura d'AETECH.",
-          es: "- **Arquitectura RAG**: base de datos vectorial con recuperación híbrida (semántica y léxica) y fase de reordenación.\n- **Modelos multimodales**: diagnóstico a partir de fotografías de equipos, cuadros y placas de características.\n- **MCP**: conectores propios hacia Jira y Microsoft 365.\n- **Siemens Openness API**: agente de lectura y modificación de proyectos de TIA Portal (SCL, tablas de variables, hardware, PROFINET).\n- **Aislamiento a nivel de sistema operativo**: entornos separados por usuario.\n- **Despliegue autoalojado**: toda la plataforma dentro de la infraestructura de AETECH.",
-          en: "- **RAG architecture**: vector database with hybrid (semantic and lexical) retrieval and a reranking stage.\n- **Multimodal models**: diagnosis from photographs of equipment, cabinets and nameplates.\n- **MCP**: custom connectors to Jira and Microsoft 365.\n- **Siemens Openness API**: agent that reads and modifies TIA Portal projects (SCL, tag tables, hardware, PROFINET).\n- **OS-level isolation**: separate environments per user.\n- **Self-hosted deployment**: the entire platform within AETECH's infrastructure.",
+          ca: "- **Arquitectura RAG**: base de dades vectorial amb recuperació híbrida (semàntica i lèxica) i fase de reordenació.\n- **Models multimodals**: diagnòstic a partir de fotografies d'equips, quadres i plaques de característiques.\n- **MCP**: connectors propis cap a Jira i Microsoft 365.\n- **Agent local en C# i .NET**: integració amb TIA Portal mitjançant l'API Openness de Siemens (SCL, taules de variables, maquinari, PROFINET), Studio 5000 i AVEVA.\n- **Aïllament a nivell de sistema operatiu**: entorns separats per usuari.\n- **Desplegament autoallotjat**: tota la plataforma dins de la infraestructura d'AETECH.",
+          es: "- **Arquitectura RAG**: base de datos vectorial con recuperación híbrida (semántica y léxica) y fase de reordenación.\n- **Modelos multimodales**: diagnóstico a partir de fotografías de equipos, cuadros y placas de características.\n- **MCP**: conectores propios hacia Jira y Microsoft 365.\n- **Agente local en C# y .NET**: integración con TIA Portal mediante la API Openness de Siemens (SCL, tablas de variables, hardware, PROFINET), Studio 5000 y AVEVA.\n- **Aislamiento a nivel de sistema operativo**: entornos separados por usuario.\n- **Despliegue autoalojado**: toda la plataforma dentro de la infraestructura de AETECH.",
+          en: "- **RAG architecture**: vector database with hybrid (semantic and lexical) retrieval and a reranking stage.\n- **Multimodal models**: diagnosis from photographs of equipment, cabinets and nameplates.\n- **MCP**: custom connectors to Jira and Microsoft 365.\n- **Local agent in C# and .NET**: integration with TIA Portal through Siemens' Openness API (SCL, tag tables, hardware, PROFINET), Studio 5000 and AVEVA.\n- **OS-level isolation**: separate environments per user.\n- **Self-hosted deployment**: the entire platform within AETECH's infrastructure.",
         },
       },
       {
@@ -738,118 +745,184 @@ export const projects: Project[] = [
   },
 
   {
-    slug: "interserveis-web",
+    slug: "visorrp",
+    // Escrit per a qui veu els videojocs com una joguina: el joc és el context;
+    // el que compta és un servei en línia real, amb usuaris, pagaments i suport, portat amb IA.
     title: {
-      ca: "Web corporativa per a Interserveis 2022 SL",
-      es: "Web corporativa para Interserveis 2022 SL",
-      en: "Corporate website for Interserveis 2022 SL",
+      ca: "VisorRP: servidor de GTA V gestionat amb IA",
+      es: "VisorRP: servidor de GTA V gestionado con IA",
+      en: "VisorRP: a GTA V server run with AI",
     },
     subtitle: {
-      ca: "Web per a un servei tècnic oficial de reparació d'electrodomèstics: estructura de continguts, sol·licitud de serveis i compliment normatiu.",
-      es: "Web para un servicio técnico oficial de reparación de electrodomésticos: estructura de contenidos, solicitud de servicios y cumplimiento normativo.",
-      en: "Website for an authorised appliance repair service: content structure, service requests and regulatory compliance.",
+      ca: "Per fora és un videojoc; per dins, un servei en línia obert les 24 hores, amb pagaments, suport i moderació, on la IA fa la feina que faria un equip sencer.",
+      es: "Por fuera es un videojuego; por dentro, un servicio en línea abierto las 24 horas, con pagos, soporte y moderación, donde la IA hace el trabajo que haría un equipo entero.",
+      en: "On the outside it's a video game; on the inside, an online service open 24/7, with payments, support and moderation, where AI does the work of an entire team.",
     },
     description: {
-      ca: "Interserveis 2022 SL és un servei tècnic oficial de reparació d'electrodomèstics situat a Salt (Girona), amb prop de 30 anys de trajectòria. El projecte va incloure la definició de l'estructura de continguts, la configuració i personalització de WordPress, la redacció dels textos comercials i legals i l'optimització per a dispositius mòbils, des d'on arriba la major part del trànsit.",
-      es: "Interserveis 2022 SL es un servicio técnico oficial de reparación de electrodomésticos situado en Salt (Girona), con cerca de 30 años de trayectoria. El proyecto incluyó la definición de la estructura de contenidos, la configuración y personalización de WordPress, la redacción de los textos comerciales y legales y la optimización para dispositivos móviles, desde donde llega la mayor parte del tráfico.",
-      en: "Interserveis 2022 SL is an authorised appliance repair service based in Salt (Girona), with nearly 30 years in the trade. The project covered defining the content structure, configuring and customising WordPress, writing the commercial and legal copy, and optimising for mobile devices, where most of the traffic comes from.",
+      ca: "Un servidor de rol té els mateixos problemes que qualsevol servei en línia: usuaris que esperen resposta a qualsevol hora, conflictes que s'han de resoldre amb proves, pagaments, normes, dades personals i un equip petit que no arriba a tot. VisorRP és un servidor de rol en castellà per a GTA V que he dissenyat i posat en marxa sencer, del joc a la botiga i la infraestructura, i que va obrir al públic el 30 d'octubre de 2026, sis mesos després de començar. La IA n'és el nucli i està integrada en tots els processos: fa l'atenció al client, la moderació i la gestió que en una empresa farien diverses persones.",
+      es: "Un servidor de rol tiene los mismos problemas que cualquier servicio en línea: usuarios que esperan respuesta a cualquier hora, conflictos que hay que resolver con pruebas, pagos, normas, datos personales y un equipo pequeño que no llega a todo. VisorRP es un servidor de rol en castellano para GTA V que he diseñado y puesto en marcha entero, del juego a la tienda y la infraestructura, y que abrió al público el 30 de octubre de 2026, seis meses después de empezar. La IA es su núcleo y está integrada en todos los procesos: hace la atención al cliente, la moderación y la gestión que en una empresa harían varias personas.",
+      en: "A roleplay server has the same problems as any online service: users expecting a reply at any hour, disputes that must be settled with evidence, payments, rules, personal data and a small team that can't cover everything. VisorRP is a Spanish-language GTA V roleplay server that I designed and launched end to end, from the game to the shop and the infrastructure, and it opened to the public on 30 October 2026, six months after work began. AI is its core, built into every process: it handles the customer service, moderation and management that several people would do in a company.",
     },
     demonstrates: {
-      ca: "Recollida de requisits amb un client real i traducció a decisions de producte",
-      es: "Recogida de requisitos con un cliente real y traducción a decisiones de producto",
-      en: "Requirements gathering with a real client, translated into product decisions",
+      ca: "IA en producció davant d'usuaris reals: atenció al client, moderació amb proves, gestió amb permisos i veu en temps real, amb el cost controlat",
+      es: "IA en producción ante usuarios reales: atención al cliente, moderación con pruebas, gestión con permisos y voz en tiempo real, con el coste controlado",
+      en: "Production AI facing real users: customer service, evidence-based moderation, permissioned management and real-time voice, with costs under control",
     },
-    context: { ca: "Client", es: "Cliente", en: "Client" },
-    year: "2025",
+    context: { ca: "Projecte personal", es: "Proyecto personal", en: "Personal project" },
+    year: "2026",
     tags: [
-      "WordPress",
-      "Estratègia de continguts",
-      "SEO",
-      "RGPD",
-      "Responsive Design",
+      "FiveM",
+      "Lua",
+      "Node.js",
+      "Claude",
+      "MCP",
+      "Whisper",
+      "Text-to-speech",
+      "MariaDB",
+      "Discord",
+      "PayPal",
+      "Proxmox",
+      "WireGuard",
     ],
+    links: [{ label: "visorrp.es", href: "https://visorrp.es" }],
+    // La portada combina un pla del tràiler (rodat dins del joc a 1440p) amb el web;
+    // l'atracament és un fotograma del tràiler, i la IA, la secció del web que l'explica.
     images: [
-      { src: "/ProjectImages/InterServeis/0.mp4", poster: "/ProjectImages/InterServeis/0.jpg" },
-      { src: "/ProjectImages/InterServeis/1.png" },
-      { src: "/ProjectImages/InterServeis/2.png" },
+      { src: "/ProjectImages/VisorRP/portada.webp", fit: "cover", widths: visorWidths },
+      { src: "/ProjectImages/VisorRP/atraco.webp", fit: "cover", widths: visorFrameWidths },
+      { src: "/ProjectImages/VisorRP/ia.webp", fit: "cover", widths: visorWidths },
     ],
     sections: [
       {
         id: "visio-general",
         title: { ca: "Context", es: "Contexto", en: "Context" },
         content: {
-          ca: "L'objectiu de la web era transmetre professionalitat i confiança i, sobretot, facilitar la sol·licitud d'una reparació en el mínim de passos. L'estructura parteix de les necessitats immediates d'un client amb un electrodomèstic avariat: contacte, marques cobertes i procediment per demanar el servei.",
-          es: "El objetivo de la web era transmitir profesionalidad y confianza y, sobre todo, facilitar la solicitud de una reparación en el mínimo de pasos. La estructura parte de las necesidades inmediatas de un cliente con un electrodoméstico averiado: contacto, marcas cubiertas y procedimiento para pedir el servicio.",
-          en: "The site's goal was to convey professionalism and trust and, above all, to make requesting a repair possible in as few steps as possible. The structure starts from the immediate needs of a customer with a broken appliance: contact details, brands covered and how to request the service.",
+          ca: "Un servidor de rol és un servei en línia exigent. Està obert les 24 hores, els usuaris paguen i esperen resposta al moment, i qualsevol error es nota de seguida perquè hi ha desenes de persones connectades alhora. Quan la comunitat és petita, la feina de suport, moderació i operació no la fa ningú, i el servei es degrada.\n\nVisorRP parteix de la idea que la IA cobreixi aquesta feina des del primer dia, amb els mateixos límits que es posarien en una empresa: la IA atén i actua dins de permisos clars, i el que té conseqüències ho decideix el codi o una persona.",
+          es: "Un servidor de rol es un servicio en línea exigente. Está abierto las 24 horas, los usuarios pagan y esperan respuesta al momento, y cualquier error se nota enseguida porque hay decenas de personas conectadas a la vez. Cuando la comunidad es pequeña, el trabajo de soporte, moderación y operación no lo hace nadie, y el servicio se degrada.\n\nVisorRP parte de la idea de que la IA cubra ese trabajo desde el primer día, con los mismos límites que se pondrían en una empresa: la IA atiende y actúa dentro de permisos claros, y lo que tiene consecuencias lo decide el código o una persona.",
+          en: "A roleplay server is a demanding online service. It's open 24/7, users pay and expect an immediate answer, and any mistake shows straight away because dozens of people are connected at once. When the community is small, nobody does the support, moderation and operations work, and the service suffers.\n\nVisorRP starts from the idea that AI covers that work from day one, with the same limits you'd set in a company: the AI responds and acts within clear permissions, and anything with consequences is decided by the code or a person.",
         },
       },
       {
         id: "funcionalitats-clau",
-        title: { ca: "Decisions principals", es: "Decisiones principales", en: "Key decisions" },
+        title: { ca: "Què hi fa la IA", es: "Qué hace la IA", en: "What the AI does" },
         accordion: [
           {
             title: {
-              ca: "Navegació orientada a la intenció",
-              es: "Navegación orientada a la intención",
-              en: "Intent-driven navigation",
+              ca: "Atenció al client les 24 hores",
+              es: "Atención al cliente las 24 horas",
+              en: "24/7 customer service",
             },
             content: {
-              ca: "Inici, Sol·licitar, Marques oficials, Serveis, Catàleg i Contactar. L'ordre respon a allò que un client busca primer quan té un electrodomèstic avariat: com sol·licitar el servei i si l'empresa treballa amb la seva marca. La resta de continguts té la funció de reforçar la confiança.",
-              es: "Inicio, Solicitar, Marcas oficiales, Servicios, Catálogo y Contactar. El orden responde a lo que un cliente busca primero cuando tiene un electrodoméstico averiado: cómo solicitar el servicio y si la empresa trabaja con su marca. El resto de contenidos tiene la función de reforzar la confianza.",
-              en: "Home, Request, Authorised brands, Services, Catalogue and Contact. The order reflects what a customer with a broken appliance looks for first: how to request the service and whether the company works with their brand. The remaining content serves to reinforce trust.",
+              ca: "Quan un usuari obre un tiquet a Discord, la IA l'atén al moment amb el seu compte, les compres i l'historial al davant, com ho faria el servei d'atenció al client d'una empresa. Resol el que és habitual i, quan cal, passa el cas a una persona de l'equip amb tot el context.",
+              es: "Cuando un usuario abre un ticket en Discord, la IA le atiende al momento con su cuenta, sus compras y su historial delante, como lo haría el servicio de atención al cliente de una empresa. Resuelve lo habitual y, cuando hace falta, pasa el caso a una persona del equipo con todo el contexto.",
+              en: "When a user opens a ticket on Discord, the AI handles it immediately with their account, purchases and history at hand, as a company's customer service team would. It resolves the routine cases and, when needed, hands the case to a team member with all the context.",
             },
           },
           {
             title: {
-              ca: "Formularis de sol·licitud",
-              es: "Formularios de solicitud",
-              en: "Request forms",
+              ca: "Moderació amb proves",
+              es: "Moderación con pruebas",
+              en: "Evidence-based moderation",
             },
             content: {
-              ca: "Els formularis recullen només les dades necessàries per gestionar correctament cada avís. La feina va consistir a determinar quins camps eren imprescindibles i quins opcionals, i a redactar-los de manera que un usuari sense coneixements tècnics entengués què se li demana.",
-              es: "Los formularios recogen solo los datos necesarios para gestionar correctamente cada aviso. El trabajo consistió en determinar qué campos eran imprescindibles y cuáles opcionales, y en redactarlos de forma que un usuario sin conocimientos técnicos entendiera qué se le pide.",
-              en: "The forms collect only the data needed to handle each request properly. The work involved deciding which fields were essential and which optional, and wording them so a non-technical user would understand what was being asked.",
+              ca: "Si un usuari en denuncia un altre, la IA investiga el cas com ho faria una persona: reuneix els registres de l'incident (qui hi havia a prop, qui va fer mal a qui, què es va dir per veu i les captures) i mira el vídeo que envia l'acusat per defensar-se.\n\nDesprés proposa la sanció que marca la normativa: la lleu s'aplica sola i la greu espera sempre el clic d'una persona de l'equip.",
+              es: "Si un usuario denuncia a otro, la IA investiga el caso como lo haría una persona: reúne los registros del incidente (quién había cerca, quién hizo daño a quién, qué se dijo por voz y las capturas) y mira el vídeo que envía el acusado para defenderse.\n\nDespués propone la sanción que marca la normativa: la leve se aplica sola y la grave espera siempre el clic de una persona del equipo.",
+              en: "If one user reports another, the AI investigates the case as a person would: it gathers the incident records (who was nearby, who hurt whom, what was said over voice chat and the screenshots) and watches the video the accused sends in their defence.\n\nIt then proposes the penalty set out in the rules: minor ones are applied automatically, and serious ones always wait for a team member's click.",
             },
           },
           {
             title: {
-              ca: "Compliment normatiu: RGPD, cookies i avís legal",
-              es: "Cumplimiento normativo: RGPD, cookies y aviso legal",
-              en: "Regulatory compliance: GDPR, cookies and legal notice",
+              ca: "La IA al centre de la gestió",
+              es: "La IA en el centro de la gestión",
+              en: "AI at the heart of operations",
             },
             content: {
-              ca: "Política de privacitat, política de cookies i avís legal adaptats a l'empresa (raó social, NIF, adreça, finalitats del tractament i base legal), juntament amb la gestió del consentiment de cookies. Requereix traslladar requisits legals a un llenguatge formal però comprensible.",
-              es: "Política de privacidad, política de cookies y aviso legal adaptados a la empresa (razón social, NIF, dirección, finalidades del tratamiento y base legal), junto con la gestión del consentimiento de cookies. Requiere trasladar requisitos legales a un lenguaje formal pero comprensible.",
-              en: "Privacy policy, cookie policy and legal notice tailored to the company (registered name, tax ID, address, processing purposes and legal basis), together with cookie consent management. It requires translating legal requirements into language that is formal yet understandable.",
+              ca: "L'equip escriu a la IA des del joc, la consola o la terminal i li demana el que necessita: qui està connectat, què ha comprat un usuari, ajustar-li el saldo, fer un anunci o consultar la base de dades. Cada rol té els seus límits, cada canvi queda registrat amb la manera de desfer-lo i la IA treballa aïllada, sense accés a res que no li toqui.",
+              es: "El equipo escribe a la IA desde el juego, la consola o la terminal y le pide lo que necesita: quién está conectado, qué ha comprado un usuario, ajustarle el saldo, hacer un anuncio o consultar la base de datos. Cada rol tiene sus límites, cada cambio queda registrado con la forma de deshacerlo y la IA trabaja aislada, sin acceso a nada que no le toque.",
+              en: "The team messages the AI from the game, the console or the terminal and asks for what they need: who's online, what a user has bought, adjusting their balance, making an announcement or querying the database. Each role has its own limits, every change is logged along with how to undo it, and the AI works in isolation, with no access to anything outside its remit.",
+            },
+          },
+          {
+            title: {
+              ca: "Converses per veu en temps real",
+              es: "Conversaciones por voz en tiempo real",
+              en: "Real-time voice conversations",
+            },
+            content: {
+              ca: "Els personatges de la ciutat escolten els usuaris pel micròfon i responen amb la seva pròpia veu en uns tres segons, amb personalitat i memòria del que han parlat. És la mateixa tecnologia que faria servir una centraleta telefònica amb IA. La transcripció i la veu es generen al mateix servidor, sense enviar l'àudio a fora, i el que passa (per exemple, si es lliuren diners) ho decideix sempre el codi, no la IA.\n\nQuan algú queda ferit i no hi ha metges de servei, una teleoperadora del 112 amb IA l'atén per veu i li envia una ambulància.",
+              es: "Los personajes de la ciudad escuchan a los usuarios por el micrófono y responden con su propia voz en unos tres segundos, con personalidad y memoria de lo que han hablado. Es la misma tecnología que usaría una centralita telefónica con IA. La transcripción y la voz se generan en el propio servidor, sin enviar el audio fuera, y lo que pasa (por ejemplo, si se entrega dinero) lo decide siempre el código, no la IA.\n\nCuando alguien queda herido y no hay médicos de servicio, una teleoperadora del 112 con IA le atiende por voz y le manda una ambulancia.",
+              en: "The city's characters hear users through the microphone and answer in their own voice in about three seconds, with a personality and memory of what they've talked about. It's the same technology an AI phone switchboard would use. Transcription and voice are generated on the server itself, without sending the audio anywhere, and what happens (for example, whether money is handed over) is always decided by the code, not the AI.\n\nWhen someone is injured and there are no paramedics on duty, an AI emergency operator talks to them by voice and sends an ambulance.",
+            },
+          },
+          {
+            title: {
+              ca: "Vigilància i revisió de contingut",
+              es: "Vigilancia y revisión de contenido",
+              en: "Monitoring and content review",
+            },
+            content: {
+              ca: "La IA revisa el servidor minut a minut i avisa l'equip del que és sospitós, amb un model superior que revisa els seus informes. També revisa la roba personalitzada que pugen els usuaris (res ofensiu ni marques reals) abans que l'aprovi l'equip, i redacta les notícies de la ciutat amb el que hi passa.",
+              es: "La IA revisa el servidor minuto a minuto y avisa al equipo de lo sospechoso, con un modelo superior que revisa sus informes. También revisa la ropa personalizada que suben los usuarios (nada ofensivo ni marcas reales) antes de que la apruebe el equipo, y redacta las noticias de la ciudad con lo que pasa.",
+              en: "The AI monitors the server minute by minute and alerts the team to anything suspicious, with a more capable model reviewing its reports. It also checks the custom clothing users upload (nothing offensive, no real brands) before the team approves it, and writes the city's news from what happens there.",
+            },
+          },
+          {
+            title: {
+              ca: "El cost, sota control",
+              es: "El coste, bajo control",
+              en: "Keeping costs in check",
+            },
+            content: {
+              ca: "Cada funció fa servir el model més barat que la resol bé: gairebé tot va amb Haiku i només la gestió de l'equip i els reports fan servir Sonnet. L'ús de cada funció queda registrat, s'hi poden posar límits per rol o per usuari i les peticions es reparteixen entre diversos comptes perquè el servei no s'aturi si un arriba al límit.",
+              es: "Cada función usa el modelo más barato que la resuelve bien: casi todo va con Haiku y solo la gestión del equipo y los reportes usan Sonnet. El uso de cada función queda registrado, se le pueden poner límites por rol o por usuario y las peticiones se reparten entre varias cuentas para que el servicio no se pare si una llega al límite.",
+              en: "Each function uses the cheapest model that does the job well: almost everything runs on Haiku, and only team management and reports use Sonnet. Usage is logged per function, limits can be set per role or per user, and requests are spread across several accounts so the service doesn't stop if one hits its limit.",
             },
           },
         ],
       },
       {
+        id: "servidor",
+        title: { ca: "Un servei complet", es: "Un servicio completo", en: "A complete service" },
+        content: {
+          ca: "Al voltant de la IA hi ha tot el que necessita un servei en línia de veritat: un web amb les normes explicades de manera interactiva i sempre al dia; una botiga amb PayPal, subscripcions mensuals i lliurament automàtic de les compres; un bot de Discord que porta els logs, les alertes, els tiquets i els rangs de l'equip; un escut contra atacs de denegació de servei; còpies de seguretat xifrades fora de la màquina, i un panell per als administradors amb l'estat del servidor i el marge que queda abans d'arribar al límit.\n\nDins del joc, més de cent sistemes propis: policia i metges, organitzacions, cases, casino, carreres, un taxi sense conductor i un mòbil propi amb les seves aplicacions.",
+          es: "Alrededor de la IA está todo lo que necesita un servicio en línea de verdad: una web con las normas explicadas de forma interactiva y siempre al día; una tienda con PayPal, suscripciones mensuales y entrega automática de las compras; un bot de Discord que lleva los logs, las alertas, los tickets y los rangos del equipo; un escudo contra ataques de denegación de servicio; copias de seguridad cifradas fuera de la máquina, y un panel para los administradores con el estado del servidor y el margen que queda antes de llegar al límite.\n\nDentro del juego, más de cien sistemas propios: policía y médicos, organizaciones, casas, casino, carreras, un taxi sin conductor y un móvil propio con sus aplicaciones.",
+          en: "Around the AI sits everything a real online service needs: a website with the rules explained interactively and always up to date; a PayPal shop with monthly subscriptions and automatic delivery of purchases; a Discord bot that handles logs, alerts, tickets and staff ranks; a shield against denial-of-service attacks; encrypted off-site backups; and an admin dashboard showing the server's status and how much headroom is left before it hits its limits.\n\nInside the game, more than a hundred in-house systems: police and paramedics, organisations, houses, a casino, races, a driverless taxi and a custom phone with its own apps.",
+        },
+      },
+      {
+        id: "construccio",
+        title: { ca: "Com s'ha construït", es: "Cómo se ha construido", en: "How it was built" },
+        content: {
+          ca: "Sis mesos de feina i gairebé 4.000 canvis, dirigint agents d'IA que treballen en paral·lel. La meva feina és decidir què es fa, definir com ha de funcionar cada sistema i revisar-ne el resultat. Totes les decisions queden escrites en un quadern que els agents consulten abans de tocar res, i cada pantalla nova es revisa en un entorn de proves abans d'arribar als usuaris.\n\nEl tràiler del servidor també s'ha fet així: una càmera programada dins del joc roda cada pla, i el muntatge, la música i l'etalonatge es fan de manera automàtica.",
+          es: "Seis meses de trabajo y casi 4.000 cambios, dirigiendo agentes de IA que trabajan en paralelo. Mi trabajo es decidir qué se hace, definir cómo tiene que funcionar cada sistema y revisar el resultado. Todas las decisiones quedan escritas en un cuaderno que los agentes consultan antes de tocar nada, y cada pantalla nueva se revisa en un entorno de pruebas antes de llegar a los usuarios.\n\nEl tráiler del servidor también se ha hecho así: una cámara programada dentro del juego rueda cada plano, y el montaje, la música y el etalonaje se hacen de forma automática.",
+          en: "Six months of work and almost 4,000 changes, built by directing AI agents working in parallel. My job is to decide what gets built, define how each system should work and review the result. Every decision is written down in a notebook the agents read before touching anything, and every new screen is reviewed in a staging environment before it reaches users.\n\nThe server's trailer was made the same way: a camera scripted inside the game shoots each shot, and the edit, music and colour grading are put together automatically.",
+        },
+      },
+      {
         id: "aprenentatges",
         title: { ca: "Aprenentatges", es: "Aprendizajes", en: "Takeaways" },
         content: {
-          ca: "Va ser el primer projecte amb un client extern. Els requisits no estaven formalitzats: es van extreure de converses amb l'empresa, de les preguntes habituals dels seus clients i dels punts on perdien temps. Aquesta capacitat d'obtenir requisits d'interlocutors no tècnics és la mateixa que exigeix qualsevol projecte d'IA aplicada, on qui millor coneix el problema rarament pot especificar quines dades o quin comportament calen.",
-          es: "Fue el primer proyecto con un cliente externo. Los requisitos no estaban formalizados: se extrajeron de conversaciones con la empresa, de las preguntas habituales de sus clientes y de los puntos donde perdían tiempo. Esa capacidad de obtener requisitos de interlocutores no técnicos es la misma que exige cualquier proyecto de IA aplicada, donde quien mejor conoce el problema rara vez puede especificar qué datos o qué comportamiento hacen falta.",
-          en: "This was my first project with an external client. Requirements weren't formalised: they were drawn from conversations with the company, from their customers' usual questions and from the points where they lost time. That ability to gather requirements from non-technical stakeholders is exactly what any applied AI project demands, where the person who knows the problem best can rarely specify what data or behaviour is needed.",
+          ca: "Un videojoc és un banc de proves exigent per a la IA: els usuaris en busquen els límits, intenten enganyar-la i qualsevol error es veu al moment, davant de tothom. Si aguanta aquí, aguanta en una empresa.\n\nLa clau ha estat decidir on va la IA i on no. La IA atén, investiga, proposa i resumeix, però el que té conseqüències, com els diners o les sancions greus, ho decideix el codi o una persona. Aquest repartiment és el que permet obrir-lo a usuaris reals des del primer dia sense perdre'n el control.",
+          es: "Un videojuego es un banco de pruebas exigente para la IA: los usuarios buscan sus límites, intentan engañarla y cualquier error se ve al momento, delante de todos. Si aguanta aquí, aguanta en una empresa.\n\nLa clave ha sido decidir dónde va la IA y dónde no. La IA atiende, investiga, propone y resume, pero lo que tiene consecuencias, como el dinero o las sanciones graves, lo decide el código o una persona. Ese reparto es lo que permite abrirlo a usuarios reales desde el primer día sin perder el control.",
+          en: "A video game is a tough testing ground for AI: users probe its limits, try to trick it, and any mistake shows instantly, in front of everyone. If it holds up here, it holds up in a company.\n\nThe key was deciding where AI goes and where it doesn't. The AI responds, investigates, proposes and summarises, but anything with consequences, such as money or serious penalties, is decided by the code or a person. That split is what made it possible to open to real users from day one without losing control.",
         },
       },
       {
         id: "tech-stack",
         title: { ca: "Stack", es: "Stack", en: "Stack" },
         content: {
-          ca: "- **WordPress**: gestor de continguts i administració.\n- **Tema i constructor de pàgines**: maquetació de totes les seccions.\n- **Plugins de formularis**: sol·licitud de servei i contacte.\n- **Gestió de cookies i consentiment**: bàner i preferències de privacitat.\n- **HTML / CSS**: ajustos d'estil.\n- **Allotjament amb HTTPS**: certificat SSL i accés segur.",
-          es: "- **WordPress**: gestor de contenidos y administración.\n- **Tema y constructor de páginas**: maquetación de todas las secciones.\n- **Plugins de formularios**: solicitud de servicio y contacto.\n- **Gestión de cookies y consentimiento**: banner y preferencias de privacidad.\n- **HTML / CSS**: ajustes de estilo.\n- **Alojamiento con HTTPS**: certificado SSL y acceso seguro.",
-          en: "- **WordPress**: content management and administration.\n- **Theme and page builder**: layout for every section.\n- **Form plugins**: service requests and contact.\n- **Cookie and consent management**: banner and privacy preferences.\n- **HTML / CSS**: style adjustments.\n- **HTTPS hosting**: SSL certificate and secure access.",
+          ca: "- **FiveM (FXServer i txAdmin) amb Qbox**: el joc, amb més de cent recursos propis en Lua.\n- **Claude (Haiku i Sonnet) amb Claude Code i MCP**: atenció al client, moderació, gestió i personatges, cada petició aïllada en un entorn propi.\n- **whisper.cpp i Supertonic**: transcripció i veu sintètica, al mateix servidor.\n- **Node.js**: web i botiga, bot de Discord i pont entre el joc i la IA.\n- **MariaDB**: dades del joc, del servidor i dels logs.\n- **PayPal**: donacions i subscripcions VIP.\n- **Proxmox, WireGuard i Caddy**: contenidor del servidor, escut anti-DDoS en un VPS i web pública amb HTTPS.",
+          es: "- **FiveM (FXServer y txAdmin) con Qbox**: el juego, con más de cien recursos propios en Lua.\n- **Claude (Haiku y Sonnet) con Claude Code y MCP**: atención al cliente, moderación, gestión y personajes, cada petición aislada en un entorno propio.\n- **whisper.cpp y Supertonic**: transcripción y voz sintética, en el propio servidor.\n- **Node.js**: web y tienda, bot de Discord y puente entre el juego y la IA.\n- **MariaDB**: datos del juego, del servidor y de los logs.\n- **PayPal**: donaciones y suscripciones VIP.\n- **Proxmox, WireGuard y Caddy**: contenedor del servidor, escudo anti-DDoS en un VPS y web pública con HTTPS.",
+          en: "- **FiveM (FXServer and txAdmin) with Qbox**: the game, with more than a hundred in-house resources in Lua.\n- **Claude (Haiku and Sonnet) with Claude Code and MCP**: customer service, moderation, management and characters, each request isolated in its own environment.\n- **whisper.cpp and Supertonic**: transcription and synthetic voice, on the server itself.\n- **Node.js**: website and shop, Discord bot and the bridge between the game and the AI.\n- **MariaDB**: game, server and log data.\n- **PayPal**: donations and VIP subscriptions.\n- **Proxmox, WireGuard and Caddy**: the server container, an anti-DDoS shield on a VPS and the public website over HTTPS.",
         },
       },
       {
         id: "resultats",
         title: { ca: "Estat actual", es: "Estado actual", en: "Current state" },
         content: {
-          ca: "La web és actualment el principal canal digital de l'empresa: presenta els serveis i les marques oficials i permet sol·licitar reparacions de manera directa.",
-          es: "La web es actualmente el principal canal digital de la empresa: presenta los servicios y las marcas oficiales y permite solicitar reparaciones de forma directa.",
-          en: "The website is currently the company's main digital channel: it presents its services and authorised brands and allows customers to request repairs directly.",
+          ca: "Obert al públic des del 30 d'octubre de 2026, amb 64 places i a la llista oficial de servidors de FiveM. La IA ja ha fet més de 1.200 intervencions repartides en una vintena de funcions, des dels tiquets de suport fins a les converses per veu.",
+          es: "Abierto al público desde el 30 de octubre de 2026, con 64 plazas y en la lista oficial de servidores de FiveM. La IA ya ha hecho más de 1.200 intervenciones repartidas en una veintena de funciones, desde los tickets de soporte hasta las conversaciones por voz.",
+          en: "Open to the public since 30 October 2026, with 64 slots and listed on FiveM's official server list. The AI has already handled more than 1,200 interactions across some twenty functions, from support tickets to voice conversations.",
         },
       },
     ],

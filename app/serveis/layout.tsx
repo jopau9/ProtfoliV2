@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import ServicesFooter from "./ServicesFooter";
 
 export const metadata: Metadata = {
-  title: "IA per a empreses a Girona",
+  title: "IA i automatització per a empreses",
   description:
-    "Automatització de tasques repetitives amb IA per a gestories, immobiliàries i clíniques de les comarques de Girona. Auditoria gratuïta.",
+    "Arquitecte de solucions d'IA: assistents que coneixen la vostra empresa, agents que treballen dins dels vostres programes, atenció al client les 24 hores i automatització de processos. En línia a tota Espanya i presencial a Girona i Barcelona. Diagnòstic gratuït.",
   openGraph: {
-    title: "IA per a empreses a Girona · Joan Pau Rahola",
+    title: "IA i automatització per a empreses · Joan Pau Rahola",
     description:
-      "Automatització de tasques repetitives amb IA per a gestories, immobiliàries i clíniques. Auditoria gratuïta.",
+      "Us asseguro que el vostre negoci està demanant intel·ligència artificial. En línia a tota Espanya i presencial a Girona i Barcelona. Diagnòstic gratuït.",
     type: "website",
   },
 };

@@ -1,0 +1,8 @@
+# Dependències i fitxers pesats: es tornen a generar seguint el README.
+tools/node_modules/
+media/
+frames/
+web/
+local/
+comp/*.png
+comp/*.jpg

@@ -80,6 +80,15 @@ export default function Domains() {
                     {domain.cases.map(({ place, points }) => (
                       <div key={place}>
                         <p className="type-label text-accent">{place}</p>
+                        {domain.prose ? (
+                          <div className="mt-3 space-y-4">
+                            {t(points).map((paragraph) => (
+                              <p key={paragraph} className="type-body measure text-ink/80">
+                                {paragraph}
+                              </p>
+                            ))}
+                          </div>
+                        ) : (
                         <ul className="mt-3 space-y-2.5">
                           {t(points).map((point) => (
                             <li
@@ -94,6 +103,7 @@ export default function Domains() {
                             </li>
                           ))}
                         </ul>
+                        )}
                       </div>
                     ))}
                   </div>

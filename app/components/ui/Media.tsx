@@ -15,6 +15,7 @@ export default function Media({
   className = "",
   eager = false,
   resume = false,
+  sizes = "100vw",
 }: {
   media: MediaItem;
   alt: string;
@@ -22,6 +23,8 @@ export default function Media({
   eager?: boolean;
   /** Comparteix la posició amb el mateix vídeo en altres pàgines. */
   resume?: boolean;
+  /** Amplada amb què es mostra, per triar la còpia de `widths` adequada. */
+  sizes?: string;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const isVideo = media.src.endsWith(".mp4");
@@ -49,6 +52,8 @@ export default function Media({
       // eslint-disable-next-line @next/next/no-img-element
       <img
         src={media.src}
+        srcSet={srcSetOf(media)}
+        sizes={media.widths ? sizes : undefined}
         alt={alt}
         loading={eager ? "eager" : "lazy"}
         className={className}
@@ -69,4 +74,17 @@ export default function Media({
       className={className}
     />
   );
+}
+
+/** La còpia més gran és el mateix `src`; la resta porten l'amplada al nom. */
+function srcSetOf(media: MediaItem) {
+  if (!media.widths) return undefined;
+  const largest = Math.max(...media.widths);
+  const dot = media.src.lastIndexOf(".");
+  return media.widths
+    .map((w) => {
+      const src = w === largest ? media.src : `${media.src.slice(0, dot)}-${w}${media.src.slice(dot)}`;
+      return `${src} ${w}w`;
+    })
+    .join(", ");
 }

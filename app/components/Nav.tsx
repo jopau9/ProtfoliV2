@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useScroll } from "framer-motion";
-import { servicesCta, servicesNav } from "../content/services";
+import { FORM_ANCHOR, servicesCta, servicesNav } from "../content/services";
 import { identity, nav } from "../content/site";
 import { useT } from "../i18n/LanguageProvider";
 import LanguageToggle from "./ui/LanguageToggle";
@@ -12,8 +12,8 @@ import ThemeToggle from "./ui/ThemeToggle";
 
 export default function Nav() {
   const t = useT();
-  // Dins de /serveis, el menú és el comercial i hi ha el botó de l'auditoria.
-  // Totes les pàgines de serveis tenen el formulari a #auditoria.
+  // Dins de /serveis, el menú és el comercial i hi ha el botó del diagnòstic.
+  // Totes les pàgines de serveis tenen el formulari a FORM_ANCHOR.
   const inServices = usePathname().startsWith("/serveis");
   const links = inServices ? servicesNav : nav;
   const [scrolled, setScrolled] = useState(false);
@@ -82,7 +82,7 @@ export default function Nav() {
 
             {inServices && (
               <a
-                href="#auditoria"
+                href={`#${FORM_ANCHOR}`}
                 className="type-label hidden rounded-full bg-ink px-4 py-2.5 text-canvas transition-colors duration-300 hover:bg-accent lg:inline-flex"
               >
                 {t(servicesCta.short)}
@@ -138,7 +138,7 @@ export default function Nav() {
               ))}
               {inServices && (
                 <a
-                  href="#auditoria"
+                  href={`#${FORM_ANCHOR}`}
                   onClick={() => setOpen(false)}
                   className="type-label mt-8 inline-flex justify-center rounded-full bg-ink px-6 py-4 text-canvas"
                 >

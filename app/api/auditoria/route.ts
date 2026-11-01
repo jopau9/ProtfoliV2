@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { sectors } from "../../content/services";
 import { identity } from "../../content/site";
 
 /**
- * Sol·licituds d'auditoria: valida el formulari i l'envia per correu amb Resend.
+ * Sol·licituds del diagnòstic gratuït (la ruta conserva el nom antic, "auditoria"):
+ * valida el formulari i l'envia per correu amb Resend.
  *
  * Variables d'entorn (a Vercel: Settings → Environment Variables):
  * - RESEND_API_KEY   obligatòria, de resend.com
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
   const email = text(data.email, 160);
   const phone = text(data.phone, 40);
   const task = text(data.task, 2000);
-  const sectorId = text(data.sector, 40);
+  const sector = text(data.sector, 80) || "—";
   const locale = text(data.locale, 5);
 
   if (!name || !company || !EMAIL.test(email) || !task || !data.consent) {
@@ -47,7 +47,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "not-configured" }, { status: 500 });
   }
 
-  const sector = sectors.find((item) => item.id === sectorId)?.name.ca ?? "Un altre";
   const body = [
     `Nom: ${name}`,
     `Empresa: ${company}`,
@@ -70,7 +69,7 @@ export async function POST(request: Request) {
       from: process.env.AUDIT_FROM_EMAIL ?? "Web <onboarding@resend.dev>",
       to: [process.env.AUDIT_TO_EMAIL ?? identity.email],
       reply_to: email,
-      subject: `Auditoria · ${company} (${sector})`,
+      subject: `Diagnòstic · ${company} (${sector})`,
       text: body,
     }),
   });

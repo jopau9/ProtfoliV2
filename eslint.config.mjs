@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Eines de fora de l'aplicació (scripts per generar imatges, amb dependències pròpies).
+    "eines/**",
   ]),
 ]);
 

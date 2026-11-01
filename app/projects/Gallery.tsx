@@ -44,7 +44,16 @@ export default function Gallery({
               i === 0 ? "aspect-[16/9] sm:col-span-2" : "aspect-[16/10]"
             }`}
           >
-            <MediaCanvas media={media} alt={`${title} ${i + 1}`} eager={i === 0} />
+            <MediaCanvas
+              media={media}
+              alt={`${title} ${i + 1}`}
+              eager={i === 0}
+              sizes={
+                i === 0
+                  ? "(min-width: 1408px) 1248px, 90vw"
+                  : "(min-width: 1408px) 620px, (min-width: 640px) 45vw, 90vw"
+              }
+            />
 
             <span
               aria-hidden
@@ -153,6 +162,7 @@ function Lightbox({
               media={items[index]}
               alt={`${title} ${index + 1}`}
               eager
+              sizes="(min-width: 1312px) 1152px, 90vw"
               className={`max-h-[80vh] max-w-full object-contain ring-1 ring-line-strong ${
                 items[index].frame === "phone" ? "rounded-[12%/5.8%]" : "rounded-xl"
               }`}

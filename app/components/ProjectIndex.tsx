@@ -125,7 +125,11 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
           </div>
         ) : first ? (
           <div className="relative aspect-[16/10] md:aspect-auto md:h-full md:min-h-[22rem]">
-            <MediaCanvas media={first} alt={t(project.title)} />
+            <MediaCanvas
+              media={first}
+              alt={t(project.title)}
+              sizes="(min-width: 1408px) 600px, (min-width: 768px) 45vw, 90vw"
+            />
           </div>
         ) : project.diagram ? (
           <SystemDiagram
@@ -154,6 +158,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <Media
             media={first}
             alt={t(project.title)}
+            sizes="(min-width: 1408px) 400px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
             className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           />
         ) : (
