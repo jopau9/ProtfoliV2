@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useRef } from "react";
 import {
   nextProjectOf,
   publishedProjects,
   type Project,
   type ProjectSection,
 } from "../content/projects";
+import { FROM_SERVICE_PARAM, offerSection, sectorPage } from "../content/services";
 import { ui } from "../content/site";
 import { useT } from "../i18n/LanguageProvider";
 import Reveal from "../components/ui/Reveal";
@@ -31,6 +33,32 @@ function variantOf(section: ProjectSection) {
 function prepare(section: ProjectSection, content: string) {
   if (section.id !== "tech-stack") return content;
   return content.replace(/\*\*: (\p{L})/gu, (_, first: string) => `** ${first.toUpperCase()}`);
+}
+
+/** Enllaç de tornada: al portfoli o, si s'ha vingut d'un servei de /serveis, a aquell servei. */
+function BackLinkView({ service }: { service: string | null }) {
+  const t = useT();
+  return (
+    <Link
+      href={service ? `/serveis#servei-${service}` : "/#work"}
+      className="group inline-flex items-center gap-2.5 text-muted transition-colors hover:text-ink"
+    >
+      <span
+        aria-hidden
+        className="transition-transform duration-300 group-hover:-translate-x-1"
+      >
+        ←
+      </span>
+      <span className="type-label">{t(service ? sectorPage.back : ui.backToWork)}</span>
+    </Link>
+  );
+}
+
+/** Llegeix `?des=<id del servei>`; només s'accepten ids de servei reals. */
+function BackLink() {
+  const from = useSearchParams().get(FROM_SERVICE_PARAM);
+  const service = offerSection.items.find((item) => item.id === from)?.id ?? null;
+  return <BackLinkView service={service} />;
 }
 
 export default function ProjectDetail({ project }: { project: Project }) {
@@ -87,20 +115,12 @@ export default function ProjectDetail({ project }: { project: Project }) {
         <div className="blueprint absolute inset-0" />
       </div>
 
-      {/* Tornar · posició dins del llistat */}
+      {/* Tornar (al portfoli, o al servei d'on s'ha vingut) · posició dins del llistat */}
       <Reveal className="flex items-center justify-between gap-6">
-        <Link
-          href="/#work"
-          className="group inline-flex items-center gap-2.5 text-muted transition-colors hover:text-ink"
-        >
-          <span
-            aria-hidden
-            className="transition-transform duration-300 group-hover:-translate-x-1"
-          >
-            ←
-          </span>
-          <span className="type-label">{t(ui.backToWork)}</span>
-        </Link>
+        {/* Les pàgines són estàtiques: la query només es coneix al client. */}
+        <Suspense fallback={<BackLinkView service={null} />}>
+          <BackLink />
+        </Suspense>
         <span className="type-label text-faint">
           {t(ui.projectLabel)} <span className="text-accent">{pad(position)}</span> / {pad(publishedProjects.length)}
         </span>

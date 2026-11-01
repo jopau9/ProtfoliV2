@@ -1001,6 +1001,12 @@ export const auditForm = {
 /** On porten tots els botons de contacte: el formulari, al final de cada pàgina de serveis. */
 export const FORM_ANCHOR = "diagnostic";
 
+/**
+ * Paràmetre que porten els enllaços "Veure el cas" de /serveis cap a una fitxa de projecte
+ * (`?des=<id del servei>`): així la fitxa sap tornar al servei, no al portfoli.
+ */
+export const FROM_SERVICE_PARAM = "des";
+
 export const servicesNav: { href: string; label: L }[] = [
   { href: "/serveis#serveis", label: { ca: "Serveis", es: "Servicios", en: "Services" } },
   { href: "/serveis#com-funciona", label: { ca: "Com treballem", es: "Cómo trabajamos", en: "How we work" } },

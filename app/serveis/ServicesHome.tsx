@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Bot, Check, Headset, Library, Sparkles, type LucideIcon } from "lucide-react";
 import {
   FORM_ANCHOR,
+  FROM_SERVICE_PARAM,
   aboutSection,
   faqSection,
   offerSection,
@@ -123,7 +124,10 @@ export default function ServicesHome() {
             const Icon = OFFER_ICONS[item.id];
             return (
               <Reveal as="li" key={item.id} delay={0.04 * (i % 3)}>
-                <article className="group relative grid gap-6 border-t border-line py-12 lg:grid-cols-12 lg:gap-10">
+                <article
+                  id={`servei-${item.id}`}
+                  className="group relative grid scroll-mt-20 gap-6 border-t border-line py-12 lg:grid-cols-12 lg:gap-10"
+                >
                   <span
                     aria-hidden
                     className="absolute inset-x-0 -top-px h-px origin-left scale-x-0 bg-accent transition-transform duration-700 ease-out group-hover:scale-x-100"
@@ -164,7 +168,7 @@ export default function ServicesHome() {
                       <p className="type-body mt-3 text-ink">{t(item.proof.text)}</p>
                       {item.proof.href && (
                         <Link
-                          href={item.proof.href}
+                          href={`${item.proof.href}?${FROM_SERVICE_PARAM}=${item.id}`}
                           className="type-label link-underline mt-4 inline-block text-muted transition-colors hover:text-ink"
                         >
                           {t(offerSection.proofCta)} →
