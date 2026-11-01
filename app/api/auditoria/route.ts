@@ -1,18 +1,28 @@
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
+import { confirmationEmail } from "../../content/services";
 import { identity } from "../../content/site";
 
 /**
  * Sol·licituds del diagnòstic gratuït (la ruta conserva el nom antic, "auditoria"):
- * valida el formulari i l'envia per correu amb Resend.
+ * valida el formulari, me l'envia per correu i envia a qui l'ha omplert un correu
+ * de confirmació en el seu idioma. Tot surt del meu Gmail, per SMTP.
  *
  * Variables d'entorn (a Vercel: Settings → Environment Variables):
- * - RESEND_API_KEY   obligatòria, de resend.com
- * - AUDIT_TO_EMAIL   on arriben les sol·licituds (per defecte, el correu del lloc)
- * - AUDIT_FROM_EMAIL remitent; sense domini verificat a Resend, només
- *                    "onboarding@resend.dev", que només pot enviar al titular del compte
+ * - GMAIL_APP_PASSWORD obligatòria: contrasenya d'aplicació de Google
+ *                      (myaccount.google.com/apppasswords; cal la verificació en dos passos)
+ * - GMAIL_USER         el compte de Gmail (per defecte, el correu del lloc)
+ * - AUDIT_TO_EMAIL     on arriben les sol·licituds (per defecte, el mateix compte)
  */
 
+export const runtime = "nodejs";
+
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/** Un nom que es pot posar a la salutació: només lletres, espais, apòstrofs i guions (res d'enllaços). */
+const PLAIN_NAME = /^\p{L}[\p{L} '’-]{0,59}$/u;
+
+type Locale = keyof typeof confirmationEmail.subject;
 
 function text(value: unknown, max: number) {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
@@ -41,43 +51,65 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid" }, { status: 400 });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error("auditoria: falta RESEND_API_KEY");
+  const user = process.env.GMAIL_USER || identity.email;
+  const pass = process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, ""); // Google la mostra en grups de 4
+  if (!pass) {
+    console.error("auditoria: falta GMAIL_APP_PASSWORD");
     return NextResponse.json({ error: "not-configured" }, { status: 500 });
   }
+  const owner = process.env.AUDIT_TO_EMAIL || user;
 
-  const body = [
-    `Nom: ${name}`,
-    `Empresa: ${company}`,
-    `Sector: ${sector}`,
-    `Correu: ${email}`,
-    `Telèfon: ${phone || "—"}`,
-    `Idioma de la web: ${locale || "—"}`,
-    "",
-    "Tasca que els fa perdre més temps:",
-    task,
-  ].join("\n");
-
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: process.env.AUDIT_FROM_EMAIL ?? "Web <onboarding@resend.dev>",
-      to: [process.env.AUDIT_TO_EMAIL ?? identity.email],
-      reply_to: email,
-      subject: `Diagnòstic · ${company} (${sector})`,
-      text: body,
-    }),
+  const mail = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: { user, pass },
   });
 
-  if (!response.ok) {
-    console.error("auditoria: Resend ha respost", response.status, await response.text());
+  // 1. La sol·licitud, per a mi. Si falla, falla tot.
+  try {
+    await mail.sendMail({
+      from: { name: "Web · Diagnòstic", address: user },
+      to: owner,
+      replyTo: email,
+      subject: `Diagnòstic · ${company} (${sector})`,
+      text: [
+        `Nom: ${name}`,
+        `Empresa: ${company}`,
+        `Sector: ${sector}`,
+        `Correu: ${email}`,
+        `Telèfon: ${phone || "—"}`,
+        `Idioma de la web: ${locale || "—"}`,
+        "",
+        "Tasca que els fa perdre més temps:",
+        task,
+      ].join("\n"),
+    });
+  } catch (error) {
+    console.error("auditoria: no s'ha pogut enviar la sol·licitud", error);
     return NextResponse.json({ error: "send-failed" }, { status: 502 });
   }
 
-  return NextResponse.json({ ok: true });
+  // 2. La confirmació, per a qui l'ha enviat. Si falla, la sol·licitud ja m'ha
+  //    arribat: no es dona per fallida.
+  const lang: Locale = locale === "es" || locale === "en" ? locale : "ca";
+  let confirmation = true;
+  try {
+    await mail.sendMail({
+      from: { name: "Joan Pau Rahola", address: user },
+      to: email,
+      replyTo: owner,
+      subject: confirmationEmail.subject[lang],
+      text: [
+        confirmationEmail.greeting[lang](PLAIN_NAME.test(name) ? name : ""),
+        ...confirmationEmail.paragraphs[lang],
+        confirmationEmail.signature[lang].join("\n"),
+      ].join("\n\n"),
+    });
+  } catch (error) {
+    console.error("auditoria: no s'ha pogut enviar la confirmació", error);
+    confirmation = false;
+  }
+
+  return NextResponse.json({ ok: true, confirmation });
 }

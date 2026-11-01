@@ -987,11 +987,45 @@ export const auditForm = {
     es: "Gracias. Te escribiré en un máximo de dos días laborables para acordar el día del diagnóstico.",
     en: "Thank you. I'll write within two working days to arrange the consultation.",
   } satisfies L,
+  /** S'afegeix a `sentText` quan el correu de confirmació ha sortit. */
+  sentConfirmation: {
+    ca: "També t'he enviat un correu de confirmació; si no el trobes, mira la carpeta de correu brossa.",
+    es: "También te he enviado un correo de confirmación; si no lo encuentras, mira la carpeta de spam.",
+    en: "I've also sent you a confirmation email; if you can't find it, check your spam folder.",
+  } satisfies L,
   error: {
     ca: "No s'ha pogut enviar. Torna-ho a provar o escriu-me directament a",
     es: "No se ha podido enviar. Vuelve a intentarlo o escríbeme directamente a",
     en: "It couldn't be sent. Please try again or email me directly at",
   } satisfies L,
+};
+
+/**
+ * Correu de confirmació que rep qui envia el formulari, en l'idioma de la web.
+ * Text pla, com un correu escrit a mà. No hi torna el que han escrit (la tasca):
+ * si algú posés l'adreça d'un altre, el formulari no serviria per fer-li arribar res.
+ */
+export const confirmationEmail = {
+  subject: {
+    ca: "He rebut la teva sol·licitud de diagnòstic",
+    es: "He recibido tu solicitud de diagnóstico",
+    en: "I've received your consultation request",
+  } satisfies L,
+  greeting: {
+    ca: (name: string) => (name ? `Hola, ${name}:` : "Hola:"),
+    es: (name: string) => (name ? `Hola, ${name}:` : "Hola:"),
+    en: (name: string) => (name ? `Hi ${name},` : "Hi,"),
+  } satisfies L<(name: string) => string>,
+  paragraphs: {
+    ca: ["He rebut la teva sol·licitud. Et respondré el més aviat possible."],
+    es: ["He recibido tu solicitud. Te responderé lo antes posible."],
+    en: ["I've received your request. I'll get back to you as soon as possible."],
+  } satisfies L<string[]>,
+  signature: {
+    ca: ["Joan Pau Rahola", "Arquitecte de solucions d'IA"],
+    es: ["Joan Pau Rahola", "Arquitecto de soluciones de IA"],
+    en: ["Joan Pau Rahola", "AI Solutions Architect"],
+  } satisfies L<string[]>,
 };
 
 /* ------------------------------------------------------------------

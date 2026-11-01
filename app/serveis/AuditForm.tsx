@@ -26,6 +26,8 @@ export default function AuditForm({
 }) {
   const { locale, t } = useLanguage();
   const [status, setStatus] = useState<Status>("idle");
+  // La ruta diu si ha sortit el correu de confirmació (només amb domini propi).
+  const [confirmed, setConfirmed] = useState(false);
   const heading = t(auditForm.heading);
   // A la pàgina d'un sector, el camp ja surt emplenat amb el nom del sector.
   const sectorDefault = defaultSector ? t(getSector(defaultSector)?.short ?? { ca: "", es: "", en: "" }) : "";
@@ -41,7 +43,13 @@ export default function AuditForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...data, locale }),
       });
-      setStatus(response.ok ? "sent" : "error");
+      if (!response.ok) {
+        setStatus("error");
+        return;
+      }
+      const result: { confirmation?: boolean } = await response.json().catch(() => ({}));
+      setConfirmed(result.confirmation === true);
+      setStatus("sent");
     } catch {
       setStatus("error");
     }
@@ -74,7 +82,10 @@ export default function AuditForm({
                 <Check size={20} strokeWidth={2.25} />
               </span>
               <h3 className="type-h2 text-ink">{t(auditForm.sentTitle)}</h3>
-              <p className="type-body measure text-muted">{t(auditForm.sentText)}</p>
+              <p className="type-body measure text-muted">
+                {t(auditForm.sentText)}
+                {confirmed && <> {t(auditForm.sentConfirmation)}</>}
+              </p>
             </div>
           ) : (
             <form onSubmit={onSubmit} className="relative grid gap-5 md:grid-cols-2">
