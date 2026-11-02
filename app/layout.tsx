@@ -6,7 +6,7 @@ import { themeInitScript } from "./components/ui/themeScript";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://joanpau.dev"), // REVISAR: posa-hi el teu domini real
+  metadataBase: new URL("https://www.joanpaurahola.com"),
   title: {
     default: "Joan Pau Rahola · Software Engineer",
     template: "%s · Joan Pau Rahola",
